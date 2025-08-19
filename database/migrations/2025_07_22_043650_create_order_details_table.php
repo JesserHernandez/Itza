@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('team_invitations', function (Blueprint $table) {
+        Schema::create('order_details', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('team_id')->constrained()->cascadeOnDelete();
-            $table->string('email');
-            $table->string('role')->nullable();
+            $table->integer('quantity');
+            $table->decimal('price_at_time', 10, 2);
+            $table->foreignId('order_id')->constrained('orders')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
-
-            $table->unique(['team_id', 'email']);
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('team_invitations');
+        Schema::dropIfExists('order_details');
     }
 };
