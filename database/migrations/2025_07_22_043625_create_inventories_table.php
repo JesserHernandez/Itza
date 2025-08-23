@@ -15,7 +15,7 @@ return new class extends Migration
             $table->integer('minimum_balance');
             $table->string('balancing_status', 20);
             $table->boolean('is_active')->default(true);
-            $table->foreignId('product_id')->constrained('products')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('product_id')->unique()->constrained('products')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('team_id')->constrained('teams')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
