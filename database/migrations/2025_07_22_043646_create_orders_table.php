@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
@@ -20,18 +17,14 @@ return new class extends Migration
             $table->string('shipping_number', 20)->unique()->nullable();
             $table->string('estimated_time', 20)->nullable();
             $table->string('warranty', 10)->nullable();
+            $table->date('order_date');
             $table->string('order_status', 20)->default('Pendiente');
-            $table->string('payment_status', 20)->default('Pendiente');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('addresses_user_id')->constrained('addresse_users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('coupon_Id')->nullable()->constrained('coupons')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('coupon_id')->nullable()->constrained('coupons')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('orders');

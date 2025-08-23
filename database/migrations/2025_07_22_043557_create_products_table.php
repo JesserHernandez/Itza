@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
@@ -22,18 +19,14 @@ return new class extends Migration
             $table->string('shape', 20);
             $table->string('history');
             $table->string('status', 20);
-            $table->string('physical_location', 30)->nullable();
-            $table->string('creator');
+            $table->string('physical_location', 20)->nullable();
+            $table->string('creator', 100);
             $table->date('creation_date');
             $table->decimal('price', 10, 2);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('products');

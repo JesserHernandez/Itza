@@ -8,14 +8,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('carts', function (Blueprint $table) {
+        Schema::create('post_images', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('photo_path', 2048)->nullable();
+            $table->boolean('is_main')->default(false);
+            $table->foreignId('post_id')->constrained('posts')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
     public function down(): void
     {
-        Schema::dropIfExists('carts');
+        Schema::dropIfExists('post_images');
     }
 };

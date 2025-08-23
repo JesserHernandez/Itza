@@ -6,15 +6,13 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('response_reviews', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('comment');
-            $table->string('image')->nullable();
+            $table->date('review_date');
+            $table->string('photo_path')->nullable();
             $table->integer('like_count')->default(0);
             $table->integer('dis_like_count')->default(0);
             $table->boolean('is_verified_purchase')->default(false);
@@ -24,10 +22,6 @@ return new class extends Migration
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('response_reviews');

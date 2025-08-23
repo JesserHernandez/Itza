@@ -6,23 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('like_users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->boolean('is_like')->default(false);
-            $table->nullableMorphs('likeado');
+            $table->boolean('is_dis_like')->default(false);
+            $table->morphs('liked');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('like_users');
