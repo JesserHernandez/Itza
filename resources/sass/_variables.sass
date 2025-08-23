@@ -1,38 +1,70 @@
 //? Estilos de texto
 //todo font-family
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap')
 $font-family: 'Noto Sans'
 
 //? Segmentos de botón
-    $button-small-text: 1.2rem
-    $button-small: 1.6rem
-    $button-medium: 2rem
-    $button-large: 2.4rem
+$button-small-text: 1.2rem
+$button-small: 1.6rem
+$button-medium: 2rem
+$button-large: 2.4rem
 
 //? Contenido
     //* Titles
-        $title-hero: 7.2rem
-        $title-page-large: 6.4rem
-        $title-page-medium: 4.8rem
-        $title-page-small: 4rem
+$title-hero: 7.2rem
+$title-page-large: 6.4rem
+$title-page-medium: 4.8rem
+$title-page-small: 4rem
 
-        //* Subtitles
-            $subtitle-large: 4rem
-            $subtitle-medium: 3.2rem
-            $subtitle-small: 2.4rem
+//* Subtitles
+$subtitle-large: 4rem
+$subtitle-medium: 3.2rem
+$subtitle-small: 2.4rem
 
-            //* Heading
-                $heading-large: 3.2rem
-                $heading-medium: 2.4rem
-                $heading-small: 2rem
+//* Heading
+$heading-large: 3.2rem
+$heading-medium: 2.4rem
+$heading-small: 2rem
 
-                //* Subheading
-                    $subheading-large: 2.4rem
-                    $subheading-medium: 2rem
-                    $subheading-small: 1.6rem
+//* Subheading
+$subheading-large: 2.4rem
+$subheading-medium: 2rem
+$subheading-small: 1.6rem
 
-                    //* Body
-                        $body-large: 2rem
-                        $body-medium: 1.6rem
-                        $body-small: 1.2rem
+//* Body
+$body-large: 2rem
+$body-medium: 1.6rem
+$body-small: 1.2rem
 
+//? Colores
+//* Fondo Principal
+$background-system: #FCFCF8
+
+//* Fondo de botones
+//* Botón primario
+$button-primary: #702b21
+$button-hover-primary: #542019
+$button-color-ti-primary: #F0F0F0
+
+//* Botón secundario
+$button-secondary: #EADFDE
+$button-hover-secondary: #D3BDBA
+$button-color-ti-secondary: #702b21
+
+//* Colores del texto
+$state-main: #252525
+$state-inactive: #555555
+$state-span: #702b21
+
+// Cards
+$background-hero: linear-gradient(
+  to bottom,
+#FCFCF8 0%,    // empieza arriba
+#FCFCF8 30%,   // se mantiene este color hasta el 30%
+#EADFDE 50%,   // transición suave entre 30% y 50%
+#D3BDBA 100%   // termina en este color
+);
+
+$background-card: linear-gradient(to left, #5A221A, #270F0C)
+$background-card-footer: #F1EAE6
+$box-shadow: 1px 4px 10px #702B21, 2px 6px 12px #32130F,
