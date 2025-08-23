@@ -12,26 +12,37 @@ use Laravel\Jetstream\Jetstream;
 
 class CreateTeam implements CreatesTeams
 {
-    /**
-     * Validate and create a new team for the given user.
-     *
-     * @param  array<string, string>  $input
-     */
     public function create(User $user, array $input): Team
     {
         Gate::forUser($user)->authorize('create', Jetstream::newTeamModel());
 
         Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
+            'name_team' => ['required', 'string', 'min:3', 'max:255'],
+            'address' => ['required', 'string', 'min:3', 'max:255'],
+            'type' => ['required', 'string', 'min:3', 'max:20'],
+            'history' => ['required', 'text', 'min:3'],
+            'city' => ['required', 'string', 'min:3', 'max:20'],
+            'municipality' => ['required', 'string', 'min:3', 'max:20'],
+            'phoneNumber' => ['required', 'string', 'max:20'],
+            'ruc' => ['required', 'string', 'min:3', 'max:20'],
+            'photo_path' => ['mimes:jpg,jpeg,png', 'max:1024'],
         ])->validateWithBag('createTeam');
 
         AddingTeam::dispatch($user);
 
         $user->switchTeam($team = $user->ownedTeams()->create([
-            'name' => $input['name'],
+            'name_team' => $input['name_team'],
+            'address' => $input['address'],
+            'type' => $input['type'],
+            'history' => $input['history'],
+            'city' => $input['city'],
+            'municipality' => $input['municipality'],
+            'phoneNumber' => $input['phoneNumber'],
+            'ruc' => $input['ruc'],
+            'is_active' => true,
+            'photo_path' => $input['photo_path'],
             'personal_team' => false,
         ]));
-
         return $team;
     }
 }
