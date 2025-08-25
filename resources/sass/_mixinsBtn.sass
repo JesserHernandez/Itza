@@ -1,16 +1,42 @@
-@mixin btnStandar($padding, $font-size, $br-rad, $background, $color, $width, $height)
+@mixin btnStandar($padding, $shadow, $font-size, $br-rad, $background, $color, $width, $height)
     .btn-class
+        z-index: 1
         gap: .8rem
         border: none
-        padding: $padding
+        color: $color
         display: flex
+        cursor: pointer
+        overflow: hidden
+        padding: $padding
         font-weight: bold
+        position: relative
         align-items: center
         font-size: $font-size
         border-radius: $br-rad
         background: $background
+        transition: $transition-slow
         font-family: $font-family
-        color: $color
+
+        &::after
+            top: 50%
+            opacity: 0
+            display: block
+            z-index: -20
+            width: 240%
+            content: ""
+            right: -100%
+            height: 240%
+            position: absolute
+            border-radius: 68% 0 0 0
+            transition: $transition-slow
+            background: $background-light
+
+        &:hover::after
+            top: 0
+            right: 0
+            opacity: 1
+            transition: $transition-slow
+
 
         .icons
             width: $width
