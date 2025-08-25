@@ -6,20 +6,25 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->bigIncrements('id');
+            $table->string('name', 50);
+            $table->string('surname', 50);
+            $table->string('email', 50)->unique();
             $table->string('password');
-            $table->rememberToken();
-            $table->foreignId('current_team_id')->nullable();
+            $table->string('status', 10)->default('Activo');
+            $table->string('gender', 10);
+            $table->string('phone_number', 20);
+            $table->string('identification_card', 20)->unique();
+            $table->text('experience')->nullable()->default(null);;
+            $table->boolean('is_vendor')->default(false);
+            $table->boolean('is_outstanding')->default(false);
             $table->string('profile_photo_path', 2048)->nullable();
+            $table->foreignId('current_team_id')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
 
@@ -38,10 +43,6 @@ return new class extends Migration
             $table->integer('last_activity')->index();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('users');
