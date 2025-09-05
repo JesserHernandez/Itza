@@ -55,23 +55,32 @@ $background-light: #D3BDBA
 
 //* Colores del texto
 $state-main: #252525
+$state-neutral: #303030
+$state-light: #F0F0F0
 $state-inactive: #555555
 $state-span: #702b21
 
 // Cards
 $background-hero: linear-gradient(
 to bottom,
-#FCFCF8 50%,    // empieza arriba
-#FCFCF8 60%,   // se mantiene este color hasta el 30%
-#EADFDE 75%,   // transición suave entre 30% y 50%
+#FCFCF8 0%,    // empieza arriba
+#FCFCF8 30%,   // se mantiene este color hasta el 30%
+#EADFDE 60%,   // transición suave entre 30% y 50%
 #D3BDBA 100%   // termina en este color
 );
 
-$background-card: linear-gradient(to left, #5A221A, #270F0C)
 $background-card-footer: #F1EAE6
+$background-card: linear-gradient(to left, #5A221A, #270F0C)
 
-
-$box-shadow: 1px 4px 10px #702B21, 2px 6px 12px #32130F,
+//? Box Shadows
+$box-shimg:  1px 2px 10px $state-inactive
+$box-shbutton: 1px 2px 8px #702B21
+$box-shadow: 1px 4px 10px #702B21, 2px 6px 12px #32130F
 
 //? Transiciones
 $transition-slow: all .6s ease-out
+$transition-fast: all .4s ease-out
+
+//? Border Radius
+$br-radius: 1.2rem
+$br-radtwo: 1.6rem
