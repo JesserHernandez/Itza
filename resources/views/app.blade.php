@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title inertia>{{ config('app.name', 'Itzat') }}</title>
+        <title inertia>{{ config('app.name', 'Itz´at') }}</title>
 
         <!-- Scripts -->
         @routes
@@ -19,7 +19,7 @@
             }
         </style>
     </head>
-    <body class="font-sans antialiased">
+    <body>
         @inertia
     </body>
 </html>
