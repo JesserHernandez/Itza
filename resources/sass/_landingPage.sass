@@ -1,0 +1,755 @@
+@import '_mixinsBtn';
+
+
+.container-hero
+    width: 100%
+    height: 83.5rem
+    position: relative
+    margin-top: -3.2rem
+    padding-top: 3rem
+    box-shadow: $box-shadow
+    background: $background-hero
+
+
+    .container-navbar
+        display: flex
+        width: 118.6rem
+        padding-top: 1.2rem
+        margin: 3.2rem 7.2rem 0 7.2rem
+        position: relative
+        align-items: center
+        z-index: 1000
+        justify-content: space-between
+
+        .logo
+            user-select: none
+
+        .navbar
+            gap: 1.5rem
+            display: flex
+            height: 7.2rem
+            width: 90rem
+            align-items: center
+
+            a, .section
+                gap: 1.5rem
+                display: flex
+                cursor: pointer
+                padding: 1.2rem
+                font-weight: 500
+                user-select: none
+                width: fit-content
+                color: $state-main
+                align-items: center
+                text-decoration: none
+                font-size: $button-small
+                border-radius: $br-radius
+                transition: $transition-slow
+
+                .icons-navbar path
+                    fill: currentColor;
+
+                &:hover
+                    transition: $transition-slow
+                    background: $button-secondary
+                    color: $button-color-ti-secondary
+
+                &:active
+                    transition: $transition-slow
+                    background: $button-hover-secondary
+
+
+
+            .dropdown
+                border-radius: $br-radius
+                // margin-top: 2rem
+
+                .dropdown-content
+                    gap: .8rem
+                    display: flex
+                    cursor: pointer
+                    padding: 1.5rem
+                    user-select: none
+                    width: fit-content
+                    align-items: center
+                    border-radius: $br-radius
+                    transition: $transition-fast
+
+                    .icons-navbar path
+                        fill: currentColor;
+
+                    &:hover
+                        transition: $transition-fast
+                        background: $button-secondary
+                        color: $button-color-ti-secondary
+
+                    &:active
+                        background: $button-hover-secondary
+
+                    .hidden
+                        display: inline
+                        font-size: $button-small
+                        transition: $transition-fast, display .4s ease-out allow-discrete
+
+                        @starting-style
+                            scale: 1
+
+                .submenu
+                    padding: 1.5rem
+                    user-select: none
+                    background: #F6F4EB
+                    border-radius: $br-radius
+                    border: .2rem solid $button-hover-secondary
+
+                    a
+                        width: 14.3rem
+                        margin-top: .8rem
+
+            .button-search
+
+                .elements-button
+                    top: 2.5rem
+                    right: 3rem
+                    display: flex
+                    cursor: pointer
+                    width: fit-content
+                    position: absolute
+                    align-items: center
+                    padding-left: 1.3rem
+                    justify-content: center
+                    border-radius: $br-radius
+                    transition: $transition-slow
+
+                    .icons-navbar path
+                        // padding: 1.5rem
+                        fill: currentColor;
+
+                    &:hover
+                        transition: $transition-slow
+                        background: $button-secondary
+                        color: $button-color-ti-secondary
+
+                    &:active
+                        transition: $transition-slow
+                        background: $button-hover-secondary
+
+                    input
+                        width: 0
+                        border: none
+                        outline: none
+                        height: 4.8rem
+                        padding-right: 1.8rem
+                        background: transparent
+                        font-size: $button-small
+                        font-family: $font-family
+
+                        &::placeholder
+                            color: $button-color-ti-secondary
+
+
+        //? Texto colapsado
+        &.container-navbar.text-hidden
+
+
+            .navbar
+                width: 77.5rem
+
+                a, .section
+                    gap: 1.5rem
+                    height: 4rem
+                    width: 4.8rem
+                    display: flex
+                    translate: -3rem 0
+                    align-items: center
+                    justify-content: center
+
+                    .hidden
+                        display: none
+                        transition: $transition-fast
+
+                    .icons-navbar
+                        transition: $transition-fast
+
+            .dropdown
+                z-index: 100
+
+                .dropdown-content
+                    gap: 1.5rem
+                    height: 4rem
+                    width: 4.8rem
+                    display: flex
+                    translate: -3rem 0
+                    align-items: center
+                    justify-content: center
+
+                    .hidden
+                        display: none
+                        transition: $transition-fast
+
+                    .icons-navbar
+                        transition: $transition-fast
+
+            .submenu
+                z-index: 25
+                width: 16.7rem
+                translate: -5rem 0
+
+                a
+                    width: fit-content
+                    translate: 0 0
+
+
+            .button-search
+                .elements-button
+                    width: 46.4rem
+                    background: $button-secondary
+                    transition: $transition-fast
+
+                    input
+                        width: 100%
+                        color: $button-color-ti-secondary
+                        padding-left: .5rem
+                        transition: $transition-slow
+
+    .hero-information
+        display: flex
+        height: 56.5rem
+        width: 112.8rem
+        flex-wrap: wrap
+        margin-top: 3.2rem
+        margin: 3.2rem 7.2rem 0 7.2rem
+
+        .hero-text
+            width: 66.2rem
+            padding-top: 3.9rem
+
+            .artist-outstanding
+                display: flex
+
+                .container-image
+                    width: 7rem
+                    display: flex
+                    flex-wrap: wrap
+                    justify-content: center
+
+                    .text-value
+                        gap: .2rem
+                        display: flex
+                        width: 4.7rem
+                        align-items: center
+                        pos
+                        font-size: $body-medium
+                        justify-content: center
+
+                        .icons-star
+                            width: 1.8rem
+                            height: 1.8rem
+
+                    .value-two
+                        margin-right: 1.5rem
+
+                    .value-three
+                        margin-right: 3.5rem
+
+                    .value-four
+                        margin-right: 5rem
+
+                    .value-five
+                        margin-right: 8rem
+
+                    .img-circle
+                        width: 7rem
+                        height: 7rem
+                        border-radius: 50%
+
+                        img
+                            width: 6.7rem
+                            height: 6.7rem
+                            object-fit: cover
+                            border-radius: 50%
+                            box-shadow: $box-shimg
+                            border: .2rem solid $button-primary
+
+                        .two
+                            left: 13rem
+                            position: absolute
+
+                        .three
+                            left: 19rem
+                            position: absolute
+
+                        .four
+                            left: 25rem
+                            position: absolute
+
+                        .five
+                            left: 31rem
+                            position: absolute
+
+            .text-welcome
+                margin-top: 2.2rem
+                h1
+                    color: $state-main
+                    font-size: $title-page-small
+
+                span
+                    color: $button-primary
+
+            .paragraph-welcome
+                margin-top: 1.6rem
+                font-size: $body-large
+                color: $state-inactive
+
+            .container-action
+                gap: 2.4rem
+                display: flex
+                margin-top: 4rem
+
+                .button-containers
+                    @include btnStandar(
+                        $border: none,
+                        $padding: 1.5rem 2rem,
+                        $weight: bold,
+                        $shadow: $box-shbutton,
+                        $font-size: $button-large,
+                        $br-rad: 2rem,
+                        $background: $button-primary,
+                        $color: $button-color-ti-primary,
+                        $width: 2.8rem,
+                        $height: 2.8rem,
+                        $background-animation: $background-darker)
+
+                .button-container-two
+                    @include btnStandar(
+                        $border: .1rem solid $button-primary,
+                        $padding: 1.5rem 2rem,
+                        $weight: bold,
+                        $shadow: none,
+                        $font-size: $button-large,
+                        $br-rad: 2rem,
+                        $background: $button-secondary,
+                        $color: $button-color-ti-secondary,
+                        $width: 2.8rem,
+                        $height: 2.8rem,
+                        $background-animation: $background-light)
+
+        .hero-image
+            width: 46.6rem
+            display: inline-block
+
+            img
+                z-index: -1
+                -webkit-box-reflect: below -14rem  linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 60%);
+
+.main-landing
+    margin-top: 2rem
+
+    .carrusel-wrapper
+        position: relative
+        width: 100%
+        overflow: hidden
+        height: 12rem
+
+        .carrusel-track
+            display: flex
+            gap: 2rem
+            width: max-content
+            animation: scroll 10s linear infinite
+
+
+            .carrusel-item
+                gap: .8rem
+                display: flex
+                flex: 0 0 auto
+                padding: 1rem 2rem
+                align-items: center
+                color: $button-primary
+                justify-content: center
+                font-size: $subheading-medium
+
+@keyframes scroll
+    0%
+        transform: translateX(0)
+    100%
+        transform: translateX(-50%)
+
+
+
+.container-card
+    width: 100%
+    display: flex
+    height: 32.8rem
+    flex-wrap: wrap
+    padding: 0 5.2rem
+    justify-content: space-between
+
+    .cards
+        gap: 1.8rem
+        display: flex
+        width: 32.8rem
+        flex-wrap: wrap
+        height: 27.5rem
+        justify-content: center
+
+        .icon
+            width: 100%
+            display: flex
+            justify-content: center
+
+        .title
+            width: 100%
+            display: flex
+            height: fit-content
+            justify-content: center
+
+            h2
+                text-align: center
+                color: $state-main
+                font-size: $subtitle-large
+
+        .text
+            width: 100%
+            display: flex
+            justify-content: center
+
+            p
+                width: 27.5rem
+                text-wrap: balance
+                text-align: center
+                color: $state-neutral
+                font-size: $body-large
+
+                span
+                    color: $state-neutral
+
+.title-section
+        margin-top: 5.2rem
+        width: inherit
+        height: 17.4rem
+
+        h1
+            text-align: center
+            color: $state-main
+            font-size: $title-page-large
+
+.container-products-cards
+    gap: 3.6rem
+    width: 100%
+    display: flex
+    flex-wrap: wrap
+    padding: 0 6.2rem
+    margin-top: 5.6rem
+    height: fit-content
+    margin-bottom: 1rem
+
+
+    .cards-product
+        width: 55rem
+        display: flex
+        height: 46.8rem
+        // margin: 5.2rem 7.2rem
+        background: $background-card
+
+        .text-section
+            width: 27.4rem
+            height: inherit
+            padding: 2.8rem  2.8rem 0 2.8rem
+
+            .name, .name-store
+                gap: .8rem
+                width: 100%
+                display: flex
+                align-items: center
+                justify-content: start
+
+                img
+                    width: 2.4rem
+                    height: 2.4rem
+
+                span
+                    color: $state-light
+                    font-size: $body-medium
+
+                &.name-store
+                    margin-top: .8rem
+
+            .slogan
+                width: 24.6rem
+                margin-top: .9rem
+
+                h2
+                    color: $state-light
+                    font-size: $title-page-small
+
+            .button-link
+                z-index: 40
+                width: 15rem
+                overflow: hidden
+                position: relative
+                margin-top: 1.9rem
+                border-radius: $br-radtwo
+                border: .2rem solid $state-light
+
+                &::after
+                        top: 0
+                        opacity: 0
+                        content: ""
+                        left: -100%
+                        z-index: -4
+                        width: 16rem
+                        height: 100%
+                        display: block
+                        position: absolute
+                        background: $state-light
+                        border-radius: $br-radius
+                        transition: $transition-fast
+
+
+                &:hover::after
+                    top: 0
+                    left: 0
+                    opacity: 1
+                    transition: $transition-fast
+
+                a
+                    z-index: 90
+                    gap: .8rem
+                    height: 100%
+                    display: flex
+                    align-items: center
+                    text-decoration: none
+                    justify-content: center
+                    padding: 1.65rem 1.5rem
+
+                    &:hover span
+                        color: $button-primary
+                        transition: $transition-fast
+
+                    &:hover svg path
+                            color: $button-primary
+                            transition: $transition-fast
+                    span
+                        color: $state-light
+                        font-size: $heading-small
+
+                    svg path
+                        fill: currentColor
+                        color: $state-light
+
+
+        .image
+            padding: 0
+            width: 230rem
+            overflow: hidden
+
+            img
+                top: 3rem
+                scale: 2.2
+                left: 10rem
+                position: relative
+                transform: rotate(7deg)
+                transition: $transition-fast
+
+
+                &:hover
+                    top: 0
+                    left: 0
+                    scale: 1
+                    width: 26rem
+                    height: 46.8rem
+                    min-width: 26.8rem
+                    max-width: 33.5rem
+                    min-height: 46.6rem
+                    max-height: 58.2rem
+                    transform: rotate(0)
+                    transition: $transition-fast
+
+            .jarron
+                top: -4rem
+                scale: 2.4
+
+//? Productos generales
+.products
+    width: 55rem
+    padding: 0
+    height: 69.3rem
+    max-height: fit-content
+    overflow: hidden
+    border-radius: $br-card
+    box-shadow: $box-shbutton
+    transition: $transition-fast
+
+    &:hover
+        box-shadow: $box-shadow
+        transition: $transition-fast
+
+    .img-product
+        width: 100%
+        height: 32rem
+
+        img
+            width: inherit
+            height: 30.7rem
+            position: relative
+            object-fit: cover
+
+    .data-products
+        width: 100%
+        height: 27.5rem
+
+        .numbers
+            width: 100%
+            display: flex
+            height: 4.4rem
+            padding: 0 2.4rem
+            margin-top: 2.4rem
+            align-items: center
+            justify-content: space-between
+
+            p
+                display: flex
+                font-weight: 700
+                color: $state-main
+                align-items: center
+                font-size: $heading-large
+
+                img
+                    width: 3.2rem
+                    height: 3.2rem
+
+        .first-data
+            display: flex
+            width: 52.6rem
+            margin-top: 1rem
+            padding: 0 2.4rem
+            justify-content: space-between
+
+            .name
+                padding: 1.15rem 0
+
+                h4
+                    font-size: $heading-medium
+
+            .action-card
+                    gap: .8rem
+                    left: 2.5rem
+                    display: flex
+                    width: 20.2rem
+                    height:  6.4rem
+                    position: relative
+                    align-items: center
+                    justify-content: space-between
+
+                    .section
+                        width: 5.6rem
+                        display: flex
+                        height: 5.6rem
+                        cursor: pointer
+                        align-items: center
+                        justify-content: center
+                        border-radius: $br-radtwo
+                        background: $button-secondary
+                        border: .2rem solid $button-primary
+
+                    @include btnStandar(
+                        $border: none,
+                        $padding: 1.7rem 1.6rem,
+                        $weight: bold,
+                        $shadow: none,
+                        $font-size: $button-small,
+                        $br-rad: 2rem,
+                        $background: $button-primary,
+                        $color: $state-light,
+                        $width: fit-content,
+                        $height: fit-content,
+                        $background-animation: $background-darker)
+
+                    svg path
+                            fill: currentColor
+                            color: $state-light
+
+        .description
+            width: 100%
+            margin-top: 1.6rem
+            padding: 0 2.4rem
+
+            p
+            color: $state-inactive
+            font-size: $body-large
+
+        .end-data
+            gap: 1.6rem
+            display: flex
+            margin-top: .8rem
+            align-items: center
+
+            .location, .store
+                display: flex
+                margin-top: .85rem
+                margin-left: 2rem
+                width: fit-content
+                align-items: center
+
+                img
+                    width: 2.8rem
+                    height: 2.8rem
+
+                span
+                    font-size: $subheading-medium
+
+.btn-show-products
+        width: 100%
+        display: flex
+        height: 6.8rem
+        align-items: center
+        justify-content: center
+
+        @include btnStandar(
+                        $border: none,
+                        $padding: 1.7rem 1.6rem,
+                        $weight: bold,
+                        $shadow: none,
+                        $font-size: $button-large,
+                        $br-rad: 2rem,
+                        $background: $button-primary,
+                        $color: $state-light,
+                        $width: fit-content,
+                        $height: fit-content,
+                        $background-animation: $background-darker)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// .tarjeta
+//     width: 100%
+//     height: 70rem
+//     font-size: 1rem
+//     box-shadow: $box-shadow
+//     display: flex
+//     flex-direccion: column
+
+//     .button-container
+//         top: 50%
+//         left: 50%
+//         width: 100%
+//         height: 7rem
+//         position: absolute
+//         transform: translate(-50%, -50%)
+
+
