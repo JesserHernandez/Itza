@@ -1,0 +1,165 @@
+.title-section
+    width: 100%
+
+    h1
+        color: $state-main
+        font-size: $title-page-large
+
+.carrusel
+    width: 100%
+    height: 79rem
+    display: flex
+    overflow-x: scroll
+    overflow-y: hidden
+
+    &::-webkit-scrollbar
+        width: .5rem
+
+    &::-webkit-scrollbar-track
+        background: linear-gradient(
+            to bottom,
+            #FCFCF8 0%,
+            #FCFCF8 30%,
+            #EADFDE 60%,
+            #D3BDBA 100%
+        )
+
+    &::-webkit-scrollbar-thumb
+        border-radius: 10px
+        background-color: #702B21
+        transition: $transition-slow
+
+    &::-webkit-scrollbar-thumb:hover
+        background: #32130F
+        transition: $transition-slow
+
+    .artist-section
+        width: 100%
+        display: flex
+        flex-wrap: wrap
+        padding: 0 2.4rem
+        height: fit-content
+
+        .cards-artist
+            width: 39.5rem
+            cursor: pointer
+            height: 68.2rem
+            overflow: hidden
+            position: relative
+            margin-top: 6.4rem
+            border-radius: $br-section
+            background: $state-inactive
+
+            &::after
+                left: 0
+                top: 59rem
+                content: ""
+                opacity: 0.5
+                z-index: 100
+                width: 39.5rem
+                height: 9.2rem
+                display: block
+                position: absolute
+                background: $state-main
+                transition: $transition-slow
+                border-radius: 0 0 $br-section $br-section
+
+            &:hover::after
+                top: 37.5rem
+                height: 33rem
+                transition: $transition-fast
+
+            .image
+                z-index: 10
+                width: 39.5rem
+                height: inherit
+                object-fit: cover
+
+            .info
+                left: 0
+                opacity: 0
+                height: 30rem
+                z-index: 1000
+                bottom: -15rem
+                width: 39.5rem
+                overflow: hidden
+                position: absolute
+                pointer-events: none
+                background: $state-card
+                transition: $transition-fast
+
+            &:hover .info, .info:hover
+                opacity: 1
+                bottom: -1.5rem
+                pointer-events: auto
+                background: transparent
+                transition: $transition-slow
+
+
+            .nombre
+                gap: 1.2rem
+                display: flex
+                width: 35.5rem
+                margin-left: 2rem
+                align-items: center
+
+                h2
+                    color:  $state-light
+                    font-size: $heading-large
+
+            .description
+                width: 35.5rem
+                color:  $state-light
+                margin: 1.2rem 0 0 2rem
+
+                p
+                    font-size: $body-large
+
+            .container-end
+                display: flex
+                width: 32.5rem
+                margin: 1.2rem 0 0 2rem
+                justify-content: space-between
+
+                section
+                    gap: 2rem
+                    display: flex
+                    width: 13.1rem
+
+                    .data
+                        color:  $state-light
+                        gap: .8rem
+                        width: 10rem
+                        display: flex
+                        align-items: center
+
+                        img
+                            width: 2.4rem
+                            height: 2.4rem
+
+                        span
+                            color:  $state-light
+                            font-size: $body-medium
+
+                .follow
+                    color:  $state-light
+                    transition: $transition-fast
+
+                    .btn-class:hover .add
+                        transform: rotate(45deg)
+                        transition: $transition-fast
+
+                    @include btnStandar(
+                        $border: none,
+                        $padding: 1.5rem 1.6rem,
+                        $weight: 400,
+                        $shadow: none,
+                        $font-size: $button-large,
+                        $br-rad: 2rem,
+                        $background: $button-secondary,
+                        $color: $button-color-ti-secondary,
+                        $width: 2.8rem,
+                        $height: 2.8rem,
+                        $background-animation: $background-light)
+
+
