@@ -12,17 +12,6 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-})->name('welcome');
-
-//? Rutas preautenticadas
-//? Registro de tipo de usuario. No está recibiendo parámetros del backend. Solo es para renderizar la vista.
-Route::get('/register-type', function () {
-    return Inertia::render('Auth/RegisterType');
-})->name('register-type');
-
-//? Registro de usuario. Recibe el tipo de usuario como parámetro. Dicho parámetro se envía desde la vista RegisterType.
-Route::get('register/{type}', function($type){
-    return Inertia::render('Auth/Register', ['type' => $type]);
 });
 
 Route::middleware([
