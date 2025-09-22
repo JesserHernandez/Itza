@@ -1,112 +1,121 @@
 <script setup>
-import { Head, Link, useForm } from '@inertiajs/vue3';
-import AuthenticationCard from '@/Components/AuthenticationCard.vue';
-import AuthenticationCardLogo from '@/Components/AuthenticationCardLogo.vue';
-import Checkbox from '@/Components/Checkbox.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+import { h, ref } from "vue";
+import { Head, useForm } from "@inertiajs/vue3";
+import ReturnView from "@/Components/ReturnView.vue";
+import StepOne from "@/Pages/Auth/Steps/StepOne.vue";
+import TitleRegister from "@/Components/TitleRegister.vue";
+import StepArtiClient from "@/Pages/Auth/Steps/StepArtiClient.vue";
+import AuthenticationCard from "@/Components/AuthenticationCard.vue";
+import StoreArtisan from "./Steps/StoreArtisan.vue";
+import AddressStep from "./Steps/AddressStep.vue";
 
+const step = ref(1);
 const form = useForm({
-    name: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
-    terms: false,
+    name: "",
+    surname: "",
+    email: "",
+    password: "",
+    status: "",
+    gender: "",
+    phone_number: "",
+    identification_card: "",
+    profile_photo_path: null,
+    is_vendor: false,
+    name_team: "",
+    address: "",
+    type: "",
+    city: "",
+    municipality: "",
+    ruc: "",
+    postal_code: "",
 });
 
+// Establece si el usuario es un vendedor o un cliente. Proviene desde la vista RegisterType.
+const props = defineProps({
+    is_vendor: [Boolean, String],
+});
+
+const isVendor =
+    props.is_vendor === true ||
+    props.is_vendor === "true" ||
+    props.is_vendor === "1";
+// aplicar al form para que esté sincronizado con el backend
+form.is_vendor = isVendor;
+
+function nextStep() {
+    step.value++;
+}
+function prevStep() {
+    if (step.value > 1) {
+        step.value--;
+        return;
+    }
+    // estás en el primer step: navegar atrás con fallback seguro
+    try {
+        // eslint-disable-next-line no-undef
+        if (typeof route === "function") {
+            window.location.href = route("welcome");
+            return;
+        }
+    } catch (e) {}
+    window.history.back();
+}
+
 const submit = () => {
-    form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
-    });
+    // enviar form al backend (route debe venir de Ziggy o estar disponible globalmente)
+    try {
+        // eslint-disable-next-line no-undef
+        const href =
+            typeof route === "function" ? route("register") : "/register";
+        form.post(href, {
+            onFinish: () => form.reset("password", "password_confirmation"),
+        });
+    } catch (e) {
+        // fallback si route no existe
+        form.post("/register", {
+            onFinish: () => form.reset("password", "password_confirmation"),
+        });
+    }
 };
 </script>
 
 <template>
-    <Head title="Register" />
+    <Head title="Registro" />
 
     <AuthenticationCard>
-        <template #logo>
-            <AuthenticationCardLogo />
-        </template>
+        <div class="container-register">
+            <!-- ReturnView emite 'back' -->
+            <ReturnView @back="prevStep" :prevent="true" />
 
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="name" value="Name" />
-                <TextInput
-                    id="name"
-                    v-model="form.name"
-                    type="text"
-                    class="mt-1 block w-full"
-                    required
-                    autofocus
-                    autocomplete="name"
-                />
-                <InputError class="mt-2" :message="form.errors.name" />
-            </div>
+            <!-- pasos -->
+            <StepOne
+                v-if="step === 1"
+                v-model="form"
+                :is_vendor="isVendor"
+                @next="nextStep"
+            />
 
-            <div class="mt-4">
-                <InputLabel for="email" value="Email" />
-                <TextInput
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="username"
-                />
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
+            <StepArtiClient
+                v-if="step === 2"
+                v-model="form"
+                :is_vendor="isVendor"
+                @next="nextStep"
+            />
 
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-                <TextInput
-                    id="password"
-                    v-model="form.password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="new-password"
-                />
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
+            <!-- escucho ambos eventos (next/finish) por compatibilidad -->
+            <StoreArtisan
+                v-if="step === 3 && isVendor === true"
+                v-model="form"
+                @next="submit"
+                @finish="submit"
+            />
 
-            <div class="mt-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
-                <TextInput
-                    id="password_confirmation"
-                    v-model="form.password_confirmation"
-                    type="password"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="new-password"
-                />
-                <InputError class="mt-2" :message="form.errors.password_confirmation" />
-            </div>
-
-            <div v-if="$page.props.jetstream.hasTermsAndPrivacyPolicyFeature" class="mt-4">
-                <InputLabel for="terms">
-                    <div class="flex items-center">
-                        <Checkbox id="terms" v-model:checked="form.terms" name="terms" required />
-
-                        <div class="ms-2">
-                            I agree to the <a target="_blank" :href="route('terms.show')" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Terms of Service</a> and <a target="_blank" :href="route('policy.show')" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Privacy Policy</a>
-                        </div>
-                    </div>
-                    <InputError class="mt-2" :message="form.errors.terms" />
-                </InputLabel>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <Link :href="route('login')" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    Already registered?
-                </Link>
-
-                <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Register
-                </PrimaryButton>
-            </div>
-        </form>
+            <AddressStep
+                v-if="step === 3 && isVendor === false"
+                v-model="form"
+                @next="submit"
+                @finish="submit"
+            />
+        </div>
     </AuthenticationCard>
 </template>
