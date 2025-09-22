@@ -67,19 +67,4 @@ defineProps({
             </div>
         </section>
     </div>
-
-    <!-- ->name('welcome'); //Ocupo el name de la welcome
-
-//? Rutas preautenticadas
-//? Registro de tipo de usuario. No está recibiendo parámetros del backend, pero envía true and false al Registro. Solo es para renderizar la vista.
-Route::get('/register-type', function () {
-    return Inertia::render('Auth/RegisterType');
-})->name('register-type');
-
-//? Registro de usuario. Recibe is_vendor como query parameter para enviarlo a la vista de registro y renderizar los campos condicionales.
-Route::get('/register', function (\Illuminate\Http\Request $request) {
-    return Inertia::render('Auth/Register', [
-        'is_vendor' => $request->query('is_vendor', false)
-    ]);
-})->name('register'); -->
 </template>
