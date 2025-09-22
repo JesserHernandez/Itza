@@ -1,4 +1,5 @@
 <script setup>
+import ReturnView from '@/Components/ReturnView.vue';
 import { Head, Link } from '@inertiajs/vue3';
 </script>
 
@@ -7,16 +8,7 @@ import { Head, Link } from '@inertiajs/vue3';
     <Head title="Tipo de Usuario" />
 
     <div class="container-type" aria-label="Registro de tipo de usuario">
-        <nav class="container-nav" aria-label="Navegación principal">
-            <Link class="option" :href="route('welcome')" aria-label="Volver a la página principal">
-            <img src="/icons/icons-interface/back-icon.svg" alt="Volver" class="icon-back" aria-hidden="true" />
-            <span>Volver</span>
-            </Link>
-
-            <div class="logo-short">
-                <img src="/img/img-logo/Logo_itzat.svg" alt="Logo de Itz'at" class="logo-itzat" />
-            </div>
-        </nav>
+        <ReturnView href="welcome" />
 
         <div class="section-info" aria-label="Información sobre el registro">
             <div class="title">
@@ -35,7 +27,11 @@ import { Head, Link } from '@inertiajs/vue3';
             <div class="selected-container" aria-label="Opciones de registro">
                 <div class="artist">
                     <p>Ceramista o Alfarero</p>
-                    <Link href="/register/is_vendor" class="btn-class" aria-label="Ingresar como artista">
+                    <!--
+                        ? Se manda la props is_vendor a la vista Register.vue para validar que el tipo de usuario que se registra es un vendedor.
+                    -->
+                    <Link :href="route('register')" :data="{ is_vendor: true }" method="get" as="button"
+                        class="btn-class" aria-label="Ingresar como artista">
                     <svg class="icons" xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25"
                         fill="none" aria-hidden="true">
                         <path
@@ -48,7 +44,8 @@ import { Head, Link } from '@inertiajs/vue3';
 
                 <div class="customer">
                     <p>Amante del arte</p>
-                    <Link href="/register/is_customer" class="btn-class" aria-label="Ingresar como usuario">
+                    <Link :href="route('register')" :data="{ is_vendor: false }" method="get" as="button"
+                        class="btn-class" aria-label="Ingresar como usuario">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
                         <path
                             d="M9.5 4.56677C12.2614 4.56677 14.5 6.80535 14.5 9.56677C14.5 11.2025 13.7143 12.6546 12.5 13.5668H13.5C15.1569 13.5668 16.5 14.9099 16.5 16.5668V21.5668C16.5 22.1191 16.0523 22.5668 15.5 22.5668C14.9477 22.5668 14.5 22.1191 14.5 21.5668V16.5668C14.5 16.0145 14.0523 15.5668 13.5 15.5668H5.5C4.94772 15.5668 4.5 16.0145 4.5 16.5668V21.5668C4.5 22.1191 4.05228 22.5668 3.5 22.5668C2.94772 22.5668 2.5 22.1191 2.5 21.5668V16.5668C2.5 14.9099 3.84315 13.5668 5.5 13.5668H6.5C5.28565 12.6546 4.5 11.2025 4.5 9.56677C4.5 6.80535 6.73858 4.56677 9.5 4.56677ZM20 8.56677C20.5523 8.56677 21 9.01449 21 9.56677V11.0668H22.5C23.0523 11.0668 23.5 11.5145 23.5 12.0668C23.5 12.6191 23.0523 13.0668 22.5 13.0668H21V14.5668C21 15.1191 20.5523 15.5668 20 15.5668C19.4477 15.5668 19 15.1191 19 14.5668V13.0668H17.5C16.9477 13.0668 16.5 12.6191 16.5 12.0668C16.5 11.5145 16.9477 11.0668 17.5 11.0668H19V9.56677C19 9.01449 19.4477 8.56677 20 8.56677ZM9.5 6.56677C7.84315 6.56677 6.5 7.90992 6.5 9.56677C6.5 11.2236 7.84315 12.5668 9.5 12.5668C11.1569 12.5668 12.5 11.2236 12.5 9.56677C12.5 7.90992 11.1569 6.56677 9.5 6.56677Z"
