@@ -8,7 +8,7 @@ import { municipalitiesByDept, departments } from "@/mapa";
 
 // Props / emits
 const props = defineProps({ modelValue: Object });
-const emit = defineEmits(["update:modelValue", "next"]);
+const emit = defineEmits(["update:modelValue", "finish", "next"]);
 
 const localAddress = ref({
     address_type: props.modelValue?.user_address?.address_type || "",
