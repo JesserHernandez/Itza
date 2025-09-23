@@ -14,6 +14,6 @@ defineProps({
 
 <template>
     <button :type="type" class="btn-class">
-        {{  }}
+        {{ description }}
     </button>
 </template>
