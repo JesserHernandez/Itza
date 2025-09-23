@@ -130,101 +130,155 @@ function continueStep() {
 </script>
 
 <template>
-    <TitleRegister
-        title="¡Felicidades! Ahora eres parte de nuestra comunidad"
-    />
-    <TitleRegister
-        title="Aún necesitamos datos adicionales para completar tu perfil es tu mejor carta de presentación."
-    />
-
-    <div class="step-address">
-        <div class="field">
-            <InputLabel for="city" value="Departamento" texAdd=" *" />
-            <select
-                id="city"
-                :value="local.city"
-                @change="(e) => updateField('city', e.target.value)"
-            >
-                <option value="">Selecciona departamento</option>
-                <option v-for="d in departmentOptions" :key="d" :value="d">
-                    {{ d }}
-                </option>
-            </select>
-            <InputError :message="props.modelValue?.errors?.city" />
-        </div>
-
-        <div class="field">
-            <InputLabel for="municipality" value="Municipio" texAdd=" *" />
-            <select
-                id="municipality"
-                :value="local.municipality"
-                @change="(e) => updateField('municipality', e.target.value)"
-            >
-                <option value="">Selecciona municipio</option>
-                <option v-for="m in municipalityOptions" :key="m" :value="m">
-                    {{ m }}
-                </option>
-            </select>
-            <InputError :message="props.modelValue?.errors?.municipality" />
-        </div>
-
-        <div class="field">
-            <InputLabel for="postal_code" value="Código postal" texAdd=" *" />
-            <TextInput
-                id="postal_code"
-                :value="local.postal_code"
-                @input="(e) => updateField('postal_code', e)"
-                @update:modelValue="(val) => updateField('postal_code', val)"
-                placeholder="23002"
+    <div class="step-one">
+        <div class="email-pass address">
+            <TitleRegister
+                title="¡Felicidades! Ahora eres parte de nuestra comunidad"
             />
-            <InputError :message="props.modelValue?.errors?.postal_code" />
-        </div>
-
-        <div class="field">
-            <InputLabel for="address" value="Dirección" texAdd=" *" />
-            <TextInput
-                id="address"
-                :value="local.address"
-                @input="(e) => updateField('address', e)"
-                @update:modelValue="(val) => updateField('address', val)"
-                placeholder="Parque central 2km al norte"
+            <TitleRegister
+                paragraph="Aún necesitamos datos adicionales para completar tu perfil es tu mejor carta de presentación."
             />
-            <InputError :message="props.modelValue?.errors?.address" />
-        </div>
 
-        <!-- Tipo de dirección: usar radio (envío vs factura). Se actualiza local.type y se emite -->
-        <div class="field">
-            <InputLabel class="terms" value="Tipo de dirección" texAdd=" *" />
-            <div class="radio-group">
-                <label>
-                    <input
-                        type="radio"
-                        name="address_type"
-                        :checked="local.type === 'envio'"
-                        @change="() => updateField('type', 'envio')"
-                    />
-                    <span>Dirección de envío</span>
-                </label>
+            <div class="formulario">
+                <div class="join">
+                    <div class="field">
+                        <InputLabel
+                            for="city"
+                            value="Departamento"
+                            texAdd=" *"
+                        />
+                        <select
+                            id="city"
+                            :value="local.city"
+                            @change="(e) => updateField('city', e.target.value)"
+                        >
+                            <option value="">Departamento</option>
+                            <option
+                                v-for="d in departmentOptions"
+                                :key="d"
+                                :value="d"
+                            >
+                                {{ d }}
+                            </option>
+                        </select>
+                        <InputError :message="props.modelValue?.errors?.city" />
+                    </div>
 
-                <label>
-                    <input
-                        type="radio"
-                        name="address_type"
-                        :checked="local.type === 'factura'"
-                        @change="() => updateField('type', 'factura')"
+                        <div class="field">
+                            <InputLabel
+                                for="municipality"
+                                value="Municipio"
+                                texAdd=" *"
+                            />
+                            <select
+                                id="municipality"
+                                :value="local.municipality"
+                                @change="
+                                    (e) =>
+                                        updateField(
+                                            'municipality',
+                                            e.target.value
+                                        )
+                                "
+                            >
+                                <option value="">Selecciona municipio</option>
+                                <option
+                                    v-for="m in municipalityOptions"
+                                    :key="m"
+                                    :value="m"
+                                >
+                                    {{ m }}
+                                </option>
+                            </select>
+                            <InputError
+                                :message="
+                                    props.modelValue?.errors?.municipality
+                                "
+                            />
+                        </div>
+                </div>
+
+                <div class="field">
+                    <InputLabel
+                        for="postal_code"
+                        value="Código postal"
+                        texAdd=" *"
                     />
-                    <span>Dirección de factura</span>
-                </label>
+                    <TextInput
+                        id="postal_code"
+                        :value="local.postal_code"
+                        @input="(e) => updateField('postal_code', e)"
+                        @update:modelValue="
+                            (val) => updateField('postal_code', val)
+                        "
+                        placeholder="23002"
+                    />
+                    <InputError
+                        :message="props.modelValue?.errors?.postal_code"
+                    />
+                </div>
+
+                <div class="field">
+                    <InputLabel for="address" value="Dirección" texAdd=" *" />
+                    <TextInput
+                        id="address"
+                        :value="local.address"
+                        @input="(e) => updateField('address', e)"
+                        @update:modelValue="
+                            (val) => updateField('address', val)
+                        "
+                        placeholder="Parque central 2km al norte"
+                    />
+                    <InputError :message="props.modelValue?.errors?.address" />
+                </div>
+
+                <!-- Tipo de dirección: usar radio (envío vs factura). Se actualiza local.type y se emite -->
+                <div class="field">
+                    <InputLabel
+                        class="terms"
+                        value="Tipo de dirección"
+                        texAdd=" *"
+                    />
+                    <div class="radio-group">
+                        <label>
+                            <input
+                                type="radio"
+                                name="address_type"
+                                :checked="local.type === 'envio'"
+                                @change="() => updateField('type', 'envio')"
+                            />
+                            <span>Dirección de envío</span>
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="address_type"
+                                :checked="local.type === 'factura'"
+                                @change="() => updateField('type', 'factura')"
+                            />
+                            <span>Dirección de factura</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="button-artist">
+                    <button
+                        type="button"
+                        :disabled="!isValid"
+                        @click="continueStep"
+                        :class="[
+                            'button-base',
+                            { 'btn-class': isValid, gray: !isValid },
+                        ]"
+                    >
+                        ¡Adelante! confirma esta información adicional
+                    </button>
+                </div>
             </div>
         </div>
-
-        <div class="actions">
-            <button type="button" :disabled="!isValid" @click="continueStep">
-                ¡Adelante! confirma esta información adicional
-            </button>
+        <div class="image">
+            <img src="/img/img-interfaces/img-female.png" alt="" />
         </div>
-    </div>
-    <div class="img">
-        <img src="/img/img-interfaces/img-female.png" alt="" />
     </div>
 </template>

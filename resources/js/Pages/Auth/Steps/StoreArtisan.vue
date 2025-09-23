@@ -99,150 +99,191 @@ function emitTeams() {
 </script>
 
 <template>
-    <!-- Mantengo tus títulos y comentarios -->
-    <TitleRegister title="¡Quiero crear el perfil de mi tienda!" />
-    <TitleRegister
-        title="Tu perfil de tienda es clave para vender
-    tus artesanías. Un perfil completo y detallado genera confianza,
-    atrae a más clientes y te ayuda a aprovechar al máximo nuestra plataforma."
-    />
-    <div class="form">
-        <div class="field">
-            <InputLabel value="Nombre la tienda artística" texAdd=" *" />
-            <!-- Usar local y updateField en lugar de bind directo a modelValue -->
-            <TextInput
-                id="name_team"
-                :value="localTeams.name_team"
-                @input="(e) => updateTeamField('name_team', e)"
-                @update:modelValue="(val) => updateTeamField('name_team', val)"
-                placeholder="Ingresa el nombre de la tienda"
+    <div class="step-one">
+        <div class="email-pass store">
+            <!-- Mantengo tus títulos y comentarios -->
+            <TitleRegister title="¡Quiero crear el perfil de mi tienda!" />
+            <TitleRegister
+                paragraph="Tu perfil de tienda es clave para vender
+            tus artesanías. Un perfil completo y detallado genera confianza,
+            atrae a más clientes y te ayuda a aprovechar al máximo nuestra plataforma."
             />
-            <p class="input-hint" v-if="props.modelValue?.errors?.name_team">
-                {{ props.modelValue.errors.name_team }}
-            </p>
-        </div>
 
-        <div class="field">
-            <InputLabel value="Dirección" texAdd=" *" />
-            <TextInput
-                id="address"
-                :value="localTeams.address"
-                @input="(e) => updateTeamField('address', e)"
-                @update:modelValue="(val) => updateTeamField('address', val)"
-                placeholder="Dirección de la tienda"
-            />
-            <p class="input-hint" v-if="props.modelValue?.errors?.address">
-                {{ props.modelValue.errors.address }}
-            </p>
-        </div>
-
-        <div class="field">
-            <InputLabel value="Tipo de tienda" texAdd=" *" />
-            <TextInput
-                id="type"
-                :value="localTeams.team_type"
-                @input="(e) => updateTeamField('team_type', e)"
-                @update:modelValue="(val) => updateTeamField('team_type', val)"
-                placeholder="Ej. Taller, Galería, Tienda"
-            />
-            <p class="input-hint" v-if="props.modelValue?.errors?.type">
-                {{ props.modelValue.errors.type }}
-            </p>
-        </div>
-
-        <div class="grid-2">
-            <div class="field">
-                <InputLabel value="Departamento" texAdd=" *" />
-                <select
-                    id="city"
-                    :value="localTeams.city"
-                    @change="(e) => updateTeamField('city', e.target.value)"
-                >
-                    <option value="">Selecciona un departamento</option>
-                    <option
-                        v-for="option in cityOptions"
-                        :key="option"
-                        :value="option"
+            <div class="formulario">
+                <div class="field">
+                    <InputLabel
+                        value="Nombre la tienda artística"
+                        texAdd=" *"
+                    />
+                    <!-- Usar local y updateField en lugar de bind directo a modelValue -->
+                    <TextInput
+                        id="name_team"
+                        :value="localTeams.name_team"
+                        @input="(e) => updateTeamField('name_team', e)"
+                        @update:modelValue="
+                            (val) => updateTeamField('name_team', val)
+                        "
+                        placeholder="Ingresa el nombre de la tienda"
+                    />
+                    <p
+                        class="input-hint"
+                        v-if="props.modelValue?.errors?.name_team"
                     >
-                        {{ option }}
-                    </option>
-                </select>
-                <p class="input-hint" v-if="props.modelValue?.errors?.city">
-                    {{ props.modelValue.errors.city }}
-                </p>
-            </div>
+                        {{ props.modelValue.errors.name_team }}
+                    </p>
+                </div>
 
-            <div class="field">
-                <InputLabel value="Municipio" texAdd=" *" />
-                <select
-                    id="municipality"
-                    :value="localTeams.municipality"
-                    @change="
-                        (e) => updateTeamField('municipality', e.target.value)
-                    "
-                >
-                    <option value="">Selecciona un municipio</option>
-                    <option
-                        v-for="m in municipalityOptions"
-                        :key="m"
-                        :value="m"
+                <div class="field">
+                    <InputLabel value="Dirección" texAdd=" *" />
+                    <TextInput
+                        id="address"
+                        :value="localTeams.address"
+                        @input="(e) => updateTeamField('address', e)"
+                        @update:modelValue="
+                            (val) => updateTeamField('address', val)
+                        "
+                        placeholder="Dirección de la tienda"
+                    />
+                    <p
+                        class="input-hint"
+                        v-if="props.modelValue?.errors?.address"
                     >
-                        {{ m }}
-                    </option>
-                </select>
-                <p
-                    class="input-hint"
-                    v-if="props.modelValue?.errors?.municipality"
-                >
-                    {{ props.modelValue.errors.municipality }}
-                </p>
+                        {{ props.modelValue.errors.address }}
+                    </p>
+                </div>
+
+                <div class="field">
+                    <InputLabel value="Tipo de tienda" texAdd=" *" />
+                    <TextInput
+                        id="type"
+                        :value="localTeams.team_type"
+                        @input="(e) => updateTeamField('team_type', e)"
+                        @update:modelValue="
+                            (val) => updateTeamField('team_type', val)
+                        "
+                        placeholder="Ej. Taller, Galería, Tienda"
+                    />
+                    <p class="input-hint" v-if="props.modelValue?.errors?.type">
+                        {{ props.modelValue.errors.type }}
+                    </p>
+                </div>
+
+                <div class="join">
+                    <div class="field">
+                        <InputLabel value="Departamento" texAdd=" *" />
+                        <select
+                            id="city"
+                            :value="localTeams.city"
+                            @change="
+                                (e) => updateTeamField('city', e.target.value)
+                            "
+                        >
+                            <option value="">Departamento</option>
+                            <option
+                                v-for="option in cityOptions"
+                                :key="option"
+                                :value="option"
+                            >
+                                {{ option }}
+                            </option>
+                        </select>
+                        <p
+                            class="input-hint"
+                            v-if="props.modelValue?.errors?.city"
+                        >
+                            {{ props.modelValue.errors.city }}
+                        </p>
+                    </div>
+
+                    <div class="field">
+                        <InputLabel value="Municipio" texAdd=" *" />
+                        <select
+                            id="municipality"
+                            :value="localTeams.municipality"
+                            @change="
+                                (e) =>
+                                    updateTeamField(
+                                        'municipality',
+                                        e.target.value
+                                    )
+                            "
+                        >
+                            <option value="">Selecciona un municipio</option>
+                            <option
+                                v-for="m in municipalityOptions"
+                                :key="m"
+                                :value="m"
+                            >
+                                {{ m }}
+                            </option>
+                        </select>
+                        <p
+                            class="input-hint"
+                            v-if="props.modelValue?.errors?.municipality"
+                        >
+                            {{ props.modelValue.errors.municipality }}
+                        </p>
+                    </div>
+                </div>
+
+
+                    <div class="field">
+                        <InputLabel value="Número de teléfono" />
+                        <TextInput
+                            id="phone_number"
+                            :value="localTeams.phone_number"
+                            @input="(e) => updateTeamField('phone_number', e)"
+                            @update:modelValue="
+                                (val) => updateTeamField('phone_number', val)
+                            "
+                            placeholder="Teléfono de contacto"
+                        />
+                        <p
+                            class="input-hint"
+                            v-if="props.modelValue?.errors?.phone_number"
+                        >
+                            {{ props.modelValue.errors.phone_number }}
+                        </p>
+                    </div>
+
+                    <div class="field">
+                        <InputLabel value="RUC / Identificación fiscal" />
+                        <TextInput
+                            id="ruc"
+                            :value="localTeams.ruc"
+                            @input="(e) => updateTeamField('ruc', e)"
+                            @update:modelValue="
+                                (val) => updateTeamField('ruc', val)
+                            "
+                            placeholder="RUC o número de identificación"
+                        />
+                        <p
+                            class="input-hint"
+                            v-if="props.modelValue?.errors?.ruc"
+                        >
+                            {{ props.modelValue.errors.ruc }}
+                        </p>
+                    </div>
+
+                <!-- si quieres controlar habilitación desde aquí -->
+                <div class="button-artist">
+                    <!-- botón llama continueStep y no solo next -->
+                    <button
+                        type="button"
+                        :disabled="!isValid"
+                        @click="continueStep"
+                        :class="[
+                            'button-base',
+                            { 'btn-class': isValid, gray: !isValid },
+                        ]"
+                    >
+                        ¡Perfil de tienda completado!
+                    </button>
+                </div>
             </div>
         </div>
-
-        <div class="grid-2">
-            <div class="field">
-                <InputLabel value="Número de teléfono" />
-                <TextInput
-                    id="phone_number"
-                    :value="localTeams.phone_number"
-                    @input="(e) => updateTeamField('phone_number', e)"
-                    @update:modelValue="
-                        (val) => updateTeamField('phone_number', val)
-                    "
-                    placeholder="Teléfono de contacto"
-                />
-                <p
-                    class="input-hint"
-                    v-if="props.modelValue?.errors?.phone_number"
-                >
-                    {{ props.modelValue.errors.phone_number }}
-                </p>
-            </div>
-
-            <div class="field">
-                <InputLabel value="RUC / Identificación fiscal" />
-                <TextInput
-                    id="ruc"
-                    :value="localTeams.ruc"
-                    @input="(e) => updateTeamField('ruc', e)"
-                    @update:modelValue="(val) => updateTeamField('ruc', val)"
-                    placeholder="RUC o número de identificación"
-                />
-                <p class="input-hint" v-if="props.modelValue?.errors?.ruc">
-                    {{ props.modelValue.errors.ruc }}
-                </p>
-            </div>
+        <div class="image-store">
+            <img src="/img/img-interfaces/artisan-female.png" alt="" />
         </div>
-
-        <!-- si quieres controlar habilitación desde aquí -->
-        <div class="actions">
-            <!-- botón llama continueStep y no solo next -->
-            <button type="button" :disabled="!isValid" @click="continueStep">
-                ¡Felicidades! continua con el perfil de tu tienda
-            </button>
-        </div>
-    </div>
-    <div class="img">
-        <img src="/img/img-interfaces/artisan-female.png" alt="" />
     </div>
 </template>

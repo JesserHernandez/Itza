@@ -1,10 +1,12 @@
 <script setup>
 defineProps({
-    title: String
+    title: String,
+    paragraph: String
 });
 </script>
 <template>
-    <div class="title">
-        <span class="title text">{{ title }}</span>
+    <div class="title-step">
+        <span class="title-pass">{{ title }}</span>
+        <span class="text-pass">{{ paragraph }}</span>
     </div>
 </template>

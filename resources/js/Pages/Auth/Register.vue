@@ -4,6 +4,7 @@ import { Head, useForm } from "@inertiajs/vue3";
 import ReturnView from "@/Components/ReturnView.vue";
 import StepOne from "@/Pages/Auth/Steps/StepOne.vue";
 import TitleRegister from "@/Components/TitleRegister.vue";
+import { Link } from "@inertiajs/vue3";
 import StepArtiClient from "@/Pages/Auth/Steps/StepArtiClient.vue";
 import AuthenticationCard from "@/Components/AuthenticationCard.vue";
 import StoreArtisan from "./Steps/StoreArtisan.vue";
@@ -29,7 +30,6 @@ const form = useForm({
         city: "",
         phone_number: "",
         ruc: "",
-
     },
     user_address: {
         address_type: "", //tipo de dirección:
@@ -129,6 +129,21 @@ const submit = () => {
                 @next="submit"
                 @finish="submit"
             />
+        </div>
+        <div class="info-end" aria-label="Separador de opciones">
+            <hr />
+            <span>O</span>
+            <hr />
+        </div>
+
+        <div class="navigate" aria-label="Acceso para usuarios registrados">
+            <span>¿Ya tienes una cuenta? </span>
+            <Link
+                :href="route('login')"
+                class="btn-login"
+                aria-label="Acceder a tu cuenta">
+                Puedes acceder a ella
+            </Link>
         </div>
     </AuthenticationCard>
 </template>
