@@ -243,6 +243,7 @@ function continueStep() {
                         <label>
                             <input
                                 type="radio"
+                                class="radio"
                                 name="address_type"
                                 :checked="local.type === 'envio'"
                                 @change="() => updateField('type', 'envio')"
@@ -253,6 +254,7 @@ function continueStep() {
                         <label>
                             <input
                                 type="radio"
+                                class="radio"
                                 name="address_type"
                                 :checked="local.type === 'factura'"
                                 @change="() => updateField('type', 'factura')"
