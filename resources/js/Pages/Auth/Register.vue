@@ -21,13 +21,26 @@ const form = useForm({
     identification_card: "",
     profile_photo_path: null,
     is_vendor: false,
-    name_team: "",
-    address: "",
-    type: "",
-    city: "",
-    municipality: "",
-    ruc: "",
-    postal_code: "",
+    teams: {
+        name_team: "",
+        address: "",
+        team_type: "",
+        municipality: "",
+        city: "",
+        phone_number: "",
+        ruc: "",
+
+    },
+    user_address: {
+        address_type: "", //tipo de dirección:
+        user_address: "", // dirección
+        postal_code: "", // código postal
+        city: "", // Departamento
+        municipality: "", // Municipio
+        phone_number: "", // teléfono
+        facturation: false, // para dirección facturación is_main
+        active: true, // para dirección facturación is_active
+    },
 });
 
 // Establece si el usuario es un vendedor o un cliente. Proviene desde la vista RegisterType.
