@@ -9,7 +9,7 @@ const props = defineProps({
     modelValue: Object,
     is_vendor: [Boolean, String, Number],
 });
-const emit = defineEmits(["update:modelValue", "next"]);
+const emit = defineEmits(["section-data", "next"]);
 
 // normaliza isVendor (true / "true" / 1 / "1")
 const isVendor = computed(
@@ -17,7 +17,9 @@ const isVendor = computed(
         props.is_vendor === true ||
         props.is_vendor === "true" ||
         props.is_vendor === 1 ||
-        props.is_vendor === "1"
+        props.is_vendor === "1" ||
+        props.is_vendor === 2 ||
+        props.is_vendor === "2"
 );
 
 // estado local para editar/validar antes de emitir
@@ -47,12 +49,9 @@ function updateFieldLocal(field, valueOrEvent) {
             ? valueOrEvent.target.value
             : valueOrEvent;
     local.value[field] = value;
-    // opcional: emitir al padre para mantener form actualizado en tiempo real
-    const out = { ...(props.modelValue || {}), [field]: value };
-    // mantener errores actuales
-    if (local.value.errors && Object.keys(local.value.errors).length)
-        out.errors = local.value.errors;
-    emit("update:modelValue", out);
+
+    // emitir solo la sección (no todo el form)
+    emit("section-data", { email: local.value.email, password: local.value.password, errors: { ...(local.value.errors || {}) } });
 }
 
 // computed que indica si los campos mínimos son válidos
@@ -81,17 +80,12 @@ function handleNext(e) {
 
     if (Object.keys(errors).length) {
         local.value.errors = errors;
-        // enviar errores al padre para mostrar desde InputError si lo usa
-        const current = { ...(props.modelValue || {}), errors };
-        emit("update:modelValue", current);
-        return; // no avanzar
+        emit("section-data", { email, password, errors });
+        return;
     }
 
-    // limpiar errores y emitir actualizaciones finales
     local.value.errors = {};
-    const final = { ...(props.modelValue || {}), email, password };
-    if (final.errors) delete final.errors;
-    emit("update:modelValue", final);
+    emit("section-data", { email, password }); // últimos cambios
     emit("next");
 }
 
@@ -148,6 +142,7 @@ function toggleViewPassword() {
                         autocomplete="username"
                         placeholder="Introduce tu correo electrónico"
                     />
+                    <p class="example">Ejemplo: luisgonzales@gmail.com</p>
                     <InputError
                         :message="
                             local.errors.email ||
@@ -179,6 +174,7 @@ function toggleViewPassword() {
                             style="cursor: pointer"
                         />
                     </div>
+                    <p class="example">Mínimo 8 caracteres</p>
                     <InputError
                         :message="
                             local.errors.password ||

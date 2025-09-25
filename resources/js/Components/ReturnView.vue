@@ -43,15 +43,15 @@ function handleClick(e) {
     <nav class="container-nav" aria-label="Navegación principal">
         <div class="nav-left">
             <div v-if="hrefComputed">
-                <Link :href="hrefComputed" class="option" @click="handleClick" aria-label="Volver">
+                <a :href="hrefComputed" class="option" @click="handleClick" aria-label="Volver">
                 <img src="/icons/icons-interface/back-icon.svg" alt="Volver" aria-hidden="true" />
                 <p>Volver</p>
-                </Link>
+                </a>
             </div>
-                <Link v-else type="button" class="option" @click="handleClick" aria-label="Volver">
+                <a v-else type="button" class="option" @click="handleClick" aria-label="Volver">
                     <img src="/icons/icons-interface/back-icon.svg" alt="Volver" aria-hidden="true" />
                     <p>Volver</p>
-                </Link>
+                </a>
         </div>
 
         <div class="logo-short">

@@ -11,22 +11,24 @@ const props = defineProps({
     img: String,
 });
 
+// isVendor robusto (acepta true/"true"/1/"1"/2/"2")
 const isVendor = computed(
     () =>
         props.is_vendor === true ||
         props.is_vendor === "true" ||
+        props.is_vendor === 1 ||
+        props.is_vendor === "1" ||
         props.is_vendor === 2 ||
         props.is_vendor === "2"
 );
 
-const emit = defineEmits(["update:modelValue", "next"]);
+const emit = defineEmits(["section-data", "next"]);
 
-// estado local: usa siempre identification_card (consistente)
+// estado local consistente
 const local = ref({
     name: props.modelValue?.name || "",
     surname: props.modelValue?.surname || "",
     gender: props.modelValue?.gender || "",
-    birth_date: props.modelValue?.birth_date || "",
     identification_card: props.modelValue?.identification_card || "",
     phone_number: props.modelValue?.phone_number || "",
 });
@@ -39,50 +41,68 @@ watch(
         if (nv.name !== undefined) local.value.name = nv.name;
         if (nv.surname !== undefined) local.value.surname = nv.surname;
         if (nv.gender !== undefined) local.value.gender = nv.gender;
-        if (nv.birth_date !== undefined) local.value.birth_date = nv.birth_date;
         if (nv.identification_card !== undefined)
             local.value.identification_card = nv.identification_card;
-        if (nv.phone_number !== undefined)
+        // aceptar phone_number o phoneNumber del padre
+        if (nv.phone_number !== undefined) {
             local.value.phone_number = nv.phone_number;
+        } else if (nv.phoneNumber !== undefined) {
+            local.value.phone_number = nv.phoneNumber;
+        }
     },
     { deep: true }
 );
 
-// emitir cambio al padre (mantén clave consistente)
+// emitir solo la sección (no reemplaza form)
+function emitSection() {
+    const payload = {
+        name: local.value.name,
+        surname: local.value.surname,
+        gender: local.value.gender,
+        identification_card: local.value.identification_card,
+        phone_number: local.value.phone_number, // asegúrate que es phone_number
+    };
+    console.log("StepArtiClient -> section-data:", payload);
+    emit("section-data", payload);
+}
+
 function updateField(field, valueOrEvent) {
     const value =
         valueOrEvent && valueOrEvent.target
             ? valueOrEvent.target.value
             : valueOrEvent;
     local.value[field] = value;
-    emit("update:modelValue", { ...(props.modelValue || {}), [field]: value });
+    emitSection();
 }
+
+// calcular fecha máxima (>=18 años)
+const maxBirth = (() => {
+    const d = new Date();
+    d.setFullYear(d.getFullYear() - 18);
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    return `${yyyy}-${mm}-${dd}`;
+})();
 
 // validación: birth required solo para no-vendor; identification_card solo para vendor
 const isValid = computed(() => {
     const name = (local.value.name || "").trim();
     const surname = (local.value.surname || "").trim();
     const gender = (local.value.gender || "").trim();
-    const birth = (local.value.birth_date || "").trim();
-    const idCard = (local.value.identification_card || "").trim();
+    const identification_card = (local.value.identification_card || "").trim();
+    const phone_number = (local.value.phone_number || "").trim();
+    const idOk = isVendor.value ? identification_card.length > 0 : true;
+    const birthOk = isVendor.value || birth.length > 0;
 
-    const idOk = isVendor.value ? idCard.length > 0 : true;
-    const birthOk = isVendor.value ? true : birth.length > 0;
-
-    return (
-        name.length > 1 &&
-        surname.length > 1 &&
-        gender !== "" &&
-        idOk &&
-        birthOk
-    );
+    // Si el teléfono debe ser obligatorio, descomenta la segunda condición:
+    return name.length > 1 && surname.length > 1 && gender !== "" && idOk;
 });
 
 function handleNext(e) {
     e?.preventDefault?.();
     if (!isValid.value) return;
-    // sincronizar antes de avanzar
-    emit("update:modelValue", { ...(props.modelValue || {}), ...local.value });
+    emitSection(); // aseguramos que el padre recibe los últimos cambios
     emit("next");
 }
 </script>
@@ -111,7 +131,8 @@ function handleNext(e) {
                         <InputLabel for="name" value="Nombres" texAdd=" *" />
                         <TextInput
                             id="name"
-                            :value="local.name" class="articlient-name"
+                            :value="local.name"
+                            class="articlient-name"
                             @input="(e) => updateField('name', e)"
                             @update:modelValue="
                                 (val) => updateField('name', val)
@@ -129,8 +150,9 @@ function handleNext(e) {
                             texAdd=" *"
                         />
                         <TextInput
-                            id="surname" class="articlient-surname"
+                            id="surname"
                             :value="local.surname"
+                            class="articlient-surname"
                             @input="(e) => updateField('surname', e)"
                             @update:modelValue="
                                 (val) => updateField('surname', val)
@@ -159,9 +181,8 @@ function handleNext(e) {
                     <InputError :message="props.modelValue?.errors?.gender" />
                 </div>
 
-                <!-- Cédula: solo para vendors -->
                 <div class="join">
-                    <div class="field" v-if="isVendor">
+                    <div class="field">
                         <InputLabel
                             for="identification_card"
                             value="Cédula de Identidad"
@@ -169,10 +190,13 @@ function handleNext(e) {
                         />
                         <TextInput
                             id="identification_card"
-                            type="text" class="articlient-card"
+                            type="text"
+                            class="articlient-card"
                             :value="local.identification_card"
                             placeholder="Ingresa cédula aquí"
-                            @input="(e) => updateField('identification_card', e)"
+                            @input="
+                                (e) => updateField('identification_card', e)
+                            "
                             @update:modelValue="
                                 (val) => updateField('identification_card', val)
                             "
@@ -184,29 +208,7 @@ function handleNext(e) {
                                 props.modelValue?.errors?.id_card
                             "
                         />
-                    </div>
-
-
-                    <!-- Fecha de nacimiento: solo para no-vendors -->
-                    <div class="field" v-if="!isVendor">
-                        <InputLabel
-                            for="birth_date"
-                            value="Fecha de Nacimiento"
-                            texAdd=" *"
-                        />
-                        <TextInput
-                            id="birth_date" class="articlient-birth"
-                            type="date"
-                            :value="local.birth_date"
-                            @input="(e) => updateField('birth_date', e)"
-                            @update:modelValue="
-                                (val) => updateField('birth_date', val)
-                            "
-                            required
-                        />
-                        <InputError
-                            :message="props.modelValue?.errors?.birth_date"
-                        />
+                        <p class="example">Necesitamos validar tu identidad</p>
                     </div>
 
                     <div class="field">
@@ -216,14 +218,17 @@ function handleNext(e) {
                             texAdd=" *"
                         />
                         <TextInput
-                            id="phone_number" class="articlient-phone"
+                            id="phone_number"
+                            class="articlient-phone"
+                            type="tel"
                             :value="local.phone_number"
                             @input="(e) => updateField('phone_number', e)"
                             @update:modelValue="
                                 (val) => updateField('phone_number', val)
                             "
-                            placeholder="Teléfono (opcional)"
+                            placeholder="Teléfono"
                         />
+                        <p class="example">Tu formato de contacto</p>
                         <InputError
                             :message="props.modelValue?.errors?.phone_number"
                         />

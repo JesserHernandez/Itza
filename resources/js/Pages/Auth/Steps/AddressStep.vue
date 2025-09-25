@@ -54,7 +54,7 @@ function handleNext() {
     emit("next");
 }
 
-// estado local (sin mensajes de error en JS)
+// estado local 
 const local = ref({
     type: props.modelValue?.type || "envio", // 'envio' | 'factura'
     city: props.modelValue?.city || "",
@@ -213,6 +213,7 @@ function continueStep() {
                         "
                         placeholder="23002"
                     />
+                    <p class="example">Identificar de forma precisa una Zona geografica</p>
                     <InputError
                         :message="props.modelValue?.errors?.postal_code"
                     />
@@ -229,6 +230,7 @@ function continueStep() {
                         "
                         placeholder="Parque central 2km al norte"
                     />
+                    <p class="example">Es necesario en caso de que su producto deba ser enviado a su hogar</p>
                     <InputError :message="props.modelValue?.errors?.address" />
                 </div>
 

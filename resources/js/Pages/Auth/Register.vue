@@ -1,9 +1,8 @@
 <script setup>
-import { h, ref } from "vue";
+import { ref, computed, watch } from "vue"; // quitar h
 import { Head, useForm } from "@inertiajs/vue3";
 import ReturnView from "@/Components/ReturnView.vue";
 import StepOne from "@/Pages/Auth/Steps/StepOne.vue";
-import TitleRegister from "@/Components/TitleRegister.vue";
 import { Link } from "@inertiajs/vue3";
 import StepArtiClient from "@/Pages/Auth/Steps/StepArtiClient.vue";
 import AuthenticationCard from "@/Components/AuthenticationCard.vue";
@@ -12,48 +11,55 @@ import AddressStep from "./Steps/AddressStep.vue";
 
 const step = ref(1);
 const form = useForm({
+    // user
     name: "",
     surname: "",
     email: "",
     password: "",
-    status: "",
     gender: "",
     phone_number: "",
     identification_card: "",
-    profile_photo_path: null,
     is_vendor: false,
+
+    // teams (tienda)
     teams: {
         name_team: "",
-        address: "",
-        team_type: "",
-        municipality: "",
+        type: "",
         city: "",
-        phone_number: "",
-        ruc: "",
+        municipality: "",
+        address: "",
     },
+
+    // user_address
     user_address: {
-        address_type: "", //tipo de dirección:
-        user_address: "", // dirección
-        postal_code: "", // código postal
-        city: "", // Departamento
-        municipality: "", // Municipio
-        phone_number: "", // teléfono
-        facturation: false, // para dirección facturación is_main
-        active: true, // para dirección facturación is_active
+        user_address: "",
+        address_type: "",
+        postal_code: "",
+        city: "",
+        municipality: "",
+        facturation: false,
+        active: true,
     },
 });
 
-// Establece si el usuario es un vendedor o un cliente. Proviene desde la vista RegisterType.
+// props
 const props = defineProps({
-    is_vendor: [Boolean, String],
+    is_vendor: [Boolean, String, Number],
 });
 
-const isVendor =
-    props.is_vendor === true ||
-    props.is_vendor === "true" ||
-    props.is_vendor === "1";
-// aplicar al form para que esté sincronizado con el backend
-form.is_vendor = isVendor;
+// isVendor reactivo y robusto
+const isVendor = computed(() => {
+    return props.is_vendor === true || props.is_vendor === "true" || props.is_vendor === 1 || props.is_vendor === "1";
+});
+
+// sincronizar con form
+watch(
+    isVendor,
+    (val) => {
+        form.is_vendor = !!val;
+    },
+    { immediate: true }
+);
 
 function nextStep() {
     step.value++;
@@ -63,9 +69,7 @@ function prevStep() {
         step.value--;
         return;
     }
-    // estás en el primer step: navegar atrás con fallback seguro
     try {
-        // eslint-disable-next-line no-undef
         if (typeof route === "function") {
             window.location.href = route("welcome");
             return;
@@ -74,22 +78,102 @@ function prevStep() {
     window.history.back();
 }
 
-const submit = () => {
-    // enviar form al backend (route debe venir de Ziggy o estar disponible globalmente)
-    try {
-        // eslint-disable-next-line no-undef
-        const href =
-            typeof route === "function" ? route("register") : "/register";
-        form.post(href, {
-            onFinish: () => form.reset("password", "password_confirmation"),
-        });
-    } catch (e) {
-        // fallback si route no existe
-        form.post("/register", {
-            onFinish: () => form.reset("password", "password_confirmation"),
-        });
+function submit() {
+    if (form.processing) return;
+    // opcional: asegurar merge final si algún hijo mandó datos directo
+    console.log("form antes de post", JSON.parse(JSON.stringify(form)));
+    const href = typeof route === "function" ? route("register") : "/register";
+    form.post(href, {
+        onFinish: () => form.reset("password", "password_confirmation"),
+    });
+}
+
+function isPlainObject(v) {
+    return v && typeof v === "object" && !Array.isArray(v);
+}
+
+function mergeForm(partial = {}) {
+    console.log("mergeForm recibe:", partial);
+
+    const teamKeys = [
+        "name_team",
+        "team_type",
+        "type",
+        "ruc",
+        "city",
+        "municipality",
+        "address",
+    ];
+    const addrKeys = [
+        "user_address",
+        "address_type",
+        "postal_code",
+        "city",
+        "municipality",
+        "facturation",
+        "active",
+        "address",
+    ];
+
+    // merge teams namespaced si viene
+    if (isPlainObject(partial.teams)) {
+        form.teams = { ...(form.teams || {}), ...partial.teams };
+        delete partial.teams;
     }
-};
+
+    // merge user_address namespaced si viene — NO tocar ni normalizar teléfonos dentro de user_address
+    if (isPlainObject(partial.user_address)) {
+        const ua = { ...(partial.user_address || {}) };
+        // eliminar claves de teléfono si por error llegaron en user_address
+        delete ua.phoneNumber;
+        delete ua.phone_number;
+        form.user_address = { ...(form.user_address || {}), ...ua };
+        delete partial.user_address;
+    }
+
+    // teléfonos planos: phoneNumber -> teams.phoneNumber (tienda), phone_number -> form.phone_number (usuario)
+    if (partial.phoneNumber !== undefined) {
+        form.teams = { ...(form.teams || {}), phoneNumber: partial.phoneNumber };
+        delete partial.phoneNumber;
+    }
+    if (partial.phone_number !== undefined) {
+        form.phone_number = partial.phone_number;
+        delete partial.phone_number;
+    }
+
+    // mapear claves sueltas de teams a form.teams
+    const teamPart = {};
+    Object.keys(partial).forEach((k) => {
+        if (teamKeys.includes(k)) {
+            teamPart[k] = partial[k];
+            delete partial[k];
+        }
+    });
+    if (Object.keys(teamPart).length) {
+        form.teams = { ...(form.teams || {}), ...teamPart };
+    }
+
+    // mapear claves sueltas de dirección a form.user_address (sin incluir teléfonos)
+    const addrPart = {};
+    Object.keys(partial).forEach((k) => {
+        if (addrKeys.includes(k)) {
+            const destKey = k === "address" ? "user_address" : k;
+            addrPart[destKey] = partial[k];
+            delete partial[k];
+        }
+    });
+    if (Object.keys(addrPart).length) {
+        form.user_address = { ...(form.user_address || {}), ...addrPart };
+    }
+
+    // asignar el resto (top-level)
+    Object.keys(partial).forEach((k) => {
+        form[k] = partial[k];
+    });
+
+    console.log("form tras merge:", JSON.parse(JSON.stringify(form)));
+}
+
 </script>
 
 <template>
@@ -103,30 +187,33 @@ const submit = () => {
             <!-- pasos -->
             <StepOne
                 v-if="step === 1"
-                v-model="form"
+                :modelValue="form"
                 :is_vendor="isVendor"
+                @section-data="mergeForm"
                 @next="nextStep"
             />
 
             <StepArtiClient
                 v-if="step === 2"
-                v-model="form"
+                :modelValue="form"
                 :is_vendor="isVendor"
+                @section-data="mergeForm"
                 @next="nextStep"
             />
 
             <!-- escucho ambos eventos (next/finish) por compatibilidad -->
             <StoreArtisan
-                v-if="step === 3 && isVendor === true"
-                v-model="form"
-                @next="submit"
+                v-if="step === 3 && isVendor"
+                :modelValue="form"
+                @section-data="mergeForm"
                 @finish="submit"
+                @next="submit"
             />
 
             <AddressStep
-                v-if="step === 3 && isVendor === false"
-                v-model="form"
-                @next="submit"
+                v-if="step === 3 && !isVendor"
+                :modelValue="form"
+                @section-data="mergeForm"
                 @finish="submit"
             />
         </div>
@@ -141,7 +228,8 @@ const submit = () => {
             <Link
                 :href="route('login')"
                 class="btn-login"
-                aria-label="Acceder a tu cuenta">
+                aria-label="Acceder a tu cuenta"
+            >
                 Puedes acceder a ella
             </Link>
         </div>
