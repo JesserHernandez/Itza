@@ -57,19 +57,16 @@ const showPassword = () => {
 
         <!-- Contenedor 1: Volver y Logo -->
         <div class="login-header">
-            <section>
-                <img
-                    src="/icons/icons-interface/back-icon.svg"
-                    alt="Volver"
-                    class="icon-back"
-                />
-                <p>Volver</p>
-            </section>
-            <img
-                src="/img/img-logo/Logo_itzat.svg"
-                alt="Logo de Itz'at"
-                class="logo-itzat"
-            />
+            <nav class="container-nav" aria-label="Navegación principal">
+                <Link class="option" :href="route('welcome')" aria-label="Volver a la página principal">
+                <img src="/icons/icons-interface/back-icon.svg" alt="Volver" class="icon-back" aria-hidden="true" />
+                <span>Volver</span>
+                </Link>
+
+                <div class="logo-short">
+                    <img src="/img/img-logo/Logo_itzat.svg" alt="Logo de Itz'at" class="logo-itzat"/>
+                </div>
+            </nav>
         </div>
 
         <div class="welcome-container-login">

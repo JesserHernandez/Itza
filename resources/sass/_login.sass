@@ -8,7 +8,7 @@
     padding: 4rem 0 0 0
     background-color: $background-system
 
-.login-header
+.login-header nav
     gap: .8 rem
     display: flex
     width: 100%
@@ -16,22 +16,20 @@
     align-items: center
     justify-content: space-between
 
-
-    section
+    a 
+        text-decoration: none
+        color: $button-primary
         display: flex
         align-items: center
         gap: 1.6rem
         cursor: pointer
-
+        font-size: $heading-large
+        
         .icon-back
             display: flex
             align-items: center
             height: 4rem //alto
             width: 4rem //ancho
-
-        p
-            font-size: $heading-large
-            color: $button-primary
 
     .logo-itzat
         margin-left: auto
@@ -44,6 +42,7 @@
     height: 77.6rem
     padding: 0 7.2rem
     background-color: $background-system
+
 
     .container-one
         margin-bottom: 1rem
