@@ -75,17 +75,6 @@ function updateField(field, valueOrEvent) {
     emitSection();
 }
 
-// calcular fecha máxima (>=18 años)
-const maxBirth = (() => {
-    const d = new Date();
-    d.setFullYear(d.getFullYear() - 18);
-    const yyyy = d.getFullYear();
-    const mm = String(d.getMonth() + 1).padStart(2, "0");
-    const dd = String(d.getDate()).padStart(2, "0");
-    return `${yyyy}-${mm}-${dd}`;
-})();
-
-// validación: birth required solo para no-vendor; identification_card solo para vendor
 const isValid = computed(() => {
     const name = (local.value.name || "").trim();
     const surname = (local.value.surname || "").trim();
@@ -93,7 +82,6 @@ const isValid = computed(() => {
     const identification_card = (local.value.identification_card || "").trim();
     const phone_number = (local.value.phone_number || "").trim();
     const idOk = isVendor.value ? identification_card.length > 0 : true;
-    const birthOk = isVendor.value || birth.length > 0;
 
     // Si el teléfono debe ser obligatorio, descomenta la segunda condición:
     return name.length > 1 && surname.length > 1 && gender !== "" && idOk;
