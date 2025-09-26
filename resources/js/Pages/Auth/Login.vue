@@ -58,13 +58,26 @@ const showPassword = () => {
         <!-- Contenedor 1: Volver y Logo -->
         <div class="login-header">
             <nav class="container-nav" aria-label="Navegación principal">
-                <Link class="option" :href="route('welcome')" aria-label="Volver a la página principal">
-                <img src="/icons/icons-interface/back-icon.svg" alt="Volver" class="icon-back" aria-hidden="true" />
-                <span>Volver</span>
+                <Link
+                    class="option"
+                    :href="route('welcome')"
+                    aria-label="Volver a la página principal"
+                >
+                    <img
+                        src="/icons/icons-interface/back-icon.svg"
+                        alt="Volver"
+                        class="icon-back"
+                        aria-hidden="true"
+                    />
+                    <span>Volver</span>
                 </Link>
 
                 <div class="logo-short">
-                    <img src="/img/img-logo/Logo_itzat.svg" alt="Logo de Itz'at" class="logo-itzat"/>
+                    <img
+                        src="/img/img-logo/Logo_itzat.svg"
+                        alt="Logo de Itz'at"
+                        class="logo-itzat"
+                    />
                 </div>
             </nav>
         </div>
@@ -144,9 +157,9 @@ const showPassword = () => {
                             <PrimaryButton
                                 class="btn-class"
                                 id="btn-login"
+                                :description="'¡Vamos! Ingresa a tu cuenta de ITZ´AT'"
                                 :disabled="form.processing"
                             >
-                                ¡Vamos! Ingresa a tu cuenta de ITZ'AT
                             </PrimaryButton>
                         </div>
                     </div>
