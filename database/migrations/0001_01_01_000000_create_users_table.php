@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('gender', 10);
             $table->string('phone_number', 20);
             $table->string('identification_card', 20)->unique();
-            $table->text('experience')->nullable()->default(null);;
+            $table->text('experience')->nullable();
             $table->boolean('is_vendor')->default(false);
             $table->boolean('is_outstanding')->default(false);
             $table->string('profile_photo_path', 2048)->nullable();
