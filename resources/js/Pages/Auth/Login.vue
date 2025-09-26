@@ -173,7 +173,7 @@ const showPassword = () => {
 
                 <span class="questions" id="question-login"
                     >¿Aún no te registras?
-                    <Link href="/register" class="register-link"
+                    <Link :href="route('register-type')" class="register-link"
                         >Únete ahora.</Link
                     >
                 </span>
