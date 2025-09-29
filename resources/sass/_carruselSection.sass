@@ -1,0 +1,28 @@
+.carrusel-wrapper
+        position: relative
+        width: 100%
+        overflow: hidden
+        height: 12rem
+
+        .carrusel-track
+            display: flex
+            gap: 2rem
+            width: max-content
+            animation: scroll 10s linear infinite
+
+
+            .carrusel-item
+                gap: .8rem
+                display: flex
+                flex: 0 0 auto
+                padding: 1rem 2rem
+                align-items: center
+                color: $button-primary
+                justify-content: center
+                font-size: $subheading-medium
+
+@keyframes scroll
+    0%
+        transform: translateX(0)
+    100%
+        transform: translateX(-50%)
