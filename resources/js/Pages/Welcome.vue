@@ -5,13 +5,14 @@ import NavLink from '@/Components/NavLink.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import TextInput from '@/Components/TextInput.vue';
 import CardProduct from '@/Components/CardProduct.vue';
+import FooterSection from '@/Components/FooterSection.vue';
 import ArtistSection from '@/Components/ArtistSection.vue';
+import SectionComment from '@/Components/SectionComment.vue';
 import NavbarComponent from '@/Components/NavbarComponent.vue';
+import CarruselSection from '@/Components/CarruselSection.vue';
 import SectionCreative from '@/Components/SectionCreative.vue';
 import ProductHighlight from '@/Components/ProductHighlight.vue';
 import CardsPresentation from '@/Components/CardsPresentation.vue';
-import SectionComment from '@/Components/SectionComment.vue';
-import FooterSection from '@/Components/FooterSection.vue';
 
 defineProps({
     canLogin: Boolean,
@@ -20,14 +21,7 @@ defineProps({
 
 
 // 👉 Aquí agregamos los ítems del carrusel
-const carruselItems = [
-    { icon: "/icons/icons-interface/instagram-icon.svg", alt: "Icono de Instagram", text: "Instagram" },
-    { icon: "/icons/icons-interface/local-offers-icon.svg", alt: "Icono de Precios Garantizados", text: "¡Precios garantizados!" },
-    { icon: "/icons/icons-interface/local-shipping-icon.svg", alt: "Icono de Envíos a todo el país", text: "¡Envíos a todo el país!" },
-    { icon: "/icons/icons-interface/tiktok-icon.svg", alt: "Icono de Tik Tok", text: "TikTok" },
-    { icon: "/icons/icons-interface/ornament-design-icon.svg", alt: "Icono de Diseños personalizados", text: "¡Diseños personalizados!" },
-    { icon: "/icons/icons-interface/whatsapp-icon.svg", alt: "Icono de WhatsApp", text: "WhatsApp" }
-];
+
 
 function scrollTo(id) {
     const element = document.getElementById(id);
@@ -127,7 +121,7 @@ function scrollTo(id) {
                 </div>
                 <div class="container-action">
                     <div class="button-containers">
-                        <Link :href="route('register-type')" class="btn-class">Registrarse en ITZ´AT <img
+                        <Link :href="route('register_type')" class="btn-class">Registrarse en ITZ´AT <img
                             src="/icons/icons-interface/next-white-icon.svg"
                             alt="Botón para ir al formulario de Registro">
                         </Link>
@@ -151,22 +145,9 @@ function scrollTo(id) {
     </div>
 
 
-    <!--? Carrusel -->
     <div class="main-landing" aria-label="Sección principal de la landing">
-        <div class="carrusel-wrapper" role="region" aria-label="Características destacadas de la plataforma">
-            <div class="carrusel-track" role="list" aria-label="Lista de características">
-                <div v-for="(item, i) in carruselItems" :key="'track1-' + i" class="carrusel-item" role="listitem"
-                    aria-label="Característica: {{ item.text }}">
-                    <img :src="item.icon" :alt="item.alt" aria-hidden="true" />
-                    <span aria-label="Texto de característica">{{ item.text }}</span>
-                </div>
-                <div v-for="(item, i) in carruselItems" :key="'track2-' + i" class="carrusel-item" role="listitem"
-                    aria-label="Característica: {{ item.text }}">
-                    <img :src="item.icon" :alt="item.alt" aria-hidden="true" />
-                    <span aria-label="Texto de característica">{{ item.text }}</span>
-                </div>
-            </div>
-        </div>
+        <!--? Carrusel -->
+        <CarruselSection />
         <!--? Inicio de las CardsPresentation -->
         <CardsPresentation />
         <!--? Fin de las CardsPresentation  -->
@@ -276,7 +257,7 @@ function scrollTo(id) {
         </div>
 
         <!--? Fin de las Sección de Comentarios -->
-        
+
 
         <FooterSection />
     </div>
