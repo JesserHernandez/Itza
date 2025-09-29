@@ -26,6 +26,7 @@ const isVendor = computed(
 const local = ref({
     email: props.modelValue?.email || "",
     password: props.modelValue?.password || "",
+    password_confirmation: props.modelValue?.password_confirmation || "",
     errors: { ...(props.modelValue?.errors || {}) },
 });
 
@@ -36,6 +37,8 @@ watch(
         if (!nv) return;
         if (nv.email !== undefined) local.value.email = nv.email;
         if (nv.password !== undefined) local.value.password = nv.password;
+        if (nv.password_confirmation !== undefined)
+            local.value.password_confirmation = nv.password_confirmation;
         local.value.errors = { ...(nv.errors || {}) };
     },
     { deep: true }
@@ -50,8 +53,13 @@ function updateFieldLocal(field, valueOrEvent) {
             : valueOrEvent;
     local.value[field] = value;
 
-    // emitir solo la sección (no todo el form)
-    emit("section-data", { email: local.value.email, password: local.value.password, errors: { ...(local.value.errors || {}) } });
+    // Emitir todos los campos relevantes, incluyendo password_confirmation
+    emit("section-data", {
+        email: local.value.email,
+        password: local.value.password,
+        password_confirmation: local.value.password_confirmation, // Agregado aquí
+        errors: { ...(local.value.errors || {}) },
+    });
 }
 
 // computed que indica si los campos mínimos son válidos
@@ -59,8 +67,10 @@ const isValid = computed(() => {
     const email = (local.value.email || "").toString().trim();
     const password = (local.value.password || "").toString();
     const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const passConfOk =
+        local.value.password_confirmation === local.value.password;
     const passOk = password.length >= 8;
-    return emailOk && passOk;
+    return emailOk && passOk && passConfOk;
 });
 
 // validación mínima antes de avanzar
@@ -76,6 +86,10 @@ function handleNext(e) {
     }
     if (password.length < 8) {
         errors.password = "La contraseña debe tener al menos 8 caracteres";
+    }
+
+    if (local.value.password_confirmation !== local.value.password) {
+        errors.password_confirmation = "Las contraseñas no coinciden";
     }
 
     if (Object.keys(errors).length) {
@@ -183,16 +197,52 @@ function toggleViewPassword() {
                     />
                 </div>
 
+                <div class="field">
+                    <InputLabel
+                        for="password_confirmation"
+                        value="Confirmar Password"
+                        texAdd=" *"
+                    />
+                        <TextInput
+                            class="input-pass"
+                            id="password_confirmation"
+                            :value="local.password_confirmation"
+                            @input="
+                                updateFieldLocal(
+                                    'password_confirmation',
+                                    $event
+                                )
+                            "
+                            @update:modelValue="
+                                (val) =>
+                                    updateFieldLocal(
+                                        'password_confirmation',
+                                        val
+                                    )
+                            "
+                            :type="passwordType"
+                            autocomplete="new-password"
+                            placeholder="Confirma tu contraseña aquí"
+                        />
+                </div>
+
                 <div class="button-next">
                     <!-- mejor: clase base + clase condicional -->
                     <button
                         type="button"
                         @click="handleNext"
                         :disabled="!isValid"
-                        :class="['button-base', { 'btn-class': isValid, gray: !isValid }]"
+                        :class="[
+                            'button-base',
+                            { 'btn-class': isValid, gray: !isValid },
+                        ]"
                         :aria-disabled="!isValid"
                     >
-                        {{ isVendor ? '¡Adelante! desatemos nuestra creatividad' : '¡Adelante! continuemos explorando' }}
+                        {{
+                            isVendor
+                                ? "¡Adelante! desatemos nuestra creatividad"
+                                : "¡Adelante! continuemos explorando"
+                        }}
                     </button>
                 </div>
             </div>
