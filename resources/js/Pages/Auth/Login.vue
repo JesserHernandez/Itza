@@ -3,8 +3,6 @@
 //? Importa los componentes necesarios
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import AuthenticationCard from "@/Components/AuthenticationCard.vue";
-import AuthenticationCardLogo from "@/Components/AuthenticationCardLogo.vue";
-import Checkbox from "@/Components/Checkbox.vue";
 import { ref } from "vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
@@ -173,7 +171,7 @@ const showPassword = () => {
 
                 <span class="questions" id="question-login"
                     >¿Aún no te registras?
-                    <Link :href="route('register-type')" class="register-link"
+                    <Link :href="route('register_type')" class="register-link"
                         >Únete ahora.</Link
                     >
                 </span>
