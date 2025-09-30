@@ -44,7 +44,7 @@ footer
             a
                 display: flex
                 gap: 0.8rem
-                color: #6A6A6A
+                color: $state-footer
                 align-items: center
                 text-decoration: none
                 font-size: $subheading-medium
@@ -63,14 +63,14 @@ footer
                                 
         .politicas
             font-size: $subheading-medium
-            color: #6A6A6A
+            color: $state-footer
             display: flex
             align-items: center
             gap: 2.4rem
 
             a
                 text-decoration: none
-                color: #6A6A6A
+                color: $state-footer
                 display: flex
                 align-items: center
                 gap: 1.5rem
@@ -117,19 +117,22 @@ footer
             display: flex
             flex-direction: column
             font-size: $subheading-medium
-            color: #6A6A6A
+            color: $state-footer
             gap: 2rem
+            align-items: flex-end
 
             a
                 font-size: $subheading-medium
-                color: #6A6A6A
+                color: $state-footer
                 text-decoration: none
                 align-items: center
                 display: flex
+                justify-content: flex-end
                 text-align: right
                 gap: 1.5rem
                 padding: 1.2rem
                 font-weight: 500
+                width: 25rem
 
                 svg
                     transition: transform .3s
@@ -141,6 +144,7 @@ footer
                     transition: $transition-fast
                     color: $button-primary
                     font-weight: 500
+
 
                     svg
                         transform: rotate(45deg)
