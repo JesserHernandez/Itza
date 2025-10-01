@@ -18,11 +18,11 @@ class CartController extends Controller
     public function index(Request $request): mixed
     {
         $carts = Cart::paginate();
-        return Inertia::render('Cart/Index', ['carts' => $carts, 'i' => ($request->input('page', 1) - 1) * $carts->perPage()]);
+        return Inertia::render('Customer/Cart/Index', ['carts' => $carts, 'i' => ($request->input('page', 1) - 1) * $carts->perPage()]);
     }
     public function create(): mixed
     {
-        return Inertia::render('Cart/Create', ['cart' => new Cart() ]);
+        return Inertia::render('Customer/Cart/Create', ['cart' => new Cart() ]);
     }
     public function store(CartRequest $request): RedirectResponse
     {
@@ -56,12 +56,12 @@ class CartController extends Controller
     public function show($id): mixed
     {
         $cart = Cart::findOrFail($id);
-        return Inertia::render('Cart/Show', ['cart' => $cart ]);
+        return Inertia::render('Customer/Cart/Show', ['cart' => $cart ]);
     }
     public function edit($id): mixed
     {
         $cart = Cart::findOrFail($id);
-        return Inertia::render('Cart/Edit', ['cart' => $cart ]);
+        return Inertia::render('Customer/Cart/Edit', ['cart' => $cart ]);
     }
     public function update(CartRequest $request, Cart $cart): RedirectResponse
     {

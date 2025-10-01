@@ -15,11 +15,11 @@ class PaymentMethodUserController extends Controller
     public function index(Request $request): mixed
     {
         $paymentMethodUsers = PaymentMethodUser::paginate();
-        return Inertia::render('PaymentMethodUser/Index', ['paymentMethodUsers' => $paymentMethodUsers, 'i' => ($request->input('page', 1) - 1) * $paymentMethodUsers->perPage()]);
+        return Inertia::render('Customer/PaymentMethodUser/Index', ['paymentMethodUsers' => $paymentMethodUsers, 'i' => ($request->input('page', 1) - 1) * $paymentMethodUsers->perPage()]);
     }
     public function create(): mixed
     {
-        return Inertia::render('PaymentMethodUser/Create', ['paymentMethodUser' => new PaymentMethodUser() ]);
+        return Inertia::render('Customer/PaymentMethodUser/Create', ['paymentMethodUser' => new PaymentMethodUser() ]);
     }
     public function store(PaymentMethodUserRequest $request): RedirectResponse
     {
@@ -31,12 +31,12 @@ class PaymentMethodUserController extends Controller
     public function show($id): mixed
     {
         $paymentMethodUser = PaymentMethodUser::findOrFail($id);
-        return Inertia::render('PaymentMethodUser/Show', ['paymentMethodUser' => $paymentMethodUser ]);
+        return Inertia::render('Customer/PaymentMethodUser/Show', ['paymentMethodUser' => $paymentMethodUser ]);
     }
     public function edit($id): mixed
     {
         $paymentMethodUser = PaymentMethodUser::findOrFail($id);
-        return Inertia::render('PaymentMethodUser/Edit', ['paymentMethodUser' => $paymentMethodUser ]);
+        return Inertia::render('Customer/PaymentMethodUser/Edit', ['paymentMethodUser' => $paymentMethodUser ]);
     }
     public function update(PaymentMethodUserRequest $request, PaymentMethodUser $paymentMethodUser): RedirectResponse
     {

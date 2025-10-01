@@ -15,11 +15,11 @@ class ReviewController extends Controller
     public function index(Request $request): mixed
     {
         $reviews = Review::paginate();
-        return Inertia::render('Review/Index', ['reviews' => $reviews, 'i' => ($request->input('page', 1) - 1) * $reviews->perPage()]);
+        return Inertia::render('Customer/Review/Index', ['reviews' => $reviews, 'i' => ($request->input('page', 1) - 1) * $reviews->perPage()]);
     }
     public function create(): mixed
     {
-        return Inertia::render('Review/Create', ['review' => new Review() ]);
+        return Inertia::render('Customer/Review/Create', ['review' => new Review() ]);
     }
     public function store(ReviewRequest $request): RedirectResponse
     {
@@ -39,12 +39,12 @@ class ReviewController extends Controller
     public function show($id): mixed
     {
         $review = Review::findOrFail($id);
-        return Inertia::render('Review/Show', ['review' => $review ]);
+        return Inertia::render('Customer/Review/Show', ['review' => $review ]);
     }
     public function edit($id): mixed
     {
         $review = Review::findOrFail($id);
-        return Inertia::render('Review/Edit', ['review' => $review ]);
+        return Inertia::render('Customer/Review/Edit', ['review' => $review ]);
     }
     public function update(ReviewRequest $request, Review $review): RedirectResponse
     {

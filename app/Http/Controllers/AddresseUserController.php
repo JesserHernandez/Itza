@@ -8,17 +8,16 @@ use Illuminate\Http\Request;
 use App\Http\Requests\AddresseUserRequest;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
-
 class AddresseUserController extends Controller
 {
     public function index(Request $request): mixed
     {
         $addressesUsers = AddresseUser::paginate();
-        return Inertia::render('AddressesUser/Index', ['addressesUsers' => $addressesUsers, 'i' => ($request->input('page', 1) - 1) * $addressesUsers->perPage()]);
+        return Inertia::render('Customer/AddressesUser/Index', ['addressesUsers' => $addressesUsers, 'i' => ($request->input('page', 1) - 1) * $addressesUsers->perPage()]);
     }
     public function create(): mixed
     {
-        return Inertia::render('AddressesUser/Create', ['addressesUser' => new AddresseUser() ]);
+        return Inertia::render('Customer/AddressesUser/Create', ['addressesUser' => new AddresseUser() ]);
     }
     public function store(AddresseUserRequest $request): RedirectResponse
     {
@@ -28,12 +27,12 @@ class AddresseUserController extends Controller
     public function show($id): mixed
     {
         $addressesUser = AddresseUser::findOrFail($id);
-        return Inertia::render('AddressesUsers/Show', ['addressesUser' => $addressesUser ]);
+        return Inertia::render('Customer/AddressesUsers/Show', ['addressesUser' => $addressesUser ]);
     }
     public function edit($id): mixed
     {
         $addressesUser = AddresseUser::findOrFail($id);
-        return Inertia::render('AddressesUsers/Edit', ['addressesUser' => $addressesUser ]);
+        return Inertia::render('Customer/AddressesUsers/Edit', ['addressesUser' => $addressesUser ]);
     }
     public function update(AddresseUserRequest $request, AddresseUser $addressesUser): RedirectResponse
     {

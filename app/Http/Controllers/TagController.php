@@ -14,11 +14,11 @@ class TagController extends Controller
     public function index(Request $request): mixed
     {
         $tags = Tag::paginate();
-        return Inertia::render('Tag/Index', ['tags' => $tags, 'i' => ($request->input('page', 1) - 1) * $tags->perPage()]);
+        return Inertia::render('Vendor/Tag/Index', ['tags' => $tags, 'i' => ($request->input('page', 1) - 1) * $tags->perPage()]);
     }
     public function create(): mixed
     {
-        return Inertia::render('Tag/Create', ['tag' => new Tag() ]);
+        return Inertia::render('Vendor/Tag/Create', ['tag' => new Tag() ]);
     }
     public function store(TagRequest $request): RedirectResponse
     {
@@ -28,12 +28,12 @@ class TagController extends Controller
     public function show($id): mixed
     {
         $tag = Tag::findOrFail($id);
-        return Inertia::render('Tag/Show', ['tag' => $tag ]);
+        return Inertia::render('Vendor/Tag/Show', ['tag' => $tag ]);
     }
     public function edit($id): mixed
     {
         $tag = Tag::findOrFail($id);
-        return Inertia::render('Tag/Edit', ['tag' => $tag ]);
+        return Inertia::render('Vendor/Tag/Edit', ['tag' => $tag ]);
     }
     public function update(TagRequest $request, Tag $tag): RedirectResponse
     {

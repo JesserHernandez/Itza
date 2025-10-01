@@ -18,11 +18,11 @@ class OrderController extends Controller
     public function index(Request $request): mixed
     {
         $orders = Order::paginate();
-        return Inertia::render('Order/Index', ['orders' => $orders, 'i' => ($request->input('page', 1) - 1) * $orders->perPage()]);
+        return Inertia::render('Vendor/Order/Index', ['orders' => $orders, 'i' => ($request->input('page', 1) - 1) * $orders->perPage()]);
     }
     public function create(): mixed
     {
-        return Inertia::render('Order/Create', ['order' => new Order() ]);
+        return Inertia::render('Vendor/Order/Create', ['order' => new Order() ]);
     }
     public function store(OrderRequest $request): RedirectResponse
     {
@@ -53,12 +53,12 @@ class OrderController extends Controller
     public function show($id): mixed
     {
         $order = Order::findOrFail($id);
-        return Inertia::render('Order/Show', ['order' => $order ]);
+        return Inertia::render('Vendor/Order/Show', ['order' => $order ]);
     }
     public function edit($id): mixed
     {
         $order = Order::findOrFail($id);
-        return Inertia::render('Order/Edit', ['order' => $order ]);
+        return Inertia::render('Vendor/Order/Edit', ['order' => $order ]);
     }
     public function update(OrderRequest $request, Order $order): RedirectResponse
     {

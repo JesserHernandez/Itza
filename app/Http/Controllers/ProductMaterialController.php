@@ -14,11 +14,11 @@ class ProductMaterialController extends Controller
     public function index(Request $request): mixed
     {
         $productMaterials = ProductMaterial::paginate();
-        return Inertia::render('ProductMaterial/Index', ['productMaterials' => $productMaterials, 'i' => ($request->input('page', 1) - 1) * $productMaterials->perPage()]);
+        return Inertia::render('Vendor/ProductMaterial/Index', ['productMaterials' => $productMaterials, 'i' => ($request->input('page', 1) - 1) * $productMaterials->perPage()]);
     }
     public function create(): mixed
     {
-        return Inertia::render('ProductMaterial/Create', ['productMaterial' => new ProductMaterial() ]);
+        return Inertia::render('Vendor/ProductMaterial/Create', ['productMaterial' => new ProductMaterial() ]);
     }
     public function store(ProductMaterialRequest $request): RedirectResponse
     {
@@ -28,12 +28,12 @@ class ProductMaterialController extends Controller
     public function show($id): mixed
     {
         $productMaterial = ProductMaterial::findOrFail($id);
-        return Inertia::render('ProductMaterial/Show', ['productMaterial' => $productMaterial ]);
+        return Inertia::render('Vendor/ProductMaterial/Show', ['productMaterial' => $productMaterial ]);
     }
     public function edit($id): mixed
     {
         $productMaterial = ProductMaterial::findOrFail($id);
-        return Inertia::render('ProductMaterial/Edit', ['productMaterial' => $productMaterial ]);
+        return Inertia::render('Vendor/ProductMaterial/Edit', ['productMaterial' => $productMaterial ]);
     }
     public function update(ProductMaterialRequest $request, ProductMaterial $productMaterial): RedirectResponse
     {

@@ -17,11 +17,11 @@ class OrderReturnController extends Controller
     public function index(Request $request): mixed
     {
         $orderReturns = OrderReturn::paginate();
-        return Inertia::render('OrderReturn/Index', ['orderReturns' => $orderReturns, 'i' => ($request->input('page', 1) - 1) * $orderReturns->perPage()]);
+        return Inertia::render('Vendor/OrderReturn/Index', ['orderReturns' => $orderReturns, 'i' => ($request->input('page', 1) - 1) * $orderReturns->perPage()]);
     }
     public function create(): mixed
     {
-        return Inertia::render('OrderReturn/Create', ['orderReturn' => new OrderReturn() ]);
+        return Inertia::render('Vendor/OrderReturn/Create', ['orderReturn' => new OrderReturn() ]);
     }
     public function store(OrderReturnRequest $request): RedirectResponse
     {
@@ -47,12 +47,12 @@ class OrderReturnController extends Controller
     public function show($id): mixed
     {
         $orderReturn = OrderReturn::findOrFail($id);
-        return Inertia::render('OrderReturn/Show', ['orderReturn' => $orderReturn ]);
+        return Inertia::render('Vendor/OrderReturn/Show', ['orderReturn' => $orderReturn ]);
     }
     public function edit($id): mixed
     {
         $orderReturn = OrderReturn::findOrFail($id);
-        return Inertia::render('OrderReturn/Edit', ['orderReturn' => $orderReturn ]);
+        return Inertia::render('Vendor/OrderReturn/Edit', ['orderReturn' => $orderReturn ]);
     }
     public function update(OrderReturnRequest $request, OrderReturn $orderReturn): RedirectResponse
     {

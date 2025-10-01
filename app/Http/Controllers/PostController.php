@@ -17,11 +17,11 @@ class PostController extends Controller
     public function index(Request $request): mixed
     {
         $posts = Post::paginate();
-        return Inertia::render('Post/Index', ['posts' => $posts, 'i' => ($request->input('page', 1) - 1) * $posts->perPage()]);
+        return Inertia::render('Customer/Post/Index', ['posts' => $posts, 'i' => ($request->input('page', 1) - 1) * $posts->perPage()]);
     }
     public function create(): mixed
     {
-        return Inertia::render('Post/Create', ['post' => new Post() ]);
+        return Inertia::render('Customer/Post/Create', ['post' => new Post() ]);
     }
     public function store(PostRequest $request)
     {
@@ -72,12 +72,12 @@ class PostController extends Controller
     public function show($id): mixed
     {
         $post = Post::findOrFail($id);
-        return Inertia::render('Post/Show', ['post' => $post ]);
+        return Inertia::render('Customer/Post/Show', ['post' => $post ]);
     }
     public function edit($id): mixed
     {
         $post = Post::findOrFail($id);
-        return Inertia::render('Post/Edit', ['post' => $post ]);
+        return Inertia::render('Customer/Post/Edit', ['post' => $post ]);
     }
     public function update(PostRequest $request, Post $post)
     {

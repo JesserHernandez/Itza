@@ -17,11 +17,11 @@ class ProductController extends Controller
     public function index(Request $request): mixed
     {
         $products = Product::paginate();
-        return Inertia::render('Product/Index', ['products' => $products, 'i' => ($request->input('page', 1) - 1) * $products->perPage()]);
+        return Inertia::render('Vendor/Product/Index', ['products' => $products, 'i' => ($request->input('page', 1) - 1) * $products->perPage()]);
     }
     public function create(): mixed
     {
-        return Inertia::render('Product/Create', ['product' => new Product() ]);
+        return Inertia::render('Vendor/Product/Create', ['product' => new Product() ]);
     }
     public function store(ProductRequest $request): RedirectResponse
     {
@@ -79,13 +79,13 @@ class ProductController extends Controller
     public function show($id): mixed
     {
         $product = Product::findOrFail($id);
-        return Inertia::render('Product/Show', ['product' => $product ]);
+        return Inertia::render('Vendor/Product/Show', ['product' => $product ]);
 
     }
     public function edit($id): mixed
     {
         $product = Product::findOrFail($id);
-        return Inertia::render('Product/Edit', ['product' => $product ]);
+        return Inertia::render('Vendor/Product/Edit', ['product' => $product ]);
     }
     public function update(ProductRequest $request, Product $product): RedirectResponse
     {

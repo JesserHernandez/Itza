@@ -15,11 +15,11 @@ class VerificationUserController extends Controller
     public function index(Request $request): mixed
     {
         $verificationUsers = VerificationUser::paginate();
-        return Inertia::render('VerificationUser/Index', ['verificationUsers' => $verificationUsers, 'i' => ($request->input('page', 1) - 1) * $verificationUsers->perPage()]);
+        return Inertia::render('Vendor/VerificationUser/Index', ['verificationUsers' => $verificationUsers, 'i' => ($request->input('page', 1) - 1) * $verificationUsers->perPage()]);
     }
     public function create(): mixed
     {
-        return Inertia::render('VerificationUser/Create', ['verificationUser' => new VerificationUser() ]);
+        return Inertia::render('Vendor/VerificationUser/Create', ['verificationUser' => new VerificationUser() ]);
     }
     public function store(VerificationUserRequest $request): RedirectResponse
     {
@@ -31,12 +31,12 @@ class VerificationUserController extends Controller
     public function show($id): mixed
     {
         $verificationUser = VerificationUser::findOrFail($id);
-        return Inertia::render('VerificationUser/Show', ['verificationUser' => $verificationUser ]);
+        return Inertia::render('Vendor/VerificationUser/Show', ['verificationUser' => $verificationUser ]);
     }
     public function edit($id): mixed
     {
         $verificationUser = VerificationUser::findOrFail($id);
-        return Inertia::render('VerificationUser/Edit', ['verificationUser' => $verificationUser ]);
+        return Inertia::render('Vendor/VerificationUser/Edit', ['verificationUser' => $verificationUser ]);
     }
     public function update(VerificationUserRequest $request, VerificationUser $verificationUser): RedirectResponse
     {
