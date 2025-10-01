@@ -16,11 +16,11 @@ class CouponController extends Controller
     public function index(Request $request): mixed
     {
         $coupons = Coupon::paginate();
-        return Inertia::render( 'Coupon/Index', ['coupons' => $coupons, 'i' => ($request->input('page', 1) - 1) * $coupons->perPage()]);
+        return Inertia::render( 'Vendor/Coupon/Index', ['coupons' => $coupons, 'i' => ($request->input('page', 1) - 1) * $coupons->perPage()]);
     }
     public function create(): mixed
     {
-        return Inertia::render('Coupon/Create', ['coupon' => new Coupon() ]);
+        return Inertia::render('Vendor/Coupon/Create', ['coupon' => new Coupon() ]);
     }
     public function store(CouponRequest $request): RedirectResponse
     {
@@ -33,12 +33,12 @@ class CouponController extends Controller
     public function show($id): mixed
     {
         $coupon = Coupon::findOrFail($id);
-        return Inertia::render('Coupon/Show', ['coupon' => $coupon ]);
+        return Inertia::render('Vendor/Coupon/Show', ['coupon' => $coupon ]);
     }
     public function edit($id): mixed
     {
         $coupon = Coupon::findOrFail($id);
-        return Inertia::render('Coupon/Edit', ['coupon' => $coupon ]);
+        return Inertia::render('Vendor/Coupon/Edit', ['coupon' => $coupon ]);
     }
     public function update(CouponRequest $request, Coupon $coupon): RedirectResponse
     {

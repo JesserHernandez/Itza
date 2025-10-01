@@ -19,11 +19,11 @@ class InventoryController extends Controller
     public function index(Request $request): mixed
     {
         $inventories = Inventory::paginate();
-        return Inertia::render('Inventory/Index', ['inventories' => $inventories, 'i' => ($request->input('page', 1) - 1) * $inventories->perPage()]);
+        return Inertia::render('Vendor/Inventory/Index', ['inventories' => $inventories, 'i' => ($request->input('page', 1) - 1) * $inventories->perPage()]);
     }
     public function create(): mixed
     {
-        return Inertia::render('Inventory/Create', ['inventory' => new Inventory() ]);
+        return Inertia::render('Vendor/Inventory/Create', ['inventory' => new Inventory() ]);
     }
 
     public function store(InventoryRequest $request): RedirectResponse
@@ -74,12 +74,12 @@ class InventoryController extends Controller
     public function show($id): mixed
     {
         $inventory = Inventory::findOrFail($id);
-        return Inertia::render('Inventory/Show', ['inventory' => $inventory ]);
+        return Inertia::render('Vendor/Inventory/Show', ['inventory' => $inventory ]);
     }
     public function edit($id): mixed
     {
         $inventory = Inventory::findOrFail($id);
-        return Inertia::render('Inventory/Edit', ['inventory' => $inventory ]);
+        return Inertia::render('Vendor/Inventory/Edit', ['inventory' => $inventory ]);
     }
     public function update(InventoryRequest $request, Inventory $inventory): RedirectResponse
     {

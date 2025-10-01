@@ -15,11 +15,11 @@ class ReportController extends Controller
     public function index(Request $request): mixed
     {
         $reports = Report::paginate();
-        return Inertia::render('Report/Index', ['reports' => $reports, 'i' => ($request->input('page', 1) - 1) * $reports->perPage()]);
+        return Inertia::render('Customer/Report/Index', ['reports' => $reports, 'i' => ($request->input('page', 1) - 1) * $reports->perPage()]);
     }
     public function create(): mixed
     {
-        return Inertia::render('Report/Create', ['report' => new Report() ]);
+        return Inertia::render('Customer/Report/Create', ['report' => new Report() ]);
     }
     public function store(ReportRequest $request): RedirectResponse
     {
@@ -31,12 +31,12 @@ class ReportController extends Controller
     public function show($id): mixed
     {
         $report = Report::findOrFail($id);
-        return Inertia::render('Report/Show', ['report' => $report ]);
+        return Inertia::render('Customer/Report/Show', ['report' => $report ]);
     }
     public function edit($id): mixed
     {
         $report = Report::findOrFail($id);
-        return Inertia::render('Report/Edit', ['report' => $report ]);
+        return Inertia::render('Customer/Report/Edit', ['report' => $report ]);
     }
     public function update(ReportRequest $request, Report $report): RedirectResponse
     {

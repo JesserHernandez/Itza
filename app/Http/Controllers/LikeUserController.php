@@ -6,24 +6,20 @@ use App\Models\LikeUser;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\LikeUserRequest;
-use App\Models\Product;
-use App\Models\ResponseReview;
-use App\Models\Review;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
-use SebastianBergmann\Type\TrueType;
 
 class LikeUserController extends Controller
 {
     public function index(Request $request): mixed
     {
         $likeUsers = LikeUser::paginate();
-        return Inertia::render('LikeUser/Index', ['likeUsers' => $likeUsers, 'i' => ($request->input('page', 1) - 1) * $likeUsers->perPage()]);
+        return Inertia::render('Customer/LikeUser/Index', ['likeUsers' => $likeUsers, 'i' => ($request->input('page', 1) - 1) * $likeUsers->perPage()]);
     }
     public function create(): mixed
     {
-        return Inertia::render('LikeUser/Create', ['likeUser' => new LikeUser() ]);
+        return Inertia::render('Customer/LikeUser/Create', ['likeUser' => new LikeUser() ]);
     }
     public function store(LikeUserRequest $request): RedirectResponse
     {
@@ -35,12 +31,12 @@ class LikeUserController extends Controller
     public function show($id): mixed
     {
         $likeUser = LikeUser::findOrFail($id);
-        return Inertia::render('LikeUser/Show', ['likeUser' => $likeUser ]);
+        return Inertia::render('Customer/LikeUser/Show', ['likeUser' => $likeUser ]);
     }
     public function edit($id): mixed
     {
         $likeUser = LikeUser::findOrFail($id);
-        return Inertia::render('LikeUser/Edit', ['likeUser' => $likeUser ]);
+        return Inertia::render('Customer/LikeUser/Edit', ['likeUser' => $likeUser ]);
     }
     public function update(LikeUserRequest $request, LikeUser $likeUser): RedirectResponse
     {
@@ -95,7 +91,6 @@ class LikeUserController extends Controller
             $target->increment('dis_like_count');
         }
     }
-
     protected function applyReaction(LikeUser $like): void
     {
         $target = $like->liked;

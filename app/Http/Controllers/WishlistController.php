@@ -15,11 +15,11 @@ class WishlistController extends Controller
     public function index(Request $request): mixed
     {
         $wishlists = Wishlist::paginate();
-        return Inertia::render('Wishlist/Index', ['wishlists' => $wishlists, 'i' => ($request->input('page', 1) - 1) * $wishlists->perPage()]);
+        return Inertia::render('Customer/Wishlist/Index', ['wishlists' => $wishlists, 'i' => ($request->input('page', 1) - 1) * $wishlists->perPage()]);
     }
     public function create(): mixed
     {
-        return Inertia::render('Wishlist/Create', ['wishlist' => new Wishlist() ]);
+        return Inertia::render('Customer/Wishlist/Create', ['wishlist' => new Wishlist() ]);
     }
     public function store(WishlistsRequest $request): RedirectResponse
     {
@@ -31,12 +31,12 @@ class WishlistController extends Controller
     public function show($id): mixed
     {
         $wishlist = Wishlist::findOrFail($id);
-        return Inertia::render('Wishlist/Show', ['wishlist' => $wishlist ]);
+        return Inertia::render('Customer/Wishlist/Show', ['wishlist' => $wishlist ]);
     }
     public function edit($id): mixed
     {
         $wishlist = Wishlist::findOrFail($id);
-        return Inertia::render('Wishlist/Edit', ['wishlist' => $wishlist ]);
+        return Inertia::render('Customer/Wishlist/Edit', ['wishlist' => $wishlist ]);
     }
     public function update(WishlistsRequest $request, Wishlist $wishlist): RedirectResponse
     {

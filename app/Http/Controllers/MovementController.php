@@ -17,11 +17,11 @@ class MovementController extends Controller
     public function index(Request $request): mixed
     {
         $movements = Movement::with(['inventory.product', 'user'])->latest()->paginate();
-        return Inertia::render('Movement/Index', ['movements' => $movements, 'i' => ($request->input('page', 1) - 1) * $movements->perPage()]);
+        return Inertia::render('Vendor/Movement/Index', ['movements' => $movements, 'i' => ($request->input('page', 1) - 1) * $movements->perPage()]);
     }
     public function create(): mixed
     {
-        return Inertia::render('Movement/Create', ['movement' => new Movement() ]);
+        return Inertia::render('Vendor/Movement/Create', ['movement' => new Movement() ]);
     }
     public function store(MovementRequest $request): RedirectResponse
     {   
@@ -65,12 +65,12 @@ class MovementController extends Controller
     public function show($id): mixed
     {
         $movement = Movement::findOrFail($id);
-        return Inertia::render('Movement/Show', ['movement' => $movement ]);
+        return Inertia::render('Vendor/Movement/Show', ['movement' => $movement ]);
     }
     public function edit($id): mixed
     {
         $movement = Movement::findOrFail($id);
-        return Inertia::render('Movement/Edit', ['movement' => $movement ]);
+        return Inertia::render('Vendor/Movement/Edit', ['movement' => $movement ]);
     }
     public function update(MovementRequest $request, Movement $movement): RedirectResponse
     {

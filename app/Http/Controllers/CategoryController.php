@@ -14,11 +14,11 @@ class CategoryController extends Controller
     public function index(Request $request): mixed
     {
         $categories = Category::paginate();
-        return Inertia::render('Category/Index', ['categories' => $categories, 'i' => ($request->input('page', 1) - 1) * $categories->perPage()]);
+        return Inertia::render('Vendor/Category/Index', ['categories' => $categories, 'i' => ($request->input('page', 1) - 1) * $categories->perPage()]);
     }
     public function create(): mixed
     {
-        return Inertia::render('Category/Create', ['category' => new Category() ]);
+        return Inertia::render('Vendor/Category/Create', ['category' => new Category() ]);
     }
     public function store(CategoryRequest $request): RedirectResponse
     {
@@ -28,12 +28,12 @@ class CategoryController extends Controller
     public function show($id): mixed
     {
         $category = Category::findOrFail($id);
-        return Inertia::render('Category/Show', ['category' => $category ]);
+        return Inertia::render('Vendor/Category/Show', ['category' => $category ]);
     }
     public function edit($id): mixed
     {
         $category = Category::findOrFail($id);
-        return Inertia::render('Category/Edit', ['category' => $category ]);
+        return Inertia::render('Vendor/Category/Edit', ['category' => $category ]);
     }
     public function update(CategoryRequest $request, Category $category): RedirectResponse
     {
