@@ -26,7 +26,7 @@ class VerificationUserController extends Controller
         $validated = $request->validated();
         $validated['user_id'] = Auth::id();
         VerificationUser::create($validated);
-        return Redirect::route('verification-users.index')->with('success', '¡Los documentos han sido guardados correctamente!');
+        return Redirect::route('verification_users.index')->with('success', '¡Los documentos han sido guardados correctamente!');
     }
     public function show($id): mixed
     {
@@ -41,11 +41,11 @@ class VerificationUserController extends Controller
     public function update(VerificationUserRequest $request, VerificationUser $verificationUser): RedirectResponse
     {
         $verificationUser->update($request->validated());
-        return Redirect::route('verification-users.index')->with('success', '¡Los documentos han sido guardados correctamente!');
+        return Redirect::route('verification_users.index')->with('success', '¡Los documentos han sido guardados correctamente!');
     }
     public function destroy($id): RedirectResponse
     {
         VerificationUser::findOrFail($id)->delete();
-        return Redirect::route('verification-users.index')->with('success', '¡Los documentos han sido guardados correctamente!');
+        return Redirect::route('verification_users.index')->with('success', '¡Los documentos han sido guardados correctamente!');
     }
 }

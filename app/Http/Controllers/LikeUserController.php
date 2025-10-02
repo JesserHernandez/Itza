@@ -26,7 +26,7 @@ class LikeUserController extends Controller
         $validated = $request->validated();
         $validated['user_id'] = Auth::id();
         $this->toggleOrCreate($validated);
-        return Redirect::route('like-users.index')->with('success', 'Reacción registrada correctamente.');
+        return Redirect::route('like_users.index')->with('success', 'Reacción registrada correctamente.');
     }
     public function show($id): mixed
     {
@@ -41,12 +41,12 @@ class LikeUserController extends Controller
     public function update(LikeUserRequest $request, LikeUser $likeUser): RedirectResponse
     {
         $likeUser->update($request->validated());
-        return Redirect::route('like-users.index')->with('success', 'LikeUser updated successfully');
+        return Redirect::route('like_users.index')->with('success', 'LikeUser updated successfully');
     }
     public function destroy($id): RedirectResponse
     {
         LikeUser::findOrFail($id)->delete();
-        return Redirect::route('like-users.index')->with('success', 'LikeUser deleted successfully');
+        return Redirect::route('like_users.index')->with('success', 'LikeUser deleted successfully');
     }
     public function toggleOrCreate(array $validated): void
     {
