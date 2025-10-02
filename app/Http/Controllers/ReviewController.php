@@ -6,7 +6,7 @@ use App\Models\Review;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\ReviewRequest;
-use DragonCode\Support\Facades\Helpers\Arr;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -28,6 +28,8 @@ class ReviewController extends Controller
         try {
             DB::transaction(function () use ($request) {
                 $validated = $request->validated();
+                $validated['user_id'] = Auth::id();
+
                 $hasDeliveredOrders = Auth::user()->orders()->where('order_status', 'Entregada')->exists();
                 $validated['is_verified_purchase'] = $hasDeliveredOrders;
 
@@ -58,6 +60,8 @@ class ReviewController extends Controller
         try {
             DB::transaction(function () use ($request, $review) {
                 $validated = $request->validated();
+                $validated['user_id'] = Auth::id();
+                
                 $hasDeliveredOrders = Auth::user()->orders()->where('order_status', 'Entregada')->exists();
                 $validated['is_verified_purchase'] = $hasDeliveredOrders;
 

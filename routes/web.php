@@ -56,7 +56,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     //Review
     Route::resource('/reviews', \App\Http\Controllers\ReviewController::class);
     //ResponseReview
-    Route::resource('/respondes_reviews', \App\Http\Controllers\ResponseReviewController::class);
+    Route::resource('/review_responses', \App\Http\Controllers\ReviewResponseController::class);
      //LikeUser
     Route::resource('/like_users', \App\Http\Controllers\LikeUserController::class);
     //Wishlist
@@ -68,5 +68,5 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     //Cart
     Route::resource('/carts', \App\Http\Controllers\CartController::class);
     //CouponUser
-    Route::resource('/coupon-users', \App\Http\Controllers\CouponUserController::class);
+    Route::resource('/coupon_users', \App\Http\Controllers\CouponUserController::class);
 });
