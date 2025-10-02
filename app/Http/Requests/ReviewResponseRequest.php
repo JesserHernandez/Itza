@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ResponseReviewRequest extends FormRequest
+class ReviewResponseRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -19,7 +19,7 @@ class ResponseReviewRequest extends FormRequest
 			'like_count' => 'required|integer|min:0',
 			'dis_like_count' => 'required|integer|min:0',
 			'is_verified_purchase' => 'required|boolean',
-			'review_id' => 'required|exists:users,id',
+			'review_id' => 'required|exists:reviews,id',
         ];
     }
 }
