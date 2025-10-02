@@ -26,7 +26,7 @@
                 font-weight: 500
                 user-select: none
                 width: fit-content
-                color: $state-main
+                color: $state-inactive
                 align-items: center
                 text-decoration: none
                 font-size: $button-small
@@ -34,7 +34,7 @@
                 transition: $transition-slow
 
                 .icons-navbar path
-                    fill: currentColor;
+                    fill: currentColor
 
                 &:hover
                     transition: $transition-slow
@@ -49,6 +49,7 @@
 
             .dropdown
                 border-radius: $br-radius
+                color: $state-inactive
                 // margin-top: 2rem
 
                 .dropdown-content
@@ -63,7 +64,7 @@
                     transition: $transition-fast
 
                     .icons-navbar path
-                        fill: currentColor;
+                        fill: currentColor
 
                     &:hover
                         transition: $transition-fast
@@ -92,6 +93,32 @@
                         width: 14.3rem
                         margin-top: .8rem
 
+            .profile-dropdown
+                .submenu
+                    width: fit-content
+                    height: fit-content
+                    display: flex
+                    flex-direction: column
+                    
+                    a
+                        width: 100%
+                        height: 4.8rem
+                        margin-right: .8rem
+                        font-size: $subheading-small
+                        display: flex
+                        align-items: center
+                        padding: 0.6rem 1rem
+                        box-sizing: border-box
+
+                        img
+                            width: 2.4rem
+                            height: 2.4rem
+                            border-radius: 50%                            
+
+                        svg .icons-navbar
+                            width: 2.4rem
+                            height: 2.4rem
+                     
             .button-search
 
                 .elements-button
@@ -109,7 +136,8 @@
 
                     .icons-navbar path
                         // padding: 1.5rem
-                        fill: currentColor;
+                        fill: currentColor
+                        color: $state-inactive
 
                     &:hover
                         transition: $transition-slow
@@ -176,15 +204,41 @@
                     .icons-navbar
                         transition: $transition-fast
 
-            .submenu
-                z-index: 25
-                width: 16.7rem
-                translate: -5rem 0
+                .submenu
+                    z-index: 25
+                    width: 16.7rem
+                    translate: -5rem 0
 
-                a
+                    a
+                        width: fit-content
+                        translate: 0 0
+
+            .profile-dropdown
+                .submenu
                     width: fit-content
-                    translate: 0 0
-
+                    height: fit-content
+                    display: flex
+                    flex-direction: column
+                    
+                    a
+                        width: fit-content
+                        height: 4.8rem
+                        margin-right: .8rem
+                        font-size: $subheading-small
+                        display: flex
+                        align-items: center
+                        padding: 0.6rem 1rem
+                        box-sizing: border-box
+                        
+                        img
+                            width: 2.4rem
+                            height: 2.4rem
+                            border-radius: 50%
+                            
+                        svg .icons-navbar
+                            width: 2.4rem
+                            height: 2.4rem
+                            
 
             .button-search
                 .elements-button
