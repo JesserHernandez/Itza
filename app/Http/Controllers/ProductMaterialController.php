@@ -23,7 +23,7 @@ class ProductMaterialController extends Controller
     public function store(ProductMaterialRequest $request): RedirectResponse
     {
         ProductMaterial::create($request->validated());
-        return Redirect::route('product-materials.index')->with('success', '¡El material del producto ha sido guardado correctamente!');
+        return Redirect::route('product_materials.index')->with('success', '¡El material del producto ha sido guardado correctamente!');
     }
     public function show($id): mixed
     {
@@ -38,11 +38,11 @@ class ProductMaterialController extends Controller
     public function update(ProductMaterialRequest $request, ProductMaterial $productMaterial): RedirectResponse
     {
         $productMaterial->update($request->validated());
-        return Redirect::route('product-materials.index')->with('success', '¡El material del producto ha sido actualizado correctamente!');
+        return Redirect::route('product_materials.index')->with('success', '¡El material del producto ha sido actualizado correctamente!');
     }
     public function destroy($id): RedirectResponse
     {
         ProductMaterial::findOrFail($id)->delete();
-        return Redirect::route('product-materials.index')->with('success', '¡El material del producto ha sido eliminado correctamente!');
+        return Redirect::route('product_materials.index')->with('success', '¡El material del producto ha sido eliminado correctamente!');
     }
 }
