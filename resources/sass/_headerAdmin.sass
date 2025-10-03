@@ -1,0 +1,77 @@
+.header-admin
+    width: 90rem
+    display: flex
+    justify-content: space-between
+
+    .title-header-admin
+        gap: .8rem
+        display: flex
+        width: 21.7rem
+        height: 4.4rem
+        align-items: center
+
+        img
+            width: 2rem
+            height: 2rem
+
+        h1
+            color: $state-span
+            font-size: $subtitle-medium
+
+    .actions-header-admin
+        gap: 1.6rem
+        width: 40rem
+        display: flex
+
+        .items
+            gap: .8rem
+            display: flex
+            width: 16.7rem
+            padding: 1.2rem
+            cursor: pointer
+            align-items: center
+            border-radius: $br-radius
+            transition: $transition-fast
+
+            svg
+                width: 2.4rem
+                height: 2.4rem
+
+                path
+                    fill: currentColor
+                    color: $state-inactive
+
+            span
+                color: $state-inactive
+                font-size: $subheading-small
+
+
+            &:hover
+                border-radius: $br-radius
+                transition: $transition-fast
+                background: $button-secondary
+
+                span
+                    color: $state-span
+
+                svg path
+                    fill: currrentColor
+                    color: $button-primary
+
+.text-body
+    gap: 1.2rem
+    width: 100%
+    display: flex
+    flex-wrap: wrap
+    padding: 1.2rem 0
+    margin-top: 1.2rem
+
+    h1
+        width: 100%
+        color: $state-main
+        font-size: $title-page-small
+
+    p
+        width: 100%
+        font-weight: 400
+        font-size: $body-medium
