@@ -1,0 +1,113 @@
+@import '_mixinsBtn'
+
+.container-admin
+    width: 100%
+    display: flex
+    height: fit-content
+
+    .aside
+        width: 30rem
+        height: 59.1rem
+        position: fixed
+        padding: 2.4rem 3.2rem
+        background: $button-primary
+
+        .items-aside
+            width: 100%
+            display: flex
+            gap: .5rem
+            flex-direction: column
+
+            .actions-aside
+                width: 25rem
+                display: flex
+                align-items: center
+                justify-content: space-between
+
+                a
+
+                    gap: .8rem
+                    display: flex
+                    padding: 1.2rem
+                    align-items: center
+
+                    .name-link
+                    text-decoration: none
+                    font-size: $button-small
+                    color: $state-hover-l
+
+                    .icons-aside
+                        width: 2rem
+                        height: 2rem
+
+                .open-close
+                    width: 4rem
+                    height: 4rem
+                    border: none
+                    outline: none
+                    padding: 1rem
+                    border-radius: $br-radius
+
+                    &:hover
+
+                    .icons-aside
+                        width: 2rem
+                        height: 2rem
+                        cursor: pointer
+
+            @include btnStandar(
+                            $border: .2rem solid $button-primary,
+                            $padding: 1.5rem 11rem 1.5rem 1.2rem,
+                            $weight: 700,
+                            $shadow: none,
+                            $font-size: $button-small,
+                            $br-rad: 2rem,
+                            $background: $button-primary,
+                            $color: $button-color-ti-primary,
+                            $width: 2rem,
+                            $height: 2rem,
+                            $background-animation: $background-darker
+                        )
+
+
+    .content-admin
+        width: 90rem
+        translate: 35rem 2.2rem
+        position: relative
+        margin-top: 2.2rem
+
+.welcome-artisan
+    width: 100%
+    height: 50rem
+    display: flex
+    flex-wrap: wrap
+    border-radius: $br-card
+    background: $button-secondary
+
+
+    .title
+        gap: .8rem
+        width: 100%
+        display: flex
+        align-items: center
+        justify-content: center
+
+        .img
+            width: 4rem
+            height: 4rem
+
+        h1
+            color: $state-span
+            font-size: $subtitle-medium
+
+    .paragraph
+        width: 100%
+        display: flex
+        flex-wrap: wrap
+        padding: 0 0 0 5rem
+        justify-content: star
+
+        p, span
+            text-wrap: balance
+            color: $state-span
+            font-size: $heading-small
