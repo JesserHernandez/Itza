@@ -1,7 +1,7 @@
 <script setup>
 import { Head } from "@inertiajs/inertia-vue3";
 import AppLayout from "@/Layouts/AppLayout.vue";
-import Form from "@/Pages/Vendor/ProductMaterial";
+import Form from "@/Pages/Vendor/ProductMaterial/Form.vue";
 
 const props = defineProps({
     productMaterial: Object,
