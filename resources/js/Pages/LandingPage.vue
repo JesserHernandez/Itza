@@ -1,9 +1,5 @@
 <script setup>
-import { ref } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
-import NavLink from '@/Components/NavLink.vue';
-import Dropdown from '@/Components/Dropdown.vue';
-import TextInput from '@/Components/TextInput.vue';
 import CardProduct from '@/Components/CardProduct.vue';
 import FooterSection from '@/Components/FooterSection.vue';
 import ArtistSection from '@/Components/ArtistSection.vue';
@@ -20,7 +16,7 @@ defineProps({
 });
 
 
-// 👉 Aquí agregamos los ítems del carrusel
+
 
 
 function scrollTo(id) {
@@ -168,29 +164,56 @@ function scrollTo(id) {
 
             <ProductHighlight name="Ofertas de temporada" slogan="¡Ahorra hasta un 30%! de descuento"
                 store="Artesanías González" imageHigh="/img/img-interfaces/jarron-vessel.png" action="Comprar" />
-
-
+                
             <!--? Fin de los productos destacados -->
+        </div>
+
+         <div class="container-products" role="region" aria-label="Productos">
 
             <!--? Inicio de los productos en general -->
-            <CardProduct name="Ovos" price="350" description="Cerámica artesanal nicaragüense." location="Masaya"
+            <CardProduct name="Ovos rojos de 25LB" price="620" description="Cerámica roja vibrante: acabado moteado, textura única y forma curva, irradia modernidad." location="Masaya"
                 store="Artesanías González" value="4.5" image="/img/img-interfaces/ovos.jpg" />
 
             <CardProduct name="Terrarios" price="5, 840"
                 description="Cuencos coloridos: tres piezas apiladas con texturas vibrantes, ideales para dar un toque de alegría."
-                location="San Juan De Oriente" store="Artesanía Doña Daysi" value="4.1"
+                location="San Juan De Oriente" store="Artesanía Doña Daysi" value="4.9"
                 image="/img/img-interfaces/terrarios.jpg" />
+
+            <CardProduct name="El Guardián Mítico de las Historias" price="620"
+                description="Vasija de silueta distintiva y boca esculpida con grabados míticos en blanco sobre azul."
+                location="San Juan De Oriente" store="Artesanía Doña Daysi" value="4.9"
+                image="/img/img-interfaces/guardian-mitico.jpg" />
 
             <CardProduct name="Jarrón de la Luna Nueva" price="2, 920"
                 description="Esta vasija ovalada, con su forma lunar y sus intrincados diseños figurativos."
                 location="San Juan De Oriente" store="Artesanía Doña Daysi" value="4.94"
                 image="/img/img-interfaces/luna-nueva.jpg" />
 
-            <CardProduct name="El Guardián Mítico de las Antiguas Historias" price="620"
+             <CardProduct name="Danza Cuadriculada" price="620"
                 description="Vasija de silueta distintiva y boca esculpida con grabados míticos en blanco sobre azul."
                 location="San Juan De Oriente" store="Artesanía Doña Daysi" value="4.9"
-                image="/img/img-interfaces/guardian-mitico.jpg" />
+                image="/img/img-interfaces/danza-cuadriculada.jpg" />
 
+                <CardProduct name="Plato floral" price="620"
+                description="Vasija de silueta distintiva y boca esculpida con grabados míticos en blanco sobre azul."
+                location="San Juan De Oriente" store="Artesanía Doña Daysi" value="4.9"
+                image="/img/img-interfaces/plato.jpg" />
+                
+                <CardProduct name="Sol sonriente" price="2, 920"
+                description="Esta vasija ovalada, con su forma lunar y sus intrincados diseños figurativos."
+                location="San Juan De Oriente" store="Artesanía Doña Daysi" value="4.94"
+                image="/img/img-interfaces/sol.jpg" />
+                
+                <CardProduct name="Cerámica ancestral multicolor" price="620"
+                description="Vasija de silueta distintiva y boca esculpida con grabados míticos en blanco sobre azul."
+                location="San Juan De Oriente" store="Artesanía Doña Daysi" value="4.9"
+                image="/img/img-interfaces/multicolor.jpg" />
+                
+                <CardProduct name="El Zorrillo" price="620"
+                    description="Vasija de silueta distintiva y boca esculpida con grabados míticos en blanco sobre azul."
+                    location="San Juan De Oriente" store="Artesanía Doña Daysi" value="4.9"
+                    image="/img/img-interfaces/jarra-zorrillo.jpg" />
+                    
             <div class="btn-show-products">
                 <Link class="btn-class" :href="route('login')">
                 <span>Ver más productos</span>
