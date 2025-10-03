@@ -15,7 +15,6 @@ return new class extends Migration
             $table->string('summary');
             $table->date('post_date');
             $table->string('post_status', 20);
-            $table->string('photo_path',  2048)->nullable();
             $table->foreignId('author_Id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('team_id')->nullable()->constrained('teams')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

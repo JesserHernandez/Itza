@@ -14,7 +14,6 @@ return new class extends Migration
             $table->integer('rating');
             $table->text('comment');
             $table->date('review_date');
-            $table->string('photo_path')->nullable();
             $table->integer('like_count')->default(0);
             $table->integer('dis_like_count')->default(0);
             $table->boolean('is_verified_purchase')->default(false);

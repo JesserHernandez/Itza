@@ -6,7 +6,9 @@ use App\Models\Review;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\ReviewRequest;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
@@ -23,19 +25,26 @@ class ReviewController extends Controller
     }
     public function store(ReviewRequest $request): RedirectResponse
     {
-        $validated = $request->validated();
-        $hasDeliveredOrders = Auth::user()->orders()->where('order_status', 'Entregada')->exists();
-        $validated['is_verified_purchase'] = $hasDeliveredOrders;
+        try {
+            DB::transaction(function () use ($request) {
+                $validated = $request->validated();
+                $validated['user_id'] = Auth::id();
 
-        $review = Review::create($validated);
-        if ($validated->hasFile('photo_path')) {
-            $review->photo_path = $validated->file('photo_path')->store('reviews', 'public');
+                $hasDeliveredOrders = Auth::user()->orders()->where('order_status', 'Entregada')->exists();
+                $validated['is_verified_purchase'] = $hasDeliveredOrders;
+
+                $review = Review::create($validated);
+
+                foreach ($validated['images'] as $imageData) {
+                    $review->images()->create($imageData);
+                }
+            });
+            return Redirect::route('reviews.index')->with('success', '¡La reseña ha sido guardada correctamente!');
+
+        } catch (\Throwable $th) {
+            return Redirect::route('reviews.index')->with('error', '¡Vaya!... Ocurrió un error al guardar la reseña. Inténtalo de nuevo.');
         }
-        $review->save();
-
-        return Redirect::route('reviews.index')->with('success', '¡La reseña ha sido guardada correctamente!');
     }
-    
     public function show($id): mixed
     {
         $review = Review::findOrFail($id);
@@ -48,18 +57,33 @@ class ReviewController extends Controller
     }
     public function update(ReviewRequest $request, Review $review): RedirectResponse
     {
-        $validated = $request->validated();
-        $hasDeliveredOrders = Auth::user()->orders()->where('order_status', 'Entregada')->exists();
-        $validated['is_verified_purchase'] = $hasDeliveredOrders;
+        try {
+            DB::transaction(function () use ($request, $review) {
+                $validated = $request->validated();
+                $validated['user_id'] = Auth::id();
+                
+                $hasDeliveredOrders = Auth::user()->orders()->where('order_status', 'Entregada')->exists();
+                $validated['is_verified_purchase'] = $hasDeliveredOrders;
 
-        $review = Review::create($validated);
-        if ($validated->hasFile('photo_path')) {
-            $review->photo_path = $validated->file('photo_path')->store('reviews', 'public');
+                $review->update($validated);
+
+                $existingImages = $review->images()->get()->keyBy('id');
+                $incomingIds = collect($validated['images'] ?? [])->pluck('id')->filter()->all();
+                $review->images()->whereNotIn('id', $incomingIds)->delete();
+
+                foreach ($validated['images'] ?? [] as $imageData) {
+                    if (isset($imageData['id']) && $existingImages->has($imageData['id'])) {
+                        $existingImages[$imageData['id']]->update(Arr::except($imageData, ['id']));
+                    } else {
+                        $review->images()->create($imageData);
+                    }
+                }
+            });
+            return Redirect::route('reviews.index')->with('success', '¡La reseña ha sido guardada correctamente!');
+
+        } catch (\Throwable $th) {
+            return Redirect::route('reviews.index')->with('error', '¡Vaya!... Ocurrió un error al guardar la reseña. Inténtalo de nuevo.');
         }
-        $review->save();
-
-        $review->update($request->validated());
-        return Redirect::route('reviews.index')->with('success', '¡La reseña ha sido actualizada correctamente!');
     }
     public function destroy($id): RedirectResponse
     {

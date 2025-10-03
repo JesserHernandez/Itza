@@ -10,16 +10,15 @@ class Review extends Model
     use HasFactory;
     
     protected $perPage = 20;
-    protected $fillable = ['title', 'rating', 'comment', 'review_date', 'photo_path', 'like_count', 'dis_like_count', 'is_verified_purchase', 'reviewed_type', 'reviewed_id', 'user_id'];
+    protected $fillable = ['title', 'rating', 'comment', 'review_date', 'like_count', 'dis_like_count', 'is_verified_purchase', 'reviewed_type', 'reviewed_id', 'user_id'];
     
-
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
     public function responseReviews()
     {
-        return $this->hasMany(ResponseReview::class, 'id', 'review_id');
+        return $this->hasMany(ReviewResponse::class, 'id', 'review_id');
     }
     public function reviewed()
     {
@@ -32,5 +31,9 @@ class Review extends Model
     public function liked()
     {
         return $this->morphMany(LikeUser::class, 'liked');
+    }
+    public function images()
+    {
+        return $this->morphMany(ReviewImage::class, 'reviewed');
     }
 }

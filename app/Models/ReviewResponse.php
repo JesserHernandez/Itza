@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class ResponseReview extends Model
+class ReviewResponse extends Model
 {
     use HasFactory;
     
     protected $perPage = 20;
     protected $fillable = ['comment', 'review_date', 'photo_path', 'like_count', 'dis_like_count', 'is_verified_purchase', 'parent_response_id', 'review_id', 'user_id'];
     
-    public function responseReview()
+    public function reviewResponse()
     {
-        return $this->belongsTo(ResponseReview::class, 'parent_response_id', 'id');
+        return $this->belongsTo(ReviewResponse::class, 'parent_response_id', 'id');
     }
     public function review()
     {
@@ -24,13 +24,13 @@ class ResponseReview extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
-    public function responseReviews()
-    {
-        return $this->hasMany(ResponseReview::class, 'id', 'parent_response_id');
-    }
     public function reports()
     {
         return $this->morphMany(Report::class, 'reported');
+    }
+    public function images()
+    {
+        return $this->morphMany(ReviewImage::class, 'reviewed');
     }
     public function likes()
     {

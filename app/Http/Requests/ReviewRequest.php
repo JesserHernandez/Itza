@@ -17,9 +17,13 @@ class ReviewRequest extends FormRequest
 			'rating' => 'required|integer|min:0',
 			'comment' => 'required|string|min:3',
 			'review_date' => 'required|date|after_or_equal:today',
-            'photo_path' => 'string|image|max:2048|mimes:jpeg,png,jpg,svg',
             'reviewed_type' => 'required|string|in:App\\Models\\Product,App\\Models\\Post,App\\Models\\Team', 
-            'reviewed_id' => 'required|integer'
+            'reviewed_id' => 'required|integer',
+
+            'images' => 'array|min:1',
+            'images.*.photo_path' => 'string|image|max:2048|mimes:jpeg,png,jpg,svg',
+            'images.*.review_type' => 'string|in:App\\Models\\Review,App\\Models\\ReviewResponse', 
+            'images.*.review_id' => 'integer'
         ];
     }
 }
