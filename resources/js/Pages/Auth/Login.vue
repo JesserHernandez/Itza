@@ -58,7 +58,7 @@ const showPassword = () => {
             <nav class="container-nav" aria-label="Navegación principal">
                 <Link
                     class="option"
-                    :href="route('welcome')"
+                    :href="route('landingPage')"
                     aria-label="Volver a la página principal"
                 >
                     <img
@@ -109,7 +109,6 @@ const showPassword = () => {
                                 v-model="form.email"
                                 required
                                 autofocus
-                                autocomplete="username"
                             />
                             <p class="example-email">
                                 Ejemplo: luisgonzales@gmail.com
@@ -132,7 +131,6 @@ const showPassword = () => {
                                     v-model="form.password"
                                     required
                                     autofocus
-                                    autocomplete="current-password"
                                 />
                                 <img
                                     src="/icons/icons-interface/eye-closed-icon.svg"
