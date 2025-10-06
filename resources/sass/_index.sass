@@ -2,6 +2,7 @@
 
 .content
     width: 100%
+    z-index: -100
     height: fit-content
     margin-top: 2rem
     margin-bottom: 2rem
@@ -10,14 +11,46 @@
 
     .header-content-index
         display: flex
+        z-index: -110
         padding-top: 2rem
         align-items: center
-        justify-content: space-around
+        justify-content: space-evenly
+
+        .select-container
+            height: 5rem
+            width: 23.8rem
+            display: flex
+            padding: 0 .6rem
+            justify-content: space-between
+            border-radius: $br-card
+            border: .1rem solid $state-span
+
+            label
+                display: flex
+                font-weight: 600
+                color: $state-span
+                align-items: center
+                font-size: $button-small
+
+
+
+            select
+                width: 5rem
+                border: none
+                outline: none
+                cursor: pointer
+                color: $state-span
+                background: transparent
+                border-radius: $br-card
+                font-size: $button-small
+
+                option
+                    background: $button-secondary
 
         .button-search
             height: 5rem
             display: flex
-            width: 53.6rem
+            width: 45.4rem
             padding: 0 1.2rem
             align-items: center
             border-radius: $br-card
@@ -146,6 +179,31 @@
                                 $background-animation: $background-light
                             )
 
+.pagination
+        gap: 2rem
+        width: 100%
+        display: flex
+        margin-top: 4rem
+        margin-bottom: 2rem
+        align-items: center
+
+        @include btnStandar(
+                                $border: none,
+                                $padding: 1.2rem,
+                                $weight: 700,
+                                $shadow: none,
+                                $font-size: $button-small,
+                                $br-rad: $br-radius,
+                                $background: $button-primary,
+                                $color: $button-color-ti-primary,
+                                $width: 2rem,
+                                $height: 2rem,
+                                $background-animation: $background-darker
+                            )
+
+        span
+            font-size: $button-small
+            color: $state-span
 
 .popup-swal
     width: 35rem
