@@ -194,10 +194,10 @@ watch(
                         max="10"
                         :value="localAddress.address_type"
                         @input="(e) => updateAddressField('address_type', e)"
-                        placeholder="Casa, Apartamento, Oficina, etc."
+                        placeholder="Ingrese el tipo de dirección"
                     />
                     <p class="example">
-                        Por ejemplo: Casa, Oficina, etc.
+                        Por ejemplo: Envío, Factura.
                     </p>
                     <InputError :message="props.modelValue?.errors?.address_type" />
                 </div>
