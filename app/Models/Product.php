@@ -44,12 +44,20 @@ class Product extends Model
     {
         return $this->belongsToMany(Tag::class)->withPivot('is_main')->withTimestamps();
     }
-    public function reviewed()
-    {
-        return $this->morphMany(Report::class, 'reviewed');
-    }
     public function wishlists()
     {
         return $this->hasMany(Wishlist::class, 'id', 'product_id');
+    }
+    public function reviewed()
+    {
+        return $this->morphMany(Review::class, 'reviewed');
+    }
+    public function reports()
+    {
+        return $this->morphMany(Report::class, 'reported');
+    }
+    public function liked()
+    {
+        return $this->morphMany(LikeUser::class, 'liked');
     }
 }

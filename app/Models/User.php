@@ -27,6 +27,10 @@ class User extends Authenticatable
     {
         return $this->morphMany(Report::class, 'reported');
     }
+    public function liked()
+    {
+        return $this->morphMany(LikeUser::class, 'liked');
+    }
     public function couponUsers()
     {
         return $this->hasMany(CouponUser::class);
