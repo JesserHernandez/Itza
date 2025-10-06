@@ -50,14 +50,11 @@
 
                     &:hover
 
-                    .icons-aside
-                        width: 2rem
-                        height: 2rem
-                        cursor: pointer
+
 
             @include btnStandar(
                             $border: .2rem solid $button-primary,
-                            $padding: 1.5rem 11rem 1.5rem 1.2rem,
+                            $padding: 1.5rem 5rem 1.5rem 1.2rem,
                             $weight: 700,
                             $shadow: none,
                             $font-size: $button-small,
@@ -69,10 +66,71 @@
                             $background-animation: $background-darker
                         )
 
+            //? Lista desplegable
+            .title-list
+                height: 5rem
+                width: 25rem
+                display: flex
+                flex-wrap: wrap
+                align-items: center
+                flex-direction: column
+                transition: $transition-fast
+
+                .item-list
+                    gap: .8rem
+                    width: 35rem
+                    display: flex
+                    justify-content: start
+
+                    button
+                        gap: .8rem
+                        border: none
+                        display: flex
+                        font-weight: 700
+                        font-family: $font-family
+                        font-size: $button-small
+                        color: $button-color-ti-primary
+
+                        &.btn-class
+                            height: 5rem
+                            width: 22rem
+
+                    .list-admin
+                            list-style: none
+                            gap: .1rem
+                            border: none
+                            display: flex
+                            flex-wrap: wrap
+                            position: relative
+                            translate: .5rem 5.15rem
+                            transition: $transition-fast
+
+                            &.list-admin.expanded
+                                z-index: 100
+                                width: 20rem
+                                height: 30rem
+                                padding: .5rem
+                                position: absolute
+                                background: $button-primary
+
+                            @include btnStandar(
+                            $border: .2rem solid $button-primary,
+                            $padding: 1.5rem 3rem 1rem 1.2rem,
+                            $weight: 700,
+                            $shadow: none,
+                            $font-size: $body-small,
+                            $br-rad: 2rem,
+                            $background: $button-primary,
+                            $color: $button-color-ti-primary,
+                            $width: 2rem,
+                            $height: 2rem,
+                            $background-animation: $background-darker
+                        )
+
 
     .content-admin
         width: 90rem
-        translate: 35rem 2.2rem
+        translate: 34rem 2.2rem
         position: relative
         margin-top: 2.2rem
 
