@@ -11,7 +11,6 @@
         width: 58.4rem
         display: flex
         height: 46.8rem
-        // margin: 5.2rem 7.2rem
         background: $background-card
 
         .text-section
@@ -103,7 +102,8 @@
 
         .image
             padding: 0
-            width: 230rem
+            width: 240rem
+            background: red
             overflow: hidden
 
             img
@@ -112,21 +112,21 @@
                 left: 10rem
                 position: relative
                 transform: rotate(7deg)
-                transition: $transition-fast
+                transition: $transition-slow
 
 
                 &:hover
                     top: 0
-                    left: 0
                     scale: 1
-                    width: 26rem
-                    height: 46.8rem
+                    left: -2rem
+                    width: 33rem
+                    height: 53rem
                     min-width: 26.8rem
-                    max-width: 33.5rem
+                    max-width: 49.5rem
                     min-height: 46.6rem
                     max-height: 58.2rem
                     transform: rotate(0)
-                    transition: $transition-fast
+                    transition: $transition-slow
 
             .jarron
                 top: -4rem
