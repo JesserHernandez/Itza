@@ -4,6 +4,7 @@ import NavLink from "@/Components/NavLink.vue";
 import Dropdown from "@/Components/Dropdown.vue";
 import TextInput from "@/Components/TextInput.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
+import { router } from "@inertiajs/vue3";
 
 const searchInput = ref(null);
 const containerNavbar = ref(null);
@@ -17,6 +18,10 @@ const showSearch = () => {
 defineProps({
     scrollTo: Function,
 });
+
+const logout = () => {
+    router.post(route("logout"));
+};
 </script>
 
 <template>
@@ -205,33 +210,35 @@ defineProps({
 
                     <template #content>
                         <section class="submenu">
-                           
                             <!-- Perfil -->
                             <DropdownLink>
-                                <img src="img/avatars/avatar-twentyfour.png" alt="">
+                                <img
+                                    src="img/avatars/avatar-twentyfour.png"
+                                    alt=""
+                                />
                                 <span class="submenu-items"
                                     >Perfil de usuario</span
                                 >
                             </DropdownLink>
 
-                            
                             <!-- Cerrar sesión -->
-                            <DropdownLink>
+                            <form action="" @submit.prevent="logout" method="post">
+                            <button type="submit" as="button">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="20"
                                     height="18"
                                     viewBox="0 0 20 18"
                                     fill="none"
-                                    class="icons-navbar"
                                 >
                                     <path
                                         d="M5 14L6.41 12.59L3.83 10H14V8L3.83 8L6.41 5.42L5 4L0 9L5 14ZM18 16H10V18H18C19.1 18 20 17.1 20 16V2C20 0.9 19.1 0 18 0H10V2H18V16Z"
                                         fill="#555555"
                                     />
                                 </svg>
-                                <span class="submenu-items">Cerrar sesión</span>
-                            </DropdownLink>
+                                Cerrar sesión
+                            </button>
+                        </form>
                         </section>
                     </template>
                 </Dropdown>
