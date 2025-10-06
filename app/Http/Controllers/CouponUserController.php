@@ -26,7 +26,7 @@ class CouponUserController extends Controller
         $validated = $request->validated();
         $validated['user_id'] = Auth::id();
         CouponUser::create($validated);
-        return Redirect::route('coupon-users.index')->with('success', '¡El cupón ha sido canjeado correctamente!');
+        return Redirect::route('coupon_users.index')->with('success', '¡El cupón ha sido canjeado correctamente!');
     }
     public function show($id): mixed
     {
@@ -41,11 +41,11 @@ class CouponUserController extends Controller
     public function update(CouponUserRequest $request, CouponUser $couponUser): RedirectResponse
     {
         $couponUser->update($request->validated());
-        return Redirect::route('coupon-users.index')->with('success', '¡El cupón ha sido actualizado correctamente!');
+        return Redirect::route('coupon_users.index')->with('success', '¡El cupón ha sido actualizado correctamente!');
     }
     public function destroy($id): RedirectResponse
     {
         CouponUser::findOrFail($id)->delete();
-        return Redirect::route('coupon-users.index')->with('success', '¡El cupón ha sido eliminado correctamente!');
+        return Redirect::route('coupon_users.index')->with('success', '¡El cupón ha sido eliminado correctamente!');
     }
 }

@@ -26,7 +26,7 @@ class PaymentMethodUserController extends Controller
         $validated = $request->validated();
         $validated['user_id'] = Auth::id();
         PaymentMethodUser::create($validated);
-        return Redirect::route('payment-method-users.index')->with('success', '¡El metodo de pago ha sido guardado correctamente!');
+        return Redirect::route('payment_methods_users.index')->with('success', '¡El metodo de pago ha sido guardado correctamente!');
     }
     public function show($id): mixed
     {
@@ -41,11 +41,11 @@ class PaymentMethodUserController extends Controller
     public function update(PaymentMethodUserRequest $request, PaymentMethodUser $paymentMethodUser): RedirectResponse
     {
         $paymentMethodUser->update($request->validated());
-        return Redirect::route('payment-method-users.index')->with('success', '¡El metodo de pago ha sido actualizado correctamente!');
+        return Redirect::route('payment_methods_users.index')->with('success', '¡El metodo de pago ha sido actualizado correctamente!');
     }
     public function destroy($id): RedirectResponse
     {
         PaymentMethodUser::findOrFail($id)->delete();
-        return Redirect::route('payment-method-users.index')->with('success', '¡El metodo de pago ha sido eliminado correctamente!');
+        return Redirect::route('payment_methods_users.index')->with('success', '¡El metodo de pago ha sido eliminado correctamente!');
     }
 }

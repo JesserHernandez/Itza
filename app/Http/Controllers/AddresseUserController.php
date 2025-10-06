@@ -22,7 +22,7 @@ class AddresseUserController extends Controller
     public function store(AddresseUserRequest $request): RedirectResponse
     {
         AddresseUser::create($request->validated());
-        return Redirect::route('addresses-users.index')->with('success', '¡La dirección de envío ha sido guardada correctamente!');
+        return Redirect::route('addresses_users.index')->with('success', '¡La dirección de envío ha sido guardada correctamente!');
     }
     public function show($id): mixed
     {
@@ -37,11 +37,11 @@ class AddresseUserController extends Controller
     public function update(AddresseUserRequest $request, AddresseUser $addressesUser): RedirectResponse
     {
         $addressesUser->update($request->validated());
-        return Redirect::route('addresses-users.index')->with('success', '¡La dirección de envío ha sido actualizada correctamente!');
+        return Redirect::route('addresses_users.index')->with('success', '¡La dirección de envío ha sido actualizada correctamente!');
     }
     public function destroy($id): RedirectResponse
     {
         AddresseUser::findOrFail($id)->delete();
-        return Redirect::route('addresses-users.index')->with('success', '¡La dirección de envío ha sido eliminada correctamente!');
+        return Redirect::route('addresses_users.index')->with('success', '¡La dirección de envío ha sido eliminada correctamente!');
     }
 }

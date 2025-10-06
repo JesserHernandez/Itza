@@ -38,10 +38,10 @@ class OrderReturnController extends Controller
                 }
             });
 
-            return Redirect::route('order-returns.index')->with('success', '¡La devolución de la orden ha sido guardada correctamente!');
+            return Redirect::route('order_returns.index')->with('success', '¡La devolución de la orden ha sido guardada correctamente!');
         
         } catch (\Throwable $th) {
-            return Redirect::route('order-returns.index')->with('error', '¡Vaya!... Ocurrió un error al guardar la devolución de la orden. Inténtalo de nuevo.');
+            return Redirect::route('order_returns.index')->with('error', '¡Vaya!... Ocurrió un error al guardar la devolución de la orden. Inténtalo de nuevo.');
         }
     }
     public function show($id): mixed
@@ -77,15 +77,15 @@ class OrderReturnController extends Controller
                 }
             });
 
-            return Redirect::route('order-returns.index')->with('success', '¡La devolución de la orden ha sido actualizada correctamente!');
+            return Redirect::route('order_returns.index')->with('success', '¡La devolución de la orden ha sido actualizada correctamente!');
         
         } catch (\Throwable $th) {
-            return Redirect::route('order-returns.index')->with('error', '¡Vaya!... Ocurrió un error al actualizar la devolución de la orden. Inténtalo de nuevo.');
+            return Redirect::route('order_returns.index')->with('error', '¡Vaya!... Ocurrió un error al actualizar la devolución de la orden. Inténtalo de nuevo.');
         }
     }
     public function destroy($id): RedirectResponse
     {
         OrderReturn::findOrFail($id)->delete();
-        return Redirect::route('order-returns.index')->with('success', '¡La devolución de la orden ha sido eliminada correctamente!');
+        return Redirect::route('order_returns.index')->with('success', '¡La devolución de la orden ha sido eliminada correctamente!');
     }
 }

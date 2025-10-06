@@ -26,7 +26,7 @@ class RewardUserController extends Controller
         $validated = $request->validated();
         $validated['user_id'] = Auth::id();
         RewardUser::create($validated);
-        return Redirect::route('reward-users.index')->with('success', '¡La recompensa ha sido guardada correctamente!');
+        return Redirect::route('rewards_users.index')->with('success', '¡La recompensa ha sido guardada correctamente!');
     }
     public function show($id): mixed
     {
@@ -41,11 +41,11 @@ class RewardUserController extends Controller
     public function update(RewardUserRequest $request, RewardUser $rewardUser): RedirectResponse
     {
         $rewardUser->update($request->validated());
-        return Redirect::route('reward-users.index')->with('success', '¡La recompensa ha sido actualizada correctamente!');
+        return Redirect::route('rewards_users.index')->with('success', '¡La recompensa ha sido actualizada correctamente!');
     }
     public function destroy($id): RedirectResponse
     {
         RewardUser::findOrFail($id)->delete();
-        return Redirect::route('reward-users.index')->with('success', '¡La recompensa ha sido eliminada correctamente!');
+        return Redirect::route('rewards_users.index')->with('success', '¡La recompensa ha sido eliminada correctamente!');
     }
 }

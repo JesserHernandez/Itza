@@ -19,8 +19,12 @@ class Team extends JetstreamTeam
     {
         return ['personal_team' => 'boolean'];
     }
-    public function reviewed()
+    public function reports()
     {
-        return $this->morphMany(Report::class, 'reviewed');
+        return $this->morphMany(Report::class, 'reported');
+    }
+    public function liked()
+    {
+        return $this->morphMany(LikeUser::class, 'liked');
     }
 }

@@ -20,10 +20,6 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'author_Id', 'id');
     }
-    public function reports()
-    {
-        return $this->morphMany(Report::class, 'reported');
-    }
     public function tags()
     {
         return $this->belongsToMany(Tag::class)->withPivot('is_main')->withTimestamps();
@@ -35,5 +31,17 @@ class Post extends Model
     public function images()
     {
         return $this->hasMany(PostImage::class);
+    }
+    public function reviewed()
+    {
+        return $this->morphMany(Review::class, 'reviewed');
+    }
+    public function reports()
+    {
+        return $this->morphMany(Report::class, 'reported');
+    }
+    public function liked()
+    {
+        return $this->morphMany(LikeUser::class, 'liked');
     }
 }
