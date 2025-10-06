@@ -1,10 +1,9 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
-import { Head } from "@inertiajs/inertia-vue3";
 import HeaderAdmin from "@/Components/HeaderAdmin.vue";
 import TextInput from "@/Components/TextInput.vue";
 import NavLink from "@/Components/NavLink.vue";
-import { router } from "@inertiajs/vue3";
+import { router, Head } from "@inertiajs/vue3";
 
 // Importa SweetAlert desde el CDN
 const Swal = window.Swal;
