@@ -22,7 +22,6 @@ const form = useForm({
     creation_date: "",
     price: "",
     is_active: true,
-    old_price: "",
     materials: [],
     tags: [],
     categories: [],
@@ -221,19 +220,6 @@ function submit() {
                         <option value="true">Activo</option>
                         <option value="false">Inactivo</option>
                     </select>
-                </div>
-
-                <div class="items">
-                    <InputLabel value="Precio Anterior" textAdd=" *" />
-                    <TextInput
-                        type="number"
-                        required
-                        v-model="form.old_price"
-                        :class="{ errors: form.errors.old_price }"
-                    />
-                    <span v-if="form.errors.old_price" class="errors">
-                        {{ form.errors.old_price }}
-                    </span>
                 </div>
 
                 <div class="items">
