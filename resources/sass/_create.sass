@@ -79,3 +79,57 @@
                                 $height: 2rem,
                                 $background-animation: $background-darker
                             )
+
+
+.content
+
+    .form
+        gap: 2rem
+        width: 100%
+        display: flex
+        flex-wrap: wrap
+        padding: 4rem
+        justify-content: space-evenly
+
+        .items
+            gap: 1.2rem
+            width: 35%
+            display: flex
+            flex-wrap: wrap
+            justify-content: start
+
+            label
+                width: 100%
+                font-size: $subheading-small
+
+            input, select
+                width: 100%
+                height: 4rem
+                border: none
+                outline: none
+                color: $state-span
+                padding-left: .8rem
+                border-radius: $br-card
+                font-size: $button-small
+                border: 1px solid $state-inactive
+
+
+        .container-button
+            width: 100%
+            display: flex
+            justify-content: center
+
+
+            @include btnStandar(
+                                $border: none,
+                                $padding: 1rem 10rem,
+                                $weight: 700,
+                                $shadow: none,
+                                $font-size: $button-small,
+                                $br-rad: $br-radius,
+                                $background: $button-primary,
+                                $color: $button-color-ti-primary,
+                                $width: 2rem,
+                                $height: 2rem,
+                                $background-animation: $background-darker
+                            )
