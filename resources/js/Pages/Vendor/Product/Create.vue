@@ -21,6 +21,20 @@ const form = useForm({
     creator: "",
     creation_date: "",
     price: "",
+    is_active: true,
+    old_price: "",
+    materials: [],
+    tags: [],
+    categories: [],
+    photo_paths: [],
+
+});
+
+// Datos provienientes de otras tablas
+defineProps({
+    categories: Array,
+    materials: Array,
+    tags: Array,
 });
 
 function submit() {
@@ -38,7 +52,7 @@ function submit() {
                     popup: "popup-swal",
                     confirmButton: "confirm-button-swal",
                 },
-            })
+            });
         },
     });
 }
@@ -203,11 +217,101 @@ function submit() {
                 </div>
                 <div class="items">
                     <InputLabel value="Disponibilidad" textAdd=" *" />
-                    <select name="is_active" id="">
+                    <select name="is_active" id="is_active" v-model="form.is_active">
                         <option value="true">Activo</option>
                         <option value="false">Inactivo</option>
                     </select>
                 </div>
+
+                <div class="items">
+                    <InputLabel value="Precio Anterior" textAdd=" *" />
+                    <TextInput
+                        type="number"
+                        required
+                        v-model="form.old_price"
+                        :class="{ errors: form.errors.old_price }"
+                    />
+                    <span v-if="form.errors.old_price" class="errors">
+                        {{ form.errors.old_price }}
+                    </span>
+                </div>
+
+                <div class="items">
+                    <InputLabel value="Categorías" textAdd=" *" />
+                    <select
+                        name="categories"
+                        v-model="form.categories"
+                        multiple
+                        :class="{ errors: form.errors.categories }"
+                    >
+                        <option
+                            v-for="category in categories"
+                            :key="category.id"
+                            :value="category.id"
+                        >
+                            {{ category.name }}
+                        </option>
+                    </select>
+                    <span v-if="form.errors.categories" class="errors">
+                        {{ form.errors.categories }}
+                    </span>
+                </div>
+
+                <div class="items">
+                    <InputLabel value="Materiales" textAdd=" *" />
+                    <select
+                        name="materials"
+                        v-model="form.materials_ids"
+                        multiple
+                        :class="{ errors: form.errors.materials_ids }"
+                    >
+                        <option
+                            v-for="material in materials"
+                            :key="material.id"
+                            :value="material.id"
+                        >
+                            {{ material.name }}
+                        </option>
+                    </select>
+                    <span v-if="form.errors.materials_ids" class="errors">
+                        {{ form.errors.materials_ids }}
+                    </span>
+                </div>
+
+                <div class="items">
+                    <InputLabel value="Tags" textAdd=" *" />
+                    <select
+                        name="tags"
+                        v-model="form.tags_ids"
+                        multiple
+                        :class="{ errors: form.errors.tags_ids }"
+                    >
+                        <option
+                            v-for="tag in tags"
+                            :key="tag.id"
+                            :value="tag.id"
+                        >
+                            {{ tag.name }}
+                        </option>
+                    </select>
+                    <span v-if="form.errors.tags_ids" class="errors">
+                        {{ form.errors.tags_ids }}
+                    </span>
+                </div>
+
+                <div class="items">
+                    <InputLabel value="Fotos" textAdd=" *" />
+                    <input
+                        type="file"
+                        multiple
+                        @change="e => form.photo_paths = Array.from(e.target.files)"
+                        :class="{ errors: form.errors.photo_paths }"
+                    />
+                    <span v-if="form.errors.photo_paths" class="errors">
+                        {{ form.errors.photo_paths }}
+                    </span>
+                </div>
+
                 <div class="container-button">
                     <button type="submit" class="btn-class" :disabled="form.processing">
                         Crear Producto
