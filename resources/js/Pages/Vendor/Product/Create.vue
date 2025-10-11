@@ -59,7 +59,7 @@ function submit() {
 
 <template>
     <Head title="Crear Producto" />
-    <AppLayout>
+    <AppLayout :href="route('products.index')">
         <div class="content">
             <form class="form" @submit.prevent="submit">
                 <div class="items">
@@ -247,7 +247,7 @@ function submit() {
                     <InputLabel value="Materiales" textAdd=" *" />
                     <select
                         name="materials"
-                        v-model="form.materials_ids"
+                        v-model="form.materials"
                         multiple
                         :class="{ errors: form.errors.materials_ids }"
                     >
@@ -268,7 +268,7 @@ function submit() {
                     <InputLabel value="Tags" textAdd=" *" />
                     <select
                         name="tags"
-                        v-model="form.tags_ids"
+                        v-model="form.tags"
                         multiple
                         :class="{ errors: form.errors.tags_ids }"
                     >
