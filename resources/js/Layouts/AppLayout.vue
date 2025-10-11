@@ -86,17 +86,15 @@ function toggleSubmenu() {
                     <span class="name-link"> Tiendas </span>
                 </NavLink>
 
-                <ul class=" title-list">
-                    <li class="item-list "
-                    >
+                <ul class="title-list">
+                    <li class="item-list">
                         <button
                             :class="{
                                 'btn-class': true,
-                                'active': isSubmenuOpen,
+                                active: isSubmenuOpen,
                             }"
                             @click="toggleSubmenu"
                             aria-expanded="isSubmenuOpen"
-
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -117,7 +115,10 @@ function toggleSubmenu() {
                         <ul
                             class="list-admin"
                             v-show="isSubmenuOpen"
-                            :class="{ 'expanded': isSubmenuOpen, 'collapsed': !isSubmenuOpen }"
+                            :class="{
+                                expanded: isSubmenuOpen,
+                                collapsed: !isSubmenuOpen,
+                            }"
                             :aria-hidden="!isSubmenuOpen"
                         >
                             <li>
@@ -160,15 +161,14 @@ function toggleSubmenu() {
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink class="btn-class">
-                    <img
-                        src="/icons/icons-ceramics/ceramic-7-icon.svg"
-                        alt=""
-                        class="icons"
-                    />
-                    <span class="name-link"> Productos </span>
-                </NavLink>
-
+                                <NavLink class="btn-class" :href="route('products.index')">
+                                    <img
+                                        src="/icons/icons-ceramics/ceramic-7-icon.svg"
+                                        alt=""
+                                        class="icons"
+                                    />
+                                    <span class="name-link"> Productos </span>
+                                </NavLink>
                             </li>
                             <li>
                                 <NavLink class="btn-class">
@@ -177,13 +177,14 @@ function toggleSubmenu() {
                                         alt=""
                                         class="icons"
                                     />
-                                    <span class="name-link"> Publicaciones </span>
+                                    <span class="name-link">
+                                        Publicaciones
+                                    </span>
                                 </NavLink>
                             </li>
                         </ul>
                     </li>
                 </ul>
-
 
                 <NavLink class="btn-class">
                     <img
