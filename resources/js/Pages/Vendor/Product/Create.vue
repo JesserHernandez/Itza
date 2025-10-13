@@ -26,7 +26,6 @@ const form = useForm({
     tags: [],
     categories: [],
     photo_paths: [],
-
 });
 
 // Datos provienientes de otras tablas
@@ -38,6 +37,7 @@ defineProps({
 
 function submit() {
     form.post(route("products.store"), {
+        forceFormData: true,
         onSuccess: () => {
             Swal.fire({
                 title: "¡Creado!",
@@ -55,6 +55,31 @@ function submit() {
         },
     });
 }
+
+const preview = ref([]); // Array para almacenar las URLs de vista previa
+
+function previewImage(event) {
+    const files = event.target.files;
+
+    // Convierte los archivos seleccionados en un array y los acumula en form.photo_paths
+    Array.from(files).forEach((file) => {
+        // Verifica si el archivo ya existe en el array para evitar duplicados
+        if (!form.photo_paths.some((existingFile) => existingFile.name === file.name)) {
+            form.photo_paths.push(file);
+
+            // Genera la vista previa
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                preview.value.push({
+                    url: event.target.result,
+                    name: file.name,
+                    type: file.type,
+                });
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+}
 </script>
 
 <template>
@@ -62,8 +87,54 @@ function submit() {
     <AppLayout :href="route('products.index')">
         <div class="content">
             <form class="form" @submit.prevent="submit">
+                <div class="items photo_paths">
+                    <div class="add-image">
+                        <InputLabel
+                            value="Imagen/Producto"
+                            textAdd=" *"
+                            for="photo"
+                            class="label"
+                        />
+                        <input
+                            type="file"
+                            multiple
+                            id="photo"
+                            accept=".jpg,.png,.pdf"
+                            class="input_photo"
+                            @change="previewImage"
+                            :class="{ errors: form.errors.photo_paths }"
+                        />
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                        >
+                            <path
+                                d="M2.50678 4.00782C1.60124 4.58285 1 5.59621 1 6.75V17.25C1 20.1495 3.35051 22.5 6.25 22.5H16.75C17.9038 22.5 18.9172 21.8988 19.4939 20.9925L19.3717 20.9982L19.25 21H6.25C4.17893 21 2.5 19.3211 2.5 17.25V4.25C2.5 4.16872 2.50228 4.08798 2.50678 4.00782ZM6.75 1C4.95507 1 3.5 2.45507 3.5 4.25V16.75C3.5 18.5449 4.95507 20 6.75 20H19.25C21.0449 20 22.5 18.5449 22.5 16.75V4.25C22.5 2.45507 21.0449 1 19.25 1H6.75ZM6.16845 18.4011L12.4754 12.2231C12.7405 11.9635 13.1501 11.9399 13.4414 12.1523L13.525 12.2231L19.8315 18.4011C19.6496 18.4651 19.4539 18.5 19.25 18.5H6.75C6.54613 18.5 6.3504 18.4651 6.16845 18.4011ZM6.75 2.5H19.25C20.2165 2.5 21 3.2835 21 4.25V16.75C21 16.958 20.9637 17.1576 20.8971 17.3427L14.5746 11.1515C13.7415 10.3355 12.4327 10.2967 11.5543 11.0349L11.4259 11.1515L5.10326 17.3437C5.03643 17.1583 5 16.9584 5 16.75V4.25C5 3.2835 5.7835 2.5 6.75 2.5ZM9.49955 5.75116C8.80959 5.75116 8.25026 6.31048 8.25026 7.00045C8.25026 7.69041 8.80959 8.24974 9.49955 8.24974C10.1895 8.24974 10.7488 7.69041 10.7488 7.00045C10.7488 6.31048 10.1895 5.75116 9.49955 5.75116Z"
+                                fill="#702B21"
+                            />
+                        </svg>
+                        <p class="p">Haga click para subir sus imágenes</p>
+                        <small>Maximo subir 5MB de formato jpg o png</small>
+                    </div>
+                    <div class="view-image">
+                        <div
+                            v-for="(img, index) in preview"
+                            :key="index"
+                            class="container-image"
+                        >
+                            <img :src="img.url" :alt="img.name" class="image" />
+                            <span class="name-image">{{ img.name }}</span>
+                        </div>
+                        <span v-if="form.errors.photo_paths" class="errors">
+                            {{ form.errors.photo_paths }}
+                        </span>
+                    </div>
+                </div>
                 <div class="items">
-                    <InputLabel value="Nombre" textAdd=" *" />
+                    <InputLabel value="Nombre/Producto" textAdd=" *" />
                     <TextInput
                         type="text"
                         required
@@ -75,7 +146,7 @@ function submit() {
                     </span>
                 </div>
                 <div class="items">
-                    <InputLabel value="Código" textAdd=" *" />
+                    <InputLabel value="Código/Producto" textAdd=" *" />
                     <TextInput
                         type="text"
                         required
@@ -87,7 +158,7 @@ function submit() {
                     </span>
                 </div>
                 <div class="items">
-                    <InputLabel value="Técnica" textAdd=" *" />
+                    <InputLabel value="Técnica/Producto " textAdd=" *" />
                     <TextInput
                         type="text"
                         v-model="form.technique"
@@ -98,7 +169,7 @@ function submit() {
                     </span>
                 </div>
                 <div class="items">
-                    <InputLabel value="Cultura de origen" textAdd=" *" />
+                    <InputLabel value="Origen cultural/Producto" textAdd=" *" />
                     <TextInput
                         type="text"
                         v-model="form.cultural_origin"
@@ -109,7 +180,7 @@ function submit() {
                     </span>
                 </div>
                 <div class="items">
-                    <InputLabel value="Dimensiones" textAdd=" *" />
+                    <InputLabel value="Dimensiones/Producto" textAdd=" *" />
                     <TextInput
                         type="text"
                         required
@@ -121,7 +192,7 @@ function submit() {
                     </span>
                 </div>
                 <div class="items">
-                    <InputLabel value="Color" textAdd=" *" />
+                    <InputLabel value="Color/Producto" textAdd=" *" />
                     <TextInput
                         type="text"
                         required
@@ -133,7 +204,7 @@ function submit() {
                     </span>
                 </div>
                 <div class="items">
-                    <InputLabel value="Forma" textAdd=" *" />
+                    <InputLabel value="Forma/Producto" textAdd=" *" />
                     <TextInput
                         type="text"
                         required
@@ -145,7 +216,7 @@ function submit() {
                     </span>
                 </div>
                 <div class="items">
-                    <InputLabel value="Historia" textAdd=" *" />
+                    <InputLabel value="Historia/Producto" textAdd=" *" />
                     <TextInput
                         type="text"
                         required
@@ -157,7 +228,7 @@ function submit() {
                     </span>
                 </div>
                 <div class="items">
-                    <InputLabel value="Estado" textAdd=" *" />
+                    <InputLabel value="Estado/Producto" textAdd=" *" />
                     <TextInput
                         type="text"
                         required
@@ -169,7 +240,10 @@ function submit() {
                     </span>
                 </div>
                 <div class="items">
-                    <InputLabel value="Ubicación física" textAdd=" *" />
+                    <InputLabel
+                        value="Ubicación física/Producto"
+                        textAdd=" *"
+                    />
                     <TextInput
                         type="text"
                         v-model="form.physical_location"
@@ -180,7 +254,7 @@ function submit() {
                     </span>
                 </div>
                 <div class="items">
-                    <InputLabel value="Creador" textAdd=" *" />
+                    <InputLabel value="Creador/Producto" textAdd=" *" />
                     <TextInput
                         type="text"
                         v-model="form.creator"
@@ -191,7 +265,10 @@ function submit() {
                     </span>
                 </div>
                 <div class="items">
-                    <InputLabel value="Fecha de creación" textAdd=" *" />
+                    <InputLabel
+                        value="Fecha de creación/Producto"
+                        textAdd=" *"
+                    />
                     <TextInput
                         type="date"
                         required
@@ -203,7 +280,7 @@ function submit() {
                     </span>
                 </div>
                 <div class="items">
-                    <InputLabel value="Precio" textAdd=" *" />
+                    <InputLabel value="Precio/Producto" textAdd=" *" />
                     <TextInput
                         type="number"
                         required
@@ -216,7 +293,11 @@ function submit() {
                 </div>
                 <div class="items">
                     <InputLabel value="Disponibilidad" textAdd=" *" />
-                    <select name="is_active" id="is_active" v-model="form.is_active">
+                    <select
+                        name="is_active"
+                        id="is_active"
+                        v-model="form.is_active"
+                    >
                         <option value="true">Activo</option>
                         <option value="false">Inactivo</option>
                     </select>
@@ -284,22 +365,12 @@ function submit() {
                         {{ form.errors.tags_ids }}
                     </span>
                 </div>
-
-                <div class="items">
-                    <InputLabel value="Fotos" textAdd=" *" />
-                    <input
-                        type="file"
-                        multiple
-                        @change="e => form.photo_paths = Array.from(e.target.files)"
-                        :class="{ errors: form.errors.photo_paths }"
-                    />
-                    <span v-if="form.errors.photo_paths" class="errors">
-                        {{ form.errors.photo_paths }}
-                    </span>
-                </div>
-
                 <div class="container-button">
-                    <button type="submit" class="btn-class" :disabled="form.processing">
+                    <button
+                        type="submit"
+                        class="btn-class"
+                        :disabled="form.processing"
+                    >
                         Crear Producto
                     </button>
                 </div>
