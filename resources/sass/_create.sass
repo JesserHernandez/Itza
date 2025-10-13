@@ -24,7 +24,7 @@
         align-items: center
         justify-content: center
         border-radius: $br-card
-        background: $button-secondary
+        background: $background-form
 
         .items-form
             gap: 1.2rem
@@ -81,7 +81,11 @@
                             )
 
 
+//? Create product
 .content
+    height: 90vdh
+    background: $background-form
+    box-shadow: 1px -2px 25px $button-secondary
 
     .form
         gap: 2rem
@@ -93,13 +97,14 @@
 
         .items
             gap: 1.2rem
-            width: 35%
+            width: 34.4rem
             display: flex
             flex-wrap: wrap
             justify-content: start
 
             label
                 width: 100%
+                font-weight: 600
                 font-size: $subheading-small
 
             input, select
@@ -109,11 +114,108 @@
                 outline: none
                 color: $state-span
                 padding-left: .8rem
-                border-radius: $br-card
                 font-size: $button-small
+                border-radius: $br-radius
+                background: $background-form
                 border: 1px solid $state-inactive
 
+            select
+                height: 5rem
 
+        .photo_paths
+            padding: 0
+            margin: 0
+            height: 30rem
+            display: flex
+            width: 91.19%
+            pointer-events: none
+            justify-content: space-around
+
+            .add-image
+                gap: 1.2rem
+                width: 35rem
+                display: flex
+                overflow: hidden
+                margin-left: -2rem
+                padding-left: .5rem
+                flex-direction: column
+
+                .label
+                    width: 15rem
+                    pointer-events: auto
+
+                input
+                    border: none
+                    margin-left: -.9rem
+                    height: 24.6rem
+                    width: 35.9rem
+
+                    &[type="file"]::file-selector-button
+                        border: none
+                        width: 34.4rem
+                        appearance: none
+                        height: 24.6rem
+                        cursor: pointer;
+                        padding: 8px 16px;
+                        font-weight: bold;
+                        pointer-events: auto
+                        border-radius: 8px;
+                        color: transparent;
+                        background-color: inherit;
+                        transition: background 0.3s;
+                        border: .17rem solid $button-primary
+
+                .p, svg, small
+                    position: absolute
+
+                .p
+                    top: 16%
+                    left: 28.494%
+                    font-weight: 400
+                    color: $state-span
+                    translate: -50% -50%
+                    font-size: $body-medium
+
+                svg
+                    top: 13%
+                    width: 2rem
+                    height: 2rem
+                    left: 28.494%
+                    translate: -50% -50%
+
+                small
+                    top: 18%
+                    left: 28.494%
+                    font-weight: 400
+                    color: $state-span
+                    translate: -50% -50%
+                    font-size: $body-small
+
+            .view-image
+                width: 35rem
+                height: 27rem
+                overflow-y: auto
+                overflow-x: hidden
+                pointer-events: auto
+
+                .container-image
+                    gap: 1rem
+                    padding: .8rem
+                    width: 35rem
+                    height: 6rem
+                    display: flex
+                    overflow: hidden
+                    margin-top: 1rem
+                    align-items: center
+                    background: $button-primary
+
+                    img
+                        width: 13rem
+                        height: 5.5rem
+
+                    .name-image
+                        color: $state-light
+                        font-size: $body-medium
         .container-button
             width: 100%
             display: flex
