@@ -99,7 +99,7 @@
                     height: fit-content
                     display: flex
                     flex-direction: column
-                    
+
                     a
                         width: 100%
                         height: 4.8rem
@@ -113,12 +113,12 @@
                         img
                             width: 2.4rem
                             height: 2.4rem
-                            border-radius: 50%                            
+                            border-radius: 50%
 
                         svg .icons-navbar
                             width: 2.4rem
                             height: 2.4rem
-                     
+
             .button-search
 
                 .elements-button
@@ -150,9 +150,11 @@
 
                     input
                         width: 0
+                        padding: 0
                         border: none
                         outline: none
                         height: 4.8rem
+                        pointer-events: none
                         padding-right: 1.8rem
                         background: transparent
                         font-size: $button-small
@@ -219,7 +221,7 @@
                     height: fit-content
                     display: flex
                     flex-direction: column
-                    
+
                     a
                         width: fit-content
                         height: 4.8rem
@@ -229,16 +231,16 @@
                         align-items: center
                         padding: 0.6rem 1rem
                         box-sizing: border-box
-                        
+
                         img
                             width: 2.4rem
                             height: 2.4rem
                             border-radius: 50%
-                            
+
                         svg .icons-navbar
                             width: 2.4rem
                             height: 2.4rem
-                            
+
 
             .button-search
                 .elements-button
@@ -248,6 +250,7 @@
 
                     input
                         width: 100%
-                        color: $button-color-ti-secondary
                         padding-left: .5rem
+                        pointer-events: auto
                         transition: $transition-slow
+                        color: $button-color-ti-secondary
