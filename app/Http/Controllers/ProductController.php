@@ -6,7 +6,10 @@ use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
+use App\Models\Category;
+use App\Models\Tag;
 use App\Models\ProductImage;
+use App\Models\ProductMaterial;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -21,7 +24,12 @@ class ProductController extends Controller
     }
     public function create(): mixed
     {
-        return Inertia::render('Vendor/Product/Create', ['product' => new Product() ]);
+        $categories = Category::all();
+        $tags = Tag::all();
+        $materials = ProductMaterial::all() ;
+        return Inertia::render('Vendor/Product/Create', [
+            'product' => new Product(), 'categories' => $categories, 'tags' => $tags, 'materials' => $materials
+        ]);
     }
     public function store(ProductRequest $request): RedirectResponse
     {
@@ -32,40 +40,30 @@ class ProductController extends Controller
                 $product = Product::create($validated);
                 $product->productPriceHistories()->create(['old_price' => $product->price,'changing_user_id' => Auth::id() ]);
 
-                $materialData = collect($validated['materials'] ?? [])->mapWithKeys(fn($m) => [
-                    $m['id'] => ['is_main' => $m['is_main'] ?? false],
-                ]);
-
-                $mainMaterialCount = $materialData->filter(fn($t) => $t['is_main'])->count();
-                if ($mainMaterialCount > 1) {
-                    return Redirect::route('products.index')->with('error', '¡Vaya!... Solo un material puede ser principal. Inténtalo de nuevo.');
-                }
+                $materialData = collect($validated['materials'] ?? [])
+                    ->mapWithKeys(fn($id, $index) => [
+                        $id => ['is_main' => $index === 0],
+                    ]);
                 $product->materialProducts()->sync($materialData);
 
-                $tagData = collect($validated['tags'] ?? [])->mapWithKeys(fn($t) => [
-                    $t['id'] => ['is_main' => $t['is_main'] ?? false],
-                ]);
-
-                $mainTagCount = $tagData->filter(fn($t) => $t['is_main'])->count();
-                if ($mainTagCount > 1) {
-                    return Redirect::route('products.index')->with('error', '¡Vaya!... Solo una etiqueta puede ser principal. Inténtalo de nuevo.');
-                }
+                $tagData = collect($validated['tags'] ?? [])
+                    ->mapWithKeys(fn($id, $index) => [
+                        $id => ['is_main' => $index === 0],
+                    ]);
                 $product->productTags()->sync($tagData);
 
-                $categoryData = collect($validated['categories'] ?? [])->mapWithKeys(fn($c) => [
-                    $c['id'] => ['is_main' => $c['is_main'] ?? false],
-                ]);
-
-                $mainCount = $categoryData->filter(fn($c) => $c['is_main'])->count();
-                if ($mainCount > 1) {
-                    return Redirect::route('products.index')->with('error', '¡Vaya!... Solo una categoria puede ser principal. Inténtalo de nuevo.');
-                }
+                $categoryData = collect($validated['categories'] ?? [])
+                    ->mapWithKeys(fn($id, $index) => [
+                        $id => ['is_main' => $index === 0],
+                    ]);
                 $product->categoryProducts()->sync($categoryData);
 
-                foreach ($validated['images'] ?? [] as $image) {
+                foreach ($validated['photo_paths'] ?? [] as $index => $uploadedFile) {
+                    $path = $uploadedFile->store('products', 'public');
+
                     $product->productImages()->create([
-                        'photo_path' => $image['photo_path'] ?? null,
-                        'is_main' => $image['is_main'] ?? false,
+                        'photo_path' => $path,
+                        'is_main' => $index === 0,
                     ]);
                 }
             });

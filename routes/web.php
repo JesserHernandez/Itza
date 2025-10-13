@@ -8,6 +8,7 @@ use App\Http\Middleware\RoleMiddleware;
 
 $redirectByRole = fn($user) => redirect()->route($user->is_vendor === 1 ? 'admin' : 'customer');
 
+Route::redirect('/', '/landingPage');
 
 Route::get('/landingPage', fn () => Inertia::render('LandingPage'))->name('landingPage');
 

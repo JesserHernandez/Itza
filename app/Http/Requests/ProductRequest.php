@@ -28,20 +28,16 @@ class ProductRequest extends FormRequest
 			'price' => 'required|numeric|min:0',
 
 			'materials' => 'required|array|min:1',
-			'materials.*.id' => 'required|exists:product_materials,id',
-			'materials.*.is_main' => 'required|boolean',
+			'materials.*' => 'required|exists:product_materials,id',
 
 			'tags' => 'required|array|min:1',
 			'tags.*' => 'required|exists:tags,id',
-			'tags.*.is_main' => 'required|boolean',
 
             'categories' => 'required|array|min:1',
 			'categories.*' => 'required|exists:categories,id',
-			'categories.*.is_main' => 'required|boolean',
 
-            'images' => 'required|array|min:1',
-			'images.*.photo_path' => 'required|image|max:2048|mimes:jpeg,png,jpg,svg',
-			'images.*.is_main' => 'required|boolean',
+            'photo_paths' => 'required|array|min:1',
+			'photo_paths.*' => 'required|image|max:2048|mimes:jpeg,png,jpg,svg',
         ];
     }
 }
