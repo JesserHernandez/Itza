@@ -41,7 +41,7 @@ const logout = () => {
                 <span>Notificaciones</span>
             </div>
 
-            <div class="items">
+            <!-- <div class="items">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -55,7 +55,7 @@ const logout = () => {
                     />
                 </svg>
                 <span>Chats</span>
-            </div>
+            </div> -->
 
             <Dropdown>
                 <template #trigger>
