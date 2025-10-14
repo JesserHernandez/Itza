@@ -7,7 +7,7 @@ import { router, Head } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
 defineProps({
-    products: Object, // Cambié categories a products
+    products: Object,
     categories: Array,
     productMaterials: Array,
     filters: Object,
@@ -62,7 +62,7 @@ function destroy(id) {
 
 <template>
     <Head title="Productos" />
-    <AppLayout>
+    <AppLayout :href="route('admin')">
         <HeaderAdmin
             icon="/icons/icons-ceramics/ceramic-7-white-icon.svg"
             title="Administración/Productos"
@@ -153,6 +153,7 @@ function destroy(id) {
                         <td>{{ product.creator }}</td>
                         <td>{{ product.creation_date }}</td>
                         <td>{{ product.price }}</td>
+                        <td>{{ product.tags?.name }}</td>
 
                             <td class="td-actions">
                                 <NavLink
