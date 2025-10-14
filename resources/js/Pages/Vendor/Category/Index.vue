@@ -201,7 +201,7 @@ function destroy(id) {
             </div>
 
         </div>
-        <div class="pagination">
+    <div class="pagination">
             <button
                 class="btn-class"
                 :disabled="!categories.prev_page_url"
