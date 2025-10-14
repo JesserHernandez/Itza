@@ -90,7 +90,6 @@ class ProductController extends Controller
         try {
             DB::transaction(function () use ($request, $product) {
                 $validated = $request->validated();
-
                 $product->update($validated);
 
                 if ($product->wasChanged('price')) {
@@ -100,55 +99,49 @@ class ProductController extends Controller
                     ]);
                 }
 
-                $materialData = collect($validated['materials'] ?? [])->mapWithKeys(fn($m) => [
-                    $m['id'] => ['is_main' => $m['is_main'] ?? false],
-                ]);
-
-                $mainMaterialCount = $materialData->filter(fn($m) => $m['is_main'])->count();
-                if ($mainMaterialCount > 1) {
-                    return Redirect::route('products.index')->with('error', '¡Vaya!... Solo un material puede ser principal. Inténtalo de nuevo.');
-                }
-
+                $materialData = collect($validated['materials'] ?? [])
+                    ->mapWithKeys(fn($id, $index) => [
+                        $id => ['is_main' => $index === 0],
+                    ]);
                 $product->materialProducts()->sync($materialData);
 
-                $tagData = collect($validated['tags'] ?? [])->mapWithKeys(fn($t) => [
-                    $t['id'] => ['is_main' => $t['is_main'] ?? false],
-                ]);
-
-                $mainTagCount = $tagData->filter(fn($t) => $t['is_main'])->count();
-                if ($mainTagCount > 1) {
-                    return Redirect::route('products.index')->with('error', '¡Vaya!... Solo una etiqueta puede ser principal. Inténtalo de nuevo.');
-                }
-
+                $tagData = collect($validated['tags'] ?? [])
+                    ->mapWithKeys(fn($id, $index) => [
+                        $id => ['is_main' => $index === 0],
+                    ]);
                 $product->productTags()->sync($tagData);
 
-                $categoryData = collect($validated['categories'] ?? [])->mapWithKeys(fn($c) => [
-                    $c['id'] => ['is_main' => $c['is_main'] ?? false],
-                ]);
-
-                $mainCategoryCount = $categoryData->filter(fn($c) => $c['is_main'])->count();
-                if ($mainCategoryCount > 1) {
-                    return Redirect::route('products.index')->with('error', '¡Vaya!... Solo una categoria puede ser principal. Inténtalo de nuevo.');
-                }
-
+                $categoryData = collect($validated['categories'] ?? [])
+                    ->mapWithKeys(fn($id, $index) => [
+                        $id => ['is_main' => $index === 0],
+                    ]);
                 $product->categoryProducts()->sync($categoryData);
 
-                $incomingImages = collect($request->input('images', []));
+                $incomingImages = collect($request->input('photo_paths', []));
                 $existingIds = $product->productImages()->pluck('id')->toArray();
                 $incomingIds = $incomingImages->pluck('id')->filter()->toArray();
 
                 $product->productImages()->whereNotIn('id', $incomingIds)->delete();
 
-                foreach ($incomingImages as $imageData) {
+                $hasMainImage = $product->productImages()->where('is_main', true)->exists();
+
+                foreach ($incomingImages as $index => $imageData) {
+
+                    $isMain = false;
+                    if (!$hasMainImage && $index === 0) {
+                        $isMain = true;
+                        $hasMainImage = true;
+                    }
+
                     if (isset($imageData['id']) && in_array($imageData['id'], $existingIds)) {
                         ProductImage::where('id', $imageData['id'])->update([
                             'photo_path' => $imageData['photo_path'] ?? null,
-                            'is_main'    => $imageData['is_main'] ?? false,
+                            'is_main'    => $isMain,
                         ]);
                     } else {
-                        $product->images()->create([
+                        $product->productImages()->create([
                             'photo_path' => $imageData['photo_path'] ?? null,
-                            'is_main'    => $imageData['is_main'] ?? false,
+                            'is_main'    => $isMain,
                         ]);
                     }
                 }
