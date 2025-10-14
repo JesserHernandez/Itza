@@ -34,11 +34,11 @@ class Product extends Model
     }
     public function productImages()
     {
-        return $this->hasMany(ProductImage::class, 'id', 'product_id');
+        return $this->hasMany(ProductImage::class, 'product_id','id');
     }
     public function productPriceHistories()
     {
-        return $this->hasMany(ProductPriceHistory::class, 'id', 'product_id');
+        return $this->hasMany(ProductPriceHistory::class, 'product_id','id', );
     }
     public function productTags()
     {
