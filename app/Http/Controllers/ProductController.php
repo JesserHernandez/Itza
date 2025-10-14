@@ -77,13 +77,22 @@ class ProductController extends Controller
     public function show($id): mixed
     {
         $product = Product::findOrFail($id);
-        return Inertia::render('Vendor/Product/Show', ['product' => $product ]);
-
+        $categories = Category::all();
+        $tags = Tag::all();
+        $materials = ProductMaterial::all() ;
+        return Inertia::render('Vendor/Product/Show', [
+            'product' => $product, 'categories' => $categories, 'tags' => $tags, 'materials' => $materials
+        ]);
     }
     public function edit($id): mixed
     {
         $product = Product::findOrFail($id);
-        return Inertia::render('Vendor/Product/Edit', ['product' => $product ]);
+        $categories = Category::all();
+        $tags = Tag::all();
+        $materials = ProductMaterial::all() ;
+        return Inertia::render('Vendor/Product/Edit', [
+            'product' => $product, 'categories' => $categories, 'tags' => $tags, 'materials' => $materials
+        ]);
     }
     public function update(ProductRequest $request, Product $product): RedirectResponse
     {
