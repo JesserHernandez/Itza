@@ -3,6 +3,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import TextInput from "@/Components/TextInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import { Head, useForm, router } from "@inertiajs/vue3";
+import HeaderAdmin from "@/Components/HeaderAdmin.vue";
 import { ref } from "vue";
 
 const props = defineProps({
@@ -11,6 +12,8 @@ const props = defineProps({
     materials: Array,
     tags: Array,
 });
+
+
 
 const Swal = window.Swal;
 
@@ -82,10 +85,20 @@ function submit() {
     form.materials.forEach((id) => data.append("materials[]", id));
     form.tags.forEach((id) => data.append("tags[]", id));
 
+    // Esto es para manejar la subida de nuevas imágenes
     if (hasNewImage.value) {
         form.photo_paths.forEach((file) => {
             if (file instanceof File) {
                 data.append("photo_paths[]", file);
+            }
+        });
+    } else {
+        // Si no se seleccionaron nuevas imágenes, envía las existentes
+        form.photo_paths.forEach((file, index) => {
+            if (!(file instanceof File)) {
+                data.append(`existing_photo_paths[${index}][url]`, file.url);
+                data.append(`existing_photo_paths[${index}][name]`, file.name);
+                data.append(`existing_photo_paths[${index}][type]`, file.type);
             }
         });
     }
@@ -96,9 +109,24 @@ function submit() {
         forceFormData: true,
         onSuccess: () => {
             Swal.fire({
-                title: "Actualizado!",
+                title: "¡Actualizado!",
                 text: "El producto ha sido actualizado con éxito.",
                 icon: "success",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#702b21",
+                customClass: {
+                    title: "title-swal",
+                    text: "text-swal",
+                    popup: "popup-swal",
+                    confirmButton: "confirm-button-swal",
+                },
+            });
+        },
+        onError: (errors) => {
+            Swal.fire({
+                title: "Error",
+                text: "Hubo un error al actualizar el producto. Por favor, verifica los campos.",
+                icon: "error",
                 confirmButtonText: "Aceptar",
                 confirmButtonColor: "#702b21",
                 customClass: {
@@ -115,7 +143,12 @@ function submit() {
 
 
 <template>
+    <Head title="Editar Producto" />
     <AppLayout :href="route('products.index')">
+        <HeaderAdmin :showTitle="false"
+            icon="/icons/icons-ceramics/ceramic-7-white-icon.svg"
+            title="Administración/Productos"
+        />
         <div class="content">
             <form class="form" @submit.prevent="submit">
                 <!-- Campo para subir imágenes -->

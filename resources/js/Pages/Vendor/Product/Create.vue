@@ -4,6 +4,7 @@ import TextInput from "@/Components/TextInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import { Head, useForm } from "@inertiajs/vue3";
 import { ref } from "vue";
+import HeaderAdmin from "@/Components/HeaderAdmin.vue";
 
 const Swal = window.Swal;
 
@@ -28,7 +29,7 @@ const form = useForm({
     photo_paths: [],
 });
 
-// Datos provienientes de otras tablas
+// Datos provenientes de otras tablas
 defineProps({
     categories: Array,
     materials: Array,
@@ -80,11 +81,26 @@ function previewImage(event) {
         }
     });
 }
+
+// Función para alternar la selección de un elemento en un campo múltiple
+function toggleSelection(field, id) {
+    if (form[field].includes(id)) {
+        // Si el elemento ya está seleccionado, lo eliminamos
+        form[field] = form[field].filter((item) => item !== id);
+    } else {
+        // Si el elemento no está seleccionado, lo agregamos
+        form[field].push(id);
+    }
+}
 </script>
 
 <template>
     <Head title="Crear Producto" />
     <AppLayout :href="route('products.index')">
+        <HeaderAdmin :showTitle="false"
+            icon="/icons/icons-ceramics/ceramic-7-white-icon.svg"
+            title="Administración/Productos"
+        />
         <div class="content">
             <form class="form" @submit.prevent="submit">
                 <div class="items photo_paths">
@@ -331,6 +347,7 @@ function previewImage(event) {
                         v-model="form.materials"
                         multiple
                         :class="{ errors: form.errors.materials_ids }"
+
                     >
                         <option
                             v-for="material in materials"
