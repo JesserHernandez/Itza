@@ -10,7 +10,13 @@ defineProps({
     icon: String,
     text: String,
     paragraph: String,
+    showTitle: {
+        type: Boolean,
+        default: true,
+    },
 });
+
+
 
 const logout = () => {
     router.post(route("logout"));
@@ -25,7 +31,7 @@ const logout = () => {
         </div>
 
         <section class="actions-header-admin">
-            <div class="items">
+            <!-- <div class="items">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -39,7 +45,7 @@ const logout = () => {
                     />
                 </svg>
                 <span>Notificaciones</span>
-            </div>
+            </div> -->
 
             <!-- <div class="items">
                 <svg
@@ -83,7 +89,7 @@ const logout = () => {
                             class="user-profile"
                         >
                             <img
-                                src="img/avatars/avatar-twentyfour.png"
+                                src="/img/avatars/avatar-twentyfour.png"
                                 alt=""
                             />
                             <span>Perfil de usuario</span>
@@ -142,7 +148,7 @@ const logout = () => {
     </div>
 
     <div class="text-body">
-        <h1>Bienvenido {{ text }}</h1>
+        <h1 v-if="showTitle">Bienvenido {{ text }}</h1>
         <p>{{ paragraph }}</p>
     </div>
 </template>
