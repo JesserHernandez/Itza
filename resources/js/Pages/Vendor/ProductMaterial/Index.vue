@@ -4,6 +4,7 @@ import HeaderAdmin from "@/Components/HeaderAdmin.vue";
 import TextInput from "@/Components/TextInput.vue";
 import NavLink from "@/Components/NavLink.vue";
 import { router } from "@inertiajs/vue3";
+import { ref } from "vue";
 
 // Importa SweetAlert desde el CDN
 const Swal = window.Swal;
@@ -14,6 +15,17 @@ defineProps({
         required: true,
     },
 });
+
+const cantidad = ref(10); // Valor predeterminado
+
+function updatePerPage() {
+    router.get(
+        route("product_materials.index"),
+        { perPage: cantidad.value },
+        { preserveState: true },
+        { replace: true }
+    );
+}
 
 function destroy(id) {
     Swal.fire({
@@ -34,7 +46,9 @@ function destroy(id) {
         },
     }).then((result) => {
         if (result.isConfirmed) {
-            router.delete(route("product_materials.destroy", { product_material: id }));
+            router.delete(
+                route("product_materials.destroy", { product_material: id })
+            );
             Swal.fire({
                 title: "¡Eliminado!",
                 text: "El material ha sido eliminado con éxito.",
@@ -63,6 +77,22 @@ function destroy(id) {
 
         <div class="content">
             <div class="header-content-index">
+                <div class="select-container">
+                    <label for="productMaterial">Registros por página:</label>
+                    <select
+                        name="productMaterial"
+                        id="productMaterial"
+                        class="select-class"
+                        v-model="cantidad"
+                        @change.prevent="updatePerPage"
+                    >
+                        <option value="6">6</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+
                 <section class="button-search">
                     <div class="elements-button">
                         <svg
@@ -86,7 +116,10 @@ function destroy(id) {
                     </div>
                 </section>
 
-                <NavLink class="btn-class" :href="route('product_materials.create')">
+                <NavLink
+                    class="btn-class"
+                    :href="route('product_materials.create')"
+                >
                     <span class="name-link"> Nuevo material </span>
                     <img
                         src="/icons/icons-interface/add-white-icon.svg"
@@ -117,7 +150,12 @@ function destroy(id) {
                             <td>{{ productMaterial.description }}</td>
                             <td class="td-actions">
                                 <NavLink
-                                    :href="route('product_materials.edit', { product_material: productMaterial.id })"
+                                    :href="
+                                        route('product_materials.edit', {
+                                            product_material:
+                                                productMaterial.id,
+                                        })
+                                    "
                                     class="btn-class edit"
                                     aria-label="Editar material"
                                 >
@@ -129,7 +167,12 @@ function destroy(id) {
                                 </NavLink>
                                 <section class="show">
                                     <NavLink
-                                        :href="route('product_materials.show', { product_material: productMaterial.id })"
+                                        :href="
+                                            route('product_materials.show', {
+                                                product_material:
+                                                    productMaterial.id,
+                                            })
+                                        "
                                         class="btn-class view"
                                         aria-label="Ver material"
                                     >
@@ -158,6 +201,57 @@ function destroy(id) {
                     </tbody>
                 </table>
             </div>
+        </div>
+
+        <div class="pagination">
+            <button
+                class="btn-class"
+                :disabled="!productMaterials.prev_page_url"
+                @click.prevent="
+                    $inertia.visit(productMaterials.prev_page_url, {
+                        preserveState: true,
+                        preserveScroll: true,
+                        data: { perPage: cantidad },
+                    })
+                "
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="7"
+                    height="10"
+                    viewBox="0 0 7 10"
+                    fill="none"
+                    class="icons"
+                >
+                    <path
+                        d="M4.95801 0.543213C5.34854 0.152775 5.98158 0.152718 6.37207 0.543213C6.76232 0.933729 6.76243 1.56683 6.37207 1.95728L3.3291 5.00024L6.37207 8.04321C6.76231 8.43376 6.7625 9.06782 6.37207 9.45825C5.98176 9.84813 5.34846 9.84791 4.95801 9.45825L1.20703 5.70728C1.01973 5.51984 0.914147 5.26523 0.914062 5.00024C0.914098 4.73527 1.01979 4.48068 1.20703 4.29321L4.95801 0.543213Z"
+                        fill="#F0F0F0"
+                    />
+                </svg>
+            </button>
+
+            <span
+                >Página {{ productMaterials.current_page }} de
+                {{ productMaterials.last_page }}</span
+            >
+
+            <button
+                :disabled="!productMaterials.next_page_url"
+                @click.prevent="
+                    $inertia.visit(productMaterials.next_page_url, {
+                        preserveState: true,
+                        preserveScroll: true,
+                        data: { perPage: cantidad },
+                    })
+                "
+                class="btn-class"
+            >
+                <img
+                    src="/icons/icons-interface/next-white-icon.svg"
+                    alt=""
+                    class="icons"
+                />
+            </button>
         </div>
     </AppLayout>
 </template>
