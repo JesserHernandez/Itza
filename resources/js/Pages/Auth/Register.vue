@@ -1,112 +1,236 @@
 <script setup>
-import { Head, Link, useForm } from '@inertiajs/vue3';
-import AuthenticationCard from '@/Components/AuthenticationCard.vue';
-import AuthenticationCardLogo from '@/Components/AuthenticationCardLogo.vue';
-import Checkbox from '@/Components/Checkbox.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+import { ref, computed, watch } from "vue"; // quitar h
+import { Head, useForm } from "@inertiajs/vue3";
+import ReturnView from "@/Components/ReturnView.vue";
+import StepOne from "@/Pages/Auth/Steps/StepOne.vue";
+import { Link } from "@inertiajs/vue3";
+import StepArtiClient from "@/Pages/Auth/Steps/StepArtiClient.vue";
+import AuthenticationCard from "@/Components/AuthenticationCard.vue";
+import StoreArtisan from "./Steps/StoreArtisan.vue";
+import AddressStep from "./Steps/AddressStep.vue";
 
+const step = ref(1);
 const form = useForm({
-    name: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
-    terms: false,
+    // user
+    name: "",
+    surname: "",
+    email: "",
+    password: "",
+    gender: "",
+    phone_number: "",
+    identification_card: "",
+    is_vendor: false,
+    password_confirmation: "",
+
+    // teams (tienda)
+    teams: {
+        name_team: "",
+        type: "",
+        city: "",
+        municipality: "",
+        address: "",
+    },
+
+    // user_address
+    user_address: {
+        address_user: "",
+        address_type: "",
+        postal_code: "",
+        address_city: "",
+        address_municipality: "",
+    },
 });
 
-const submit = () => {
-    form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
+// props
+const props = defineProps({
+    is_vendor: [Boolean, String, Number],
+});
+
+// isVendor reactivo y robusto
+const isVendor = computed(() => {
+    return props.is_vendor === true || props.is_vendor === "true" || props.is_vendor === 1 || props.is_vendor === "1";
+});
+
+// sincronizar con form
+watch(
+    isVendor,
+    (val) => {
+        form.is_vendor = !!val;
+    },
+    { immediate: true }
+);
+
+function nextStep() {
+    step.value++;
+}
+function prevStep() {
+    if (step.value > 1) {
+        step.value--;
+        return;
+    }
+    try {
+        if (typeof route === "function") {
+            window.location.href = route("welcome");
+            return;
+        }
+    } catch (e) {}
+    window.history.back();
+}
+
+function submit() {
+    if (form.processing) return;
+    // opcional: asegurar merge final si algún hijo mandó datos directo
+    console.log("form antes de post", JSON.parse(JSON.stringify(form)));
+    const href = typeof route === "function" ? route("register") : "/register";
+    form.post(href, {
+        onFinish: () => form.reset("password", "password_confirmation"),
     });
-};
+}
+
+function isPlainObject(v) {
+    return v && typeof v === "object" && !Array.isArray(v);
+}
+
+function mergeForm(partial = {}) {
+    console.log("mergeForm recibe:", partial);
+
+    const teamKeys = [
+        "name_team",
+        "team_type",
+        "type",
+        "ruc",
+        "city",
+        "municipality",
+        "address",
+    ];
+    const addrKeys = [
+        "user_address",
+        "address_type",
+        "postal_code",
+        "city",
+        "municipality",
+        "facturation",
+        "active",
+        "address",
+    ];
+
+    // merge teams namespaced si viene
+    if (isPlainObject(partial.teams)) {
+        form.teams = { ...(form.teams || {}), ...partial.teams };
+        delete partial.teams;
+    }
+
+    // merge user_address namespaced si viene — NO tocar ni normalizar teléfonos dentro de user_address
+    if (isPlainObject(partial.user_address)) {
+        const ua = { ...(partial.user_address || {}) };
+        // eliminar claves de teléfono si por error llegaron en user_address
+        delete ua.phoneNumber;
+        delete ua.phone_number;
+        form.user_address = { ...(form.user_address || {}), ...ua };
+        delete partial.user_address;
+    }
+
+    // teléfonos planos: phoneNumber -> teams.phoneNumber (tienda), phone_number -> form.phone_number (usuario)
+    if (partial.phoneNumber !== undefined) {
+        form.teams = { ...(form.teams || {}), phoneNumber: partial.phoneNumber };
+        delete partial.phoneNumber;
+    }
+    if (partial.phone_number !== undefined) {
+        form.phone_number = partial.phone_number;
+        delete partial.phone_number;
+    }
+
+    // mapear claves sueltas de teams a form.teams
+    const teamPart = {};
+    Object.keys(partial).forEach((k) => {
+        if (teamKeys.includes(k)) {
+            teamPart[k] = partial[k];
+            delete partial[k];
+        }
+    });
+    if (Object.keys(teamPart).length) {
+        form.teams = { ...(form.teams || {}), ...teamPart };
+    }
+
+    // mapear claves sueltas de dirección a form.user_address (sin incluir teléfonos)
+    const addrPart = {};
+    Object.keys(partial).forEach((k) => {
+        if (addrKeys.includes(k)) {
+            const destKey = k === "address" ? "user_address" : k;
+            addrPart[destKey] = partial[k];
+            delete partial[k];
+        }
+    });
+    if (Object.keys(addrPart).length) {
+        form.user_address = { ...(form.user_address || {}), ...addrPart };
+    }
+
+    // asignar el resto (top-level)
+    Object.keys(partial).forEach((k) => {
+        form[k] = partial[k];
+    });
+
+    console.log("form tras merge:", JSON.parse(JSON.stringify(form)));
+}
+
 </script>
 
 <template>
-    <Head title="Register" />
+    <Head title="Registro" />
 
     <AuthenticationCard>
-        <template #logo>
-            <AuthenticationCardLogo />
-        </template>
+        <div class="container-register">
+            <!-- ReturnView emite 'back' -->
+            <ReturnView @back="prevStep" :prevent="true" />
 
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="name" value="Name" />
-                <TextInput
-                    id="name"
-                    v-model="form.name"
-                    type="text"
-                    class="mt-1 block w-full"
-                    required
-                    autofocus
-                    autocomplete="name"
-                />
-                <InputError class="mt-2" :message="form.errors.name" />
-            </div>
+            <!-- pasos -->
+            <StepOne
+                v-if="step === 1"
+                :modelValue="form"
+                :is_vendor="isVendor"
+                @section-data="mergeForm"
+                @next="nextStep"
+            />
 
-            <div class="mt-4">
-                <InputLabel for="email" value="Email" />
-                <TextInput
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="username"
-                />
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
+            <StepArtiClient
+                v-if="step === 2"
+                :modelValue="form"
+                :is_vendor="isVendor"
+                @section-data="mergeForm"
+                @next="nextStep"
+            />
 
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-                <TextInput
-                    id="password"
-                    v-model="form.password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="new-password"
-                />
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
+            <!-- escucho ambos eventos (next/finish) por compatibilidad -->
+            <StoreArtisan
+                v-if="step === 3 && isVendor"
+                :modelValue="form"
+                @section-data="mergeForm"
+                @finish="submit"
+                @next="submit"
+            />
 
-            <div class="mt-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
-                <TextInput
-                    id="password_confirmation"
-                    v-model="form.password_confirmation"
-                    type="password"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="new-password"
-                />
-                <InputError class="mt-2" :message="form.errors.password_confirmation" />
-            </div>
+            <AddressStep
+                v-if="step === 3 && !isVendor"
+                :modelValue="form"
+                @section-data="mergeForm"
+                @finish="submit"
+            />
+        </div>
+        <div class="info-end" aria-label="Separador de opciones">
+            <hr />
+            <span>O</span>
+            <hr />
+        </div>
 
-            <div v-if="$page.props.jetstream.hasTermsAndPrivacyPolicyFeature" class="mt-4">
-                <InputLabel for="terms">
-                    <div class="flex items-center">
-                        <Checkbox id="terms" v-model:checked="form.terms" name="terms" required />
-
-                        <div class="ms-2">
-                            I agree to the <a target="_blank" :href="route('terms.show')" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Terms of Service</a> and <a target="_blank" :href="route('policy.show')" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Privacy Policy</a>
-                        </div>
-                    </div>
-                    <InputError class="mt-2" :message="form.errors.terms" />
-                </InputLabel>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <Link :href="route('login')" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    Already registered?
-                </Link>
-
-                <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Register
-                </PrimaryButton>
-            </div>
-        </form>
+        <div class="navigate" aria-label="Acceso para usuarios registrados">
+            <span>¿Ya tienes una cuenta? </span>
+            <Link
+                :href="route('login')"
+                class="btn-login"
+                aria-label="Acceder a tu cuenta"
+            >
+                Puedes acceder a ella
+            </Link>
+        </div>
     </AuthenticationCard>
 </template>

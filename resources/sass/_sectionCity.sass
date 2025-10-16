@@ -1,0 +1,74 @@
+@import '_mixinsBtn'
+
+.creative
+    height: 90rem
+    position: relative
+
+    .creative-container
+        width: 100%
+        display: flex
+        flex-wrap: wrap
+        min-height: 88.7rem
+        margin-top: 6.4rem
+        position: relative
+        background: $background-card
+        padding: 8rem 6.35rem 8rem 6.35rem
+
+        .info-creative
+            width: 56.7rem
+            margin-right: .5rem
+
+            .title
+
+                h1
+                    color: $state-light
+                    font-size: $title-page-small
+
+            .information
+                margin-top: 3.2rem
+
+                p
+                    padding: 1rem
+                    color: $state-hover-l
+                    font-size: $body-large
+
+            .list-city
+                margin-top: 2rem
+
+                p
+                    color: $state-hover-l
+                    font-size: $body-large
+
+                ol
+                    margin-top: 3.5rem
+                    margin-left: 2.2rem
+                    color: $state-hover-l
+                    font-size: $body-large
+
+        .image-creative
+            width: 56.7rem
+            height: 51rem
+            display: flex
+            align-items: center
+            margin-top: 10.8rem
+
+    .btn-city
+        width: 100%
+        display: flex
+        margin-top: 3rem
+        position: relative
+        height: fit-content
+        justify-content: center
+
+        @include btnStandar(
+                            $border: .1rem solid $button-primary,
+                            $padding: 1.5rem 2rem,
+                            $weight: bold,
+                            $shadow: none,
+                            $font-size: $button-large,
+                            $br-rad: 2rem,
+                            $background: $button-secondary,
+                            $color: $button-color-ti-secondary,
+                            $width: 2.8rem,
+                            $height: 2.8rem,
+                            $background-animation: $background-light)

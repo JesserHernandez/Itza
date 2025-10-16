@@ -10,16 +10,17 @@ use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 
 class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 {
-    /**
-     * Validate and update the given user's profile information.
-     *
-     * @param  array<string, mixed>  $input
-     */
     public function update(User $user, array $input): void
     {
         Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'name' => ['required', 'string', 'min:3', 'max:255'],
+            'surname' => ['required', 'string', 'min:3', 'max:50'],
+            'email' => ['required', 'email', 'max:50', Rule::unique('users')->ignore($user->id)],
+            'gender' => ['required', 'string', 'min:3', 'max:10'],
+            'phone_number' => ['required', 'string', 'min:3', 'max:20'],
+            'is_vendor' => ['required'],
+            'identification_card' => ['required', 'string', 'min:3', 'max:20', , Rule::unique('users')->ignore($user->id)],
+            'experience' => ['nullable', 'text', 'min:3'],
             'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
         ])->validateWithBag('updateProfileInformation');
 
@@ -33,21 +34,27 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         } else {
             $user->forceFill([
                 'name' => $input['name'],
+                'surname' => $input['surname'],
                 'email' => $input['email'],
+                'gender' => $input['gender'],
+                'phone_number' => $input['phone_number'],
+                'identification_card' => $input['identification_card'],
+                'is_vendor' => $input['is_vendor'],
+                'experience' => $input['experience'],
             ])->save();
         }
     }
-
-    /**
-     * Update the given verified user's profile information.
-     *
-     * @param  array<string, string>  $input
-     */
     protected function updateVerifiedUser(User $user, array $input): void
     {
         $user->forceFill([
             'name' => $input['name'],
+            'surname' => $input['surname'],
             'email' => $input['email'],
+            'gender' => $input['gender'],
+            'phone_number' => $input['phone_number'],
+            'identification_card' => $input['identification_card'],
+            'is_vendor' => $input['is_vendor'],
+            'experience' => $input['experience'],
             'email_verified_at' => null,
         ])->save();
 

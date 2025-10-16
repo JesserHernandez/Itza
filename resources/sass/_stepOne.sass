@@ -1,0 +1,247 @@
+.container-register
+    padding: 0 0 0 4rem
+
+.info-end
+            display: flex
+            width: 59.4rem
+            height: 5.4rem
+            margin-top: 4.8rem
+            align-items: center
+            padding: 0 4rem
+
+            hr
+                width: 25.5rem
+                border-radius: $br-radius
+                border: .17rem solid $state-span
+
+            span
+                margin: 0 2rem
+                color: $state-main
+                font-size: $title-page-small
+
+.navigate
+            width: 59.4rem
+            margin-top: 3.2rem
+            margin-bottom: 3.2rem
+            padding: 0 4rem
+
+
+            span, a
+                font-size: $subheading-large
+                text-decoration: none
+
+            span
+                font-weight: 400
+                color: $state-main
+
+            a
+                font-weight: 500
+                color: $state-span
+
+.step-one
+    width: 100%
+    display: flex
+    flex-wrap: wrap
+
+    .email-pass
+        width: 61.4rem
+        height: 40rem
+        overflow-y: scroll
+
+        .title-step
+            display: flex
+            width: 58.6rem
+            gap: 1.2rem
+            flex-wrap: wrap
+
+            .title-pass
+                font-size: $subtitle-medium
+                font-weight: 600
+
+            .text-pass
+                color: $state-main
+                font-size: $body-medium
+
+
+        .formulario
+            gap: 3.2rem
+            display: flex
+            width: 58.6rem
+            flex-wrap: wrap
+            margin-top: 2.4rem
+
+            .field
+                width: 100%
+                gap: 1.2rem
+                display: flex
+                flex-wrap: wrap
+                height: fit-content
+
+                label
+                    width: 100%
+                    font-size: $heading-small
+
+                    .asterisco
+                        color: $state-error
+
+                input
+                    width: 100%
+                    outline: none
+                    height: 5.1rem
+                    padding: 0 0 0 1.6rem
+                    color: $button-primary
+                    border-radius: $br-radius
+                    font-family: $font-family
+                    font-size: $subheading-medium
+                    background: $background-system
+                    border: .1rem solid $state-main
+
+                .example
+                    color: $state-neutral
+                    font-size: $body-medium
+
+            .input-icon
+                width: 100%
+                display: flex
+                cursor: pointer
+                align-items: center
+                padding: 0 1.7rem 0 0
+                border-radius: $br-radius
+                justify-content: space-around
+                border: .1rem solid $state-main
+
+                .input-pass
+                    width: 85%
+                    margin: 0
+                    padding: 0
+                    border: none
+
+            .button-next
+                width: 58.6rem
+
+                .button-base
+                    width: 100%
+                    border: none
+                    height: 6.7rem
+                    color: $button-step
+                    font-weight: 700
+                    border-radius: $br-card
+                    font-size: $button-large
+                    background: $state-hover-l
+                    transition: $transition-slow
+
+
+                @include btnStandar(
+                        $border: none,
+                        $padding: 1.7rem 4.3rem,
+                        $weight: bold,
+                        $shadow: none,
+                        $font-size: $button-large,
+                        $br-rad: 2rem,
+                        $background: $button-primary,
+                        $color: $state-light,
+                        $width: fit-content,
+                        $height: fit-content,
+                        $background-animation: $background-darker)
+
+    .articlient, .store, .address
+
+        .join
+            display: flex
+            gap: 1.6rem
+
+            .field
+                .articlient-name, .articlient-surname
+                    width: 28rem
+
+                .articlient-birth
+                    padding-right: 1rem
+
+        .field
+
+            select
+                width: 100%
+                outline: none
+                height: 5.1rem
+                appearance: none
+                padding-right: 1.6rem
+                padding: 0 0 0 1.6rem
+                color: $button-primary
+                background-size: 1.2rem
+                -webkit-appearance: none
+                font-family: $font-family
+                border-radius: $br-radius
+                font-size: $subheading-medium
+                border: .1rem solid $state-main
+                background: url('/icons/icons-interface/arrow-down-icon.svg') no-repeat right .5rem center
+
+            .radio-group
+                gap: 1.6rem
+                width: 100%
+                display: flex
+                flex-wrap: wrap
+                margin-top: 1.2rem
+
+                label
+                    gap: 1.6rem
+                    display: flex
+                    width: 50.6rem
+                    flex-wrap: wrap
+                    align-items: center
+                    color: $state-inactive
+                    font-size: $subheading-medium
+
+                    input
+                        width: 2rem
+                        height: 2rem
+
+
+        .button-artist
+            width: 58.6rem
+
+            .button-base
+                    width: 100%
+                    border: none
+                    height: 6.7rem
+                    color: $button-step
+                    font-weight: 700
+                    border-radius: $br-card
+                    font-size: $button-large
+                    background: $state-hover-l
+                    transition: $transition-slow
+
+            @include btnStandar(
+                        $border: none,
+                        $padding: 1.7rem 11.3rem,
+                        $weight: 700,
+                        $shadow: none,
+                        $font-size: $button-large,
+                        $br-rad: 2rem,
+                        $background: $button-primary,
+                        $color: $state-light,
+                        $width: fit-content,
+                        $height: fit-content,
+                        $background-animation: $background-darker)
+
+    .image
+        // top: 13rem
+        // right: 5rem
+        width: 53rem
+        height: 45rem
+        padding-left: 7.5rem
+        position: sticky
+
+        img
+            width: 45rem
+            height: 50rem
+
+    .image-store
+        width: 53rem
+        height: 45rem
+        position: sticky
+        padding-left: 15.5rem
+
+        img
+            width: 33rem
+            height: 50rem
+

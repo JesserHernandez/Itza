@@ -1,0 +1,64 @@
+//? Importes
+@import '_variables'
+@import '_landingPage'
+@import '_mixinsBtn'
+@import '_artistSection'
+@import '_sectionCity'
+@import '_sectionComment'
+@import '_login'
+@import '_productSection'
+@import '_registerType'
+@import '_returnComponent'
+@import '_stepOne'
+@import '_footer'
+@import '_navbar'
+@import '_carruselSection'
+@import '_productsHighlight'
+@import '_cardsPresentation'
+@import '_aside'
+@import '_headerAdmin'
+@import '_index'
+@import '_create'
+
+/*
+        ? La conversión del 62.5% hace que la fuente adopte ese porcentaje del tamaño real, es decir, de 16px toma 10px,
+        ?esto permite que sea viable usar la unidad de medida 'rem', donde 1rem es igual a 10px y .1rem es igual a 1px.
+        todo    16px*0.625 = 10px
+    */
+html
+    margin: 0
+    padding: 0
+    font-size: 62.5%
+    box-sizing: border-box
+    font-family: $font-family
+    background: #FCFCF8
+
+    // WebKit (Chrome, Edge, Brave, Safari, Opera)
+    &::-webkit-scrollbar
+        width: 1rem
+        padding: .4rem
+
+    &::-webkit-scrollbar-track
+        background: linear-gradient(
+            to bottom,
+            #FCFCF8 0%,
+            #FCFCF8 30%,
+            #EADFDE 60%,
+            #D3BDBA 100%
+        )
+
+    &::-webkit-scrollbar-thumb
+        border-radius: 10px
+        background-color: #702B21
+        transition: $transition-slow
+
+    &::-webkit-scrollbar-thumb:hover
+        background: #32130F
+        transition: $transition-slow
+
+// Firefox (solo colores sólidos)
+@-moz-document url-prefix()
+    html
+        scrollbar-width: auto
+        scrollbar-color: #702B21 #FCFCF8
+

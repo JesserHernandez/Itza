@@ -1,90 +1,185 @@
+<!-- Lo ques js va aquí -->
 <script setup>
-import { Head, Link, useForm } from '@inertiajs/vue3';
-import AuthenticationCard from '@/Components/AuthenticationCard.vue';
-import AuthenticationCardLogo from '@/Components/AuthenticationCardLogo.vue';
-import Checkbox from '@/Components/Checkbox.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+//? Importa los componentes necesarios
+import { Head, Link, useForm } from "@inertiajs/vue3";
+import AuthenticationCard from "@/Components/AuthenticationCard.vue";
+import { ref } from "vue";
+import InputError from "@/Components/InputError.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import TextInput from "@/Components/TextInput.vue";
 
 defineProps({
     canResetPassword: Boolean,
     status: String,
 });
 
+// Inicializa el formulario
 const form = useForm({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
     remember: false,
 });
 
+// Maneja el botón de envío del formulario
 const submit = () => {
-    form.transform(data => ({
+    form.transform((data) => ({
         ...data,
-        remember: form.remember ? 'on' : '',
-    })).post(route('login'), {
-        onFinish: () => form.reset('password'),
+        remember: form.remember ? "on" : "",
+    })).post(route("login"), {
+        onFinish: () => form.reset("password"),
     });
+};
+
+const viewPassword = ref(null);
+
+const showPassword = () => {
+    if (viewPassword.value.src.includes("eye-closed-icon.svg")) {
+        viewPassword.value.classList.add("gif-icons");
+        viewPassword.value.src = "/icons/icons-interface/eye-icon.svg";
+        document.getElementById("password").type = "text";
+        viewPassword.value.style.cursor = "pointer";
+    } else {
+        viewPassword.value.src = "/icons/icons-interface/eye-closed-icon.svg";
+        document.getElementById("password").type = "password";
+    }
 };
 </script>
 
 <template>
-    <Head title="Log in" />
-
+    <Head title="Iniciar sesión" />
     <AuthenticationCard>
-        <template #logo>
-            <AuthenticationCardLogo />
-        </template>
-
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
+        <div v-if="status" class="">
             {{ status }}
         </div>
 
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
-                <TextInput
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-                <TextInput
-                    id="password"
-                    v-model="form.password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="current-password"
-                />
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
-
-            <div class="block mt-4">
-                <label class="flex items-center">
-                    <Checkbox v-model:checked="form.remember" name="remember" />
-                    <span class="ms-2 text-sm text-gray-600">Remember me</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    Forgot your password?
+        <!-- Contenedor 1: Volver y Logo -->
+        <div class="login-header">
+            <nav class="container-nav" aria-label="Navegación principal">
+                <Link
+                    class="option"
+                    :href="route('landingPage')"
+                    aria-label="Volver a la página principal"
+                >
+                    <img
+                        src="/icons/icons-interface/back-icon.svg"
+                        alt="Volver"
+                        class="icon-back"
+                        aria-hidden="true"
+                    />
+                    <span>Volver</span>
                 </Link>
 
-                <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Log in
-                </PrimaryButton>
+                <div class="logo-short">
+                    <img
+                        src="/img/img-logo/Logo_itzat.svg"
+                        alt="Logo de Itz'at"
+                        class="logo-itzat"
+                    />
+                </div>
+            </nav>
+        </div>
+
+        <div class="welcome-container-login">
+            <div class="container-one">
+                <div class="header">
+                    <h1>
+                        ¡Bienvenido a ITZ'AT! Ya tienes una cuenta en nuestra
+                        plataforma. Accede a ella con total seguridad.
+                    </h1>
+                    <p>
+                        Accede a tu cuenta de ITZ'AT sin problemas. Ya seas
+                        artista o comprador, ingresa a nuestro marketplace y
+                        apoya la identidad cultural nicaragüense.
+                    </p>
+                </div>
+
+                <form @submit.prevent="submit" class="form-login">
+                    <div class="element-login-container">
+                        <div class="items-login">
+                            <InputLabel
+                                for="email"
+                                value="Correo electrónico"
+                                texAdd=" *"
+                            />
+                            <TextInput
+                                id="email"
+                                type="email"
+                                placeholder="Ingresa tu email"
+                                v-model="form.email"
+                                required
+                                autofocus
+                            />
+                            <p class="example-email">
+                                Ejemplo: luisgonzales@gmail.com
+                            </p>
+                        </div>
+                        <InputError class="" :message="form.errors.email" />
+
+                        <div class="items-login">
+                            <InputLabel
+                                for="password"
+                                value="Contraseña"
+                                texAdd=" *"
+                            />
+
+                            <div class="input-icon-container-login password">
+                                <TextInput
+                                    type="password"
+                                    id="password"
+                                    placeholder="Ingresa tu contraseña aquí"
+                                    v-model="form.password"
+                                    required
+                                    autofocus
+                                />
+                                <img
+                                    src="/icons/icons-interface/eye-closed-icon.svg"
+                                    alt="Ocultar icono para contraseña"
+                                    class="gif-icons"
+                                    @click="showPassword"
+                                    ref="viewPassword"
+                                />
+                            </div>
+
+                            <p class="example-email" for="password">
+                                Debe tener al menos 6 caracteres
+                            </p>
+                            <InputError
+                                class=""
+                                :message="form.errors.password"
+                            />
+                        </div>
+                        <div class="container-button">
+                            <PrimaryButton
+                                class="btn-class"
+                                id="btn-login"
+                                :description="'¡Vamos! Ingresa a tu cuenta de ITZ´AT'"
+                                :disabled="form.processing"
+                            >
+                            </PrimaryButton>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="hr">
+                    <hr />
+                    <span>o</span>
+                    <hr />
+                </div>
+
+                <span class="questions" id="question-login"
+                    >¿Aún no te registras?
+                    <Link :href="route('register_type')" class="register-link"
+                        >Únete ahora.</Link
+                    >
+                </span>
             </div>
-        </form>
+            <div class="img-login">
+                <img
+                    src="/img/img-interfaces/img-login.png"
+                    alt="Imagen-login"
+                />
+            </div>
+        </div>
     </AuthenticationCard>
 </template>

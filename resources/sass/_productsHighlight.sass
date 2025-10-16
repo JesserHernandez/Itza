@@ -1,0 +1,142 @@
+.container-products-cards
+    gap: 2.24rem
+    width: 100%
+    display: flex
+    flex-wrap: wrap
+    padding-left: 4rem
+    margin-top: 5.6rem
+    height: fit-content
+
+    .cards-product
+        width: 58.4rem
+        display: flex
+        height: 46.8rem
+        background: $background-card
+
+        .text-section
+            width: 27.4rem
+            height: inherit
+            padding: 2.8rem  2.8rem 0 2.8rem
+
+            .name, .name-store
+                gap: .8rem
+                width: 100%
+                display: flex
+                align-items: center
+                justify-content: start
+
+                img
+                    width: 2.4rem
+                    height: 2.4rem
+
+                span
+                    color: $state-light
+                    font-size: $body-medium
+
+                &.name-store
+                    margin-top: .8rem
+
+            .slogan
+                width: 24.6rem
+                margin-top: .9rem
+
+                h2
+                    color: $state-light
+                    font-size: $title-page-small
+
+            .button-link
+                z-index: 40
+                width: 15rem
+                overflow: hidden
+                position: relative
+                margin-top: 1.9rem
+                border-radius: $br-radtwo
+                border: .2rem solid $state-light
+
+                &::after
+                        top: 0
+                        opacity: 0
+                        content: ""
+                        left: -100%
+                        z-index: -4
+                        width: 16rem
+                        height: 100%
+                        display: block
+                        position: absolute
+                        background: $state-light
+                        border-radius: $br-radius
+                        transition: $transition-fast
+
+
+                &:hover::after
+                    top: 0
+                    left: 0
+                    opacity: 1
+                    transition: $transition-fast
+
+                a
+                    z-index: 90
+                    gap: .8rem
+                    height: 100%
+                    display: flex
+                    align-items: center
+                    text-decoration: none
+                    justify-content: center
+                    padding: 1.65rem 1.5rem
+
+                    &:hover span
+                        color: $button-primary
+                        transition: $transition-fast
+
+                    &:hover svg path
+                            color: $button-primary
+                            transition: $transition-fast
+                    span
+                        color: $state-light
+                        font-size: $heading-small
+
+                    svg path
+                        fill: currentColor
+                        color: $state-light
+
+
+        .image
+            padding: 0
+            width: 240rem
+            overflow: hidden
+
+            img
+                top: 3rem
+                scale: 2.2
+                left: 10rem
+                position: relative
+                transform: rotate(7deg)
+                transition: $transition-slow
+
+
+                &:hover
+                    top: 0
+                    scale: 1
+                    left: -2rem
+                    width: 33rem
+                    height: 53rem
+                    min-width: 26.8rem
+                    max-width: 49.5rem
+                    min-height: 46.6rem
+                    max-height: 58.2rem
+                    transform: rotate(0)
+                    transition: $transition-slow
+
+            .jarron
+                top: -4rem
+                scale: 2.4
+
+.container-products
+    gap: 2.24rem
+    width: 100%
+    display: flex
+    flex-wrap: wrap
+    padding-left: 4rem
+    margin-top: 4rem
+    height: fit-content
+    margin-bottom: 1rem

@@ -1,0 +1,181 @@
+@import '_mixinsBtn';
+
+
+.container-hero
+    width: 100%
+    height: 83.5rem
+    position: relative
+    margin-top: -3.2rem
+    padding-top: 3rem
+    box-shadow: $box-shadow
+    background: $background-hero
+
+
+
+    .hero-information
+        display: flex
+        height: 56.5rem
+        width: 112.8rem
+        flex-wrap: wrap
+        margin-top: 3.2rem
+        margin: 3.2rem 7.2rem 0 7.2rem
+
+        .hero-text
+            width: 66.2rem
+            padding-top: 3.9rem
+
+            .artist-outstanding
+                display: flex
+
+                .container-image
+                    width: 7rem
+                    display: flex
+                    flex-wrap: wrap
+                    justify-content: center
+
+                    .text-value
+                        gap: .2rem
+                        display: flex
+                        width: 4.7rem
+                        align-items: center
+                        pos
+                        font-size: $body-medium
+                        justify-content: center
+
+                        .icons-star
+                            width: 1.8rem
+                            height: 1.8rem
+
+                    .value-two
+                        margin-right: 1.5rem
+
+                    .value-three
+                        margin-right: 3.5rem
+
+                    .value-four
+                        margin-right: 5rem
+
+                    .value-five
+                        margin-right: 8rem
+
+                    .img-circle
+                        width: 7rem
+                        height: 7rem
+                        border-radius: 50%
+
+                        img
+                            width: 6.7rem
+                            height: 6.7rem
+                            object-fit: cover
+                            border-radius: 50%
+                            box-shadow: $box-shimg
+                            border: .2rem solid $button-primary
+
+                        .two
+                            left: 13rem
+                            position: absolute
+
+                        .three
+                            left: 19rem
+                            position: absolute
+
+                        .four
+                            left: 25rem
+                            position: absolute
+
+                        .five
+                            left: 31rem
+                            position: absolute
+
+            .text-welcome
+                margin-top: 2.2rem
+                h1
+                    color: $state-main
+                    font-size: $title-page-small
+
+                span
+                    color: $button-primary
+
+            .paragraph-welcome
+                margin-top: 1.6rem
+                font-size: $body-large
+                color: $state-inactive
+
+            .container-action
+                gap: 2.4rem
+                display: flex
+                margin-top: 4rem
+
+                .button-containers
+                    @include btnStandar(
+                        $border: none,
+                        $padding: 1.5rem 2rem,
+                        $weight: bold,
+                        $shadow: $box-shbutton,
+                        $font-size: $button-large,
+                        $br-rad: 2rem,
+                        $background: $button-primary,
+                        $color: $button-color-ti-primary,
+                        $width: 2.8rem,
+                        $height: 2.8rem,
+                        $background-animation: $background-darker)
+
+                .button-container-two
+                    @include btnStandar(
+                        $border: .1rem solid $button-primary,
+                        $padding: 1.5rem 2rem,
+                        $weight: bold,
+                        $shadow: none,
+                        $font-size: $button-large,
+                        $br-rad: 2rem,
+                        $background: $button-secondary,
+                        $color: $button-color-ti-secondary,
+                        $width: 2.8rem,
+                        $height: 2.8rem,
+                        $background-animation: $background-light)
+
+        .hero-image
+            width: 46.6rem
+            display: inline-block
+
+            img
+                z-index: -10
+                -webkit-box-reflect: below -14rem  linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 48%);
+
+.main-landing
+    margin-top: 2rem
+
+
+.title-section
+        margin-top: 5.2rem
+        width: inherit
+        height: 17.4rem
+
+        h1
+            text-align: center
+            color: $state-main
+            font-size: $title-page-large
+
+.btn-show-products
+        width: 100%
+        display: flex
+        height: 6.8rem
+        align-items: center
+        justify-content: center
+        margin-top: 3.6rem
+        margin-right: 4rem    
+
+        @include btnStandar(
+                        $border: none,
+                        $padding: 1.7rem 1.6rem,
+                        $weight: bold,
+                        $shadow: none,
+                        $font-size: $button-large,
+                        $br-rad: 2rem,
+                        $background: $button-primary,
+                        $color: $state-light,
+                        $width: fit-content,
+                        $height: fit-content,
+                        $background-animation: $background-darker)
+
+

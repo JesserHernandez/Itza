@@ -1,0 +1,165 @@
+.container-type
+    width: 100%
+    display: flex
+    flex-wrap: wrap
+    height: fit-content
+    padding: 4rem 4rem 0 4rem
+
+    
+
+        //? Sección informativa y selección
+    .section-info
+        width: 61.1rem
+        height: 69.8rem
+        margin-top: .8rem
+
+        .title
+            width: 59.4rem
+
+            h1
+                color:#000
+                font-weight: 600
+                font-size: $subtitle-medium
+
+        .paragrahp
+            width: 59.4rem
+            margin-top: 2.4rem
+
+            p
+                color: $state-main
+                font-size: $body-large
+
+        .selected-container
+            gap: 4rem
+            display: flex
+            flex-wrap: wrap
+            margin-top: 4.8rem
+
+            .artist, .customer
+                gap: 2rem
+                display: flex
+                width: 59.4rem
+                flex-wrap: wrap
+
+                p
+                    width: 100%
+                    color: $state-main
+                    font-size: $heading-small
+                    transition: $transition-fast
+
+                @include btnStandar(
+                                $border: .1rem solid $button-primary,
+                                $padding: 1.5rem 14.4rem,
+                                $weight: 500,
+                                $shadow: none,
+                                $font-size: $button-large,
+                                $br-rad: $br-link,
+                                $background: $background-system,
+                                $color: $state-main,
+                                $width: 2.8rem,
+                                $height: 2.8rem,
+                                $background-animation: $background-light)
+
+                svg path
+                    fill: currentColor
+                    color: #010101
+                    transition: $transition-fast
+
+                a:hover
+                    transition: $transition-fast
+
+                    svg path, span
+                        fill: currentColor
+                        color: $state-span
+
+        .info-end
+            display: flex
+            width: 59.4rem
+            height: 5.4rem
+            margin-top: 4.8rem
+            align-items: center
+
+            hr
+                width: 25.5rem
+                border-radius: $br-radius
+                border: .17rem solid $state-span
+
+            span
+                margin: 0 2rem
+                color: $state-main
+                font-size: $title-page-small
+
+        .navigate
+            width: 59.4rem
+            margin-top: 3.2rem
+
+            span, a
+                font-size: $subheading-large
+                text-decoration: none
+
+            span
+                font-weight: 400
+                color: $state-main
+
+            a
+                font-weight: 500
+                color: $state-span
+
+    .section-image
+        width: 57rem
+        height: 60rem
+        display: flex
+        align-items: center
+        justify-content: center
+        border-radius: $br-section
+
+
+
+
+@media screen and (max-width:  1114px) and (min-width: 768px)
+    .container-type
+
+        .section-info
+            width: 100%
+            padding: 0
+            justify-content: center
+
+            .title, .paragrahp, .selected-container, .info-end, .navigate
+                width: 100%
+                padding: 0 2.5rem
+
+            .selected-container
+                width: 100%
+
+                .artist, .customer
+                    gap: 4rem
+                    width: 100%
+                    justify-content: center
+
+                    @include btnStandar(
+                                $border: .1rem solid $button-primary,
+                                $padding: 1.5rem 22.4rem,
+                                $weight: 500,
+                                $shadow: none,
+                                $font-size: $button-large,
+                                $br-rad: $br-link,
+                                $background: $background-system,
+                                $color: $state-main,
+                                $width: 2.8rem,
+                                $height: 2.8rem,
+                                $background-animation: $background-light)
+
+            .info-end
+                width: 100%
+                justify-content: center
+
+                hr
+                        width: 33.7em
+
+        .section-image
+            width: 100%
+            margin-top: 3.2rem
+
+            img
+                width: 50rem
+                height: 68.2rem
