@@ -131,6 +131,7 @@ function destroy(id) {
                             <th>Fecha de creación</th>
                             <th>Precio</th>
                             <th>Tags</th>
+                            <th>Disponibilidad</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>
@@ -154,6 +155,7 @@ function destroy(id) {
                         <td>{{ product.creation_date }}</td>
                         <td>{{ product.price }}</td>
                         <td>{{ product.tags?.name }}</td>
+                        <td>{{ product.is_active }}</td>
 
                             <td class="td-actions">
                                 <NavLink
