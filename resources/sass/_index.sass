@@ -179,6 +179,34 @@
                                 $background-animation: $background-light
                             )
 
+    .table-scroll
+        width: 91rem
+        overflow: scroll
+
+        &::-webkit-scrollbar
+            width: 1rem
+            padding: .4rem
+
+        ::-webkit-scrollbar-track
+            background: #702B21
+
+        &::-webkit-scrollbar-thumb
+            border-radius: 10px
+            background-color: #702B21
+            transition: $transition-slow
+
+        &::-webkit-scrollbar-thumb:hover
+                background: #32130F
+                transition: $transition-slow
+
+        .table
+            width: 185rem
+
+            th, td
+                padding: .8rem
+                white-space: nowrap
+
+
 .pagination
         gap: 2rem
         width: 100%
