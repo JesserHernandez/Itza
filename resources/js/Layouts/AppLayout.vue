@@ -77,7 +77,17 @@ function toggleSubmenu() {
                     />
                     <span class="name-link"> Panel de control </span>
                 </NavLink>
-                <NavLink class="btn-class" :href="route('teams.create')">
+
+                <NavLink class="btn-class" :href="route('roles.index')">
+                    <img
+                        src="/icons/icons-ceramics/ceramic-mingle-icon.svg"
+                        alt=""
+                        class="icons"
+                    />
+                    <span class="name-link"> Rol </span>
+                </NavLink>
+
+                <NavLink class="btn-class" :href="route('users.index')">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="14"
