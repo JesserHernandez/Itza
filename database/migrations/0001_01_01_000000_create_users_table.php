@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('surname', 50);
             $table->string('email', 50)->unique();
             $table->string('password');
-            $table->string('status', 10)->default('Activo');
+            $table->string('status', 10)->nullable()->default('Activo');
             $table->string('gender', 10);
             $table->string('phone_number', 20);
             $table->string('identification_card', 20)->unique();
