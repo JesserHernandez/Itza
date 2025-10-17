@@ -10,10 +10,11 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, HasProfilePhoto, HasTeams, Notifiable, TwoFactorAuthenticatable;
+    use HasApiTokens, HasFactory, HasRoles, HasProfilePhoto, HasTeams, Notifiable, TwoFactorAuthenticatable;
     
     protected $fillable = ['name', 'surname', 'email', 'password', 'status', 'gender', 'phone_number', 'identification_card', 'experience','is_vendor', 'is_outstanding'];
     protected $hidden = ['password', 'remember_token', 'two_factor_recovery_codes', 'two_factor_secret'];
