@@ -1,0 +1,85 @@
+@media screen and (max-width: 1211px) and (min-width: 600px)
+
+    .container-navbar
+        width: 79rem
+        height: 15rem
+        flex-wrap: wrap
+        margin: 3.2rem 0
+        align-items: start
+        justify-content: space-evenly
+
+        .logo
+            width: 100%
+            display: flex
+            justify-content: center
+
+        .navbar
+            gap: 0
+
+            width: 74rem
+            justify-content: space-around
+
+            a, .section
+                width: fit-content
+                padding: 1.2rem .8rem
+                font-size: $body-text-medium
+                justify-content: space-evenly
+
+        .button-search
+                top: 12rem
+                right: 35rem
+                position: absolute
+
+                .elements-button
+                    position: absolute
+
+        &.container-navbar.text-hidden
+
+            .navbar
+                translate: 0
+                padding-left: 5rem
+                justify-content: space-around
+
+                a, .section
+                    width: fit-content
+                    font-size: $body-text-medium
+
+
+                    .hidden
+                        display: flex
+                        transition: $transition-fast
+
+                .dropdown
+                    z-index: 100
+
+                .dropdown-content
+                    gap: 1.5rem
+                    height: 4rem
+                    width: fit-content
+                    display: flex
+                    translate: -3rem 0
+                    align-items: center
+                    justify-content: center
+
+                    .hidden
+                        display: inline
+                        transition: $transition-fast
+
+            .button-search
+                top:  5rem
+
+                .elements-button
+                    width: 36.4rem
+                    left: -22rem
+                    background: $button-secondary
+                    transition: $transition-fast
+
+                    input
+                        width: 100%
+                        padding-left: .5rem
+                        pointer-events: auto
+                        transition: $transition-slow
+                        color: $button-color-ti-secondary
+
+
+    
