@@ -32,9 +32,9 @@
                     align-items: center
 
                     .name-link
-                    text-decoration: none
-                    font-size: $button-small
-                    color: $state-hover-l
+                        text-decoration: none
+                        font-size: $button-small
+                        color: $state-hover-l
 
                     .icons-aside
                         width: 2rem
@@ -52,6 +52,8 @@
 
 
 
+
+
             @include btnStandar(
                             $border: .2rem solid $button-primary,
                             $padding: 1.5rem 5rem 1.5rem 1.2rem,
@@ -65,6 +67,49 @@
                             $height: 2rem,
                             $background-animation: $background-darker
                         )
+
+            .relative
+                z-index: 9999999
+                position: relative
+
+                .content
+                    gap: .8rem
+                    z-index: 99
+                    width: 25rem
+                    top: -2.8rem
+                    display: flex
+                    height: 29rem
+                    box-shadow: none
+                    position: absolute
+                    padding: .8rem 0 0 0
+                    flex-direction: column
+                    transition: $transition-fast
+                    background: $button-primary
+
+                    a
+                        gap: .8rem
+                        display: flex
+                        color: $state-light
+                        align-items: center
+                        text-decoration: none
+                        font-size: $button-small
+
+                    @include btnStandar(
+                            $border: .2rem solid $button-primary,
+                            $padding: 1rem 5rem 1.5rem 1.2rem,
+                            $weight: 700,
+                            $shadow: none,
+                            $font-size: $button-small,
+                            $br-rad: 2rem,
+                            $background: $button-primary,
+                            $color: $button-color-ti-primary,
+                            $width: 2rem,
+                            $height: 2rem,
+                            $background-animation: $background-darker
+                        )
+
+
+
 
             //? Lista desplegable
             .title-list
@@ -98,7 +143,6 @@
                     .list-admin
                             list-style: none
                             gap: .1rem
-                            border: none
                             display: flex
                             flex-wrap: wrap
                             position: relative
@@ -106,9 +150,9 @@
                             transition: $transition-fast
 
                             &.list-admin.expanded
-                                z-index: 100
+                                z-index: 10
                                 width: 20rem
-                                height: 30rem
+                                height: 17rem
                                 padding: .5rem
                                 position: absolute
                                 background: $button-primary

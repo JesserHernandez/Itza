@@ -239,3 +239,115 @@
                                 $height: 2rem,
                                 $background-animation: $background-darker
                             )
+.contenido
+    width: 100%
+    display: flex
+    flex-wrap: wrap
+
+    .form-group
+        display: flex
+        gap: 1.2rem
+        width: 23rem
+        flex-wrap: wrap
+
+        label
+            font-size: $subheading-small
+
+        input
+                width: 30rem
+                height: 4rem
+                border: none
+                outline: none
+                color: $state-span
+                padding-left: .8rem
+                font-size: $button-small
+                border-radius: $br-radius
+                background: $background-form
+                border: 1px solid $state-inactive
+
+    .permisos
+        width: 85rem
+        display: flex
+        flex-wrap: wrap
+        margin-top: 1.2rem
+        gap: 1rem
+
+        h3
+            width: 100%
+            font-size: $subheading-small
+
+        .items
+            width:25rem
+            display: flex
+
+
+            label
+                font-size: $body-medium
+
+    .container
+        margin-bottom: 3rem
+        margin-top: 3rem
+        @include btnStandar(
+                                $border: none,
+                                $padding: 1rem 10rem,
+                                $weight: 700,
+                                $shadow: none,
+                                $font-size: $button-small,
+                                $br-rad: $br-radius,
+                                $background: $button-primary,
+                                $color: $button-color-ti-primary,
+                                $width: 2rem,
+                                $height: 2rem,
+                                $background-animation: $background-darker
+                            )
+
+.create-user
+    width: 100%
+    display: flex
+    flex-wrap: wrap
+
+    .form
+        gap: 1.2rem
+        display: flex
+        padding-left: 12rem
+        flex-wrap: wrap
+
+        .form-group
+            gap: 1.2rem
+            width: 23rem
+            display: flex
+            flex-wrap: wrap
+
+            label
+                font-size: $subheading-small
+
+            input, select
+                    width: 30rem
+                    height: 4rem
+                    border: none
+                    outline: none
+                    color: $state-span
+                    padding-left: .8rem
+                    font-size: $button-small
+                    border-radius: $br-radius
+                    background: $background-form
+                    border: 1px solid $state-inactive
+
+        .container-button
+                width: 100%
+                margin-left: 7rem
+                margin-top: 1.2rem
+
+                @include btnStandar(
+                                $border: none,
+                                $padding: 1rem 20rem,
+                                $weight: 700,
+                                $shadow: none,
+                                $font-size: $button-small,
+                                $br-rad: $br-radius,
+                                $background: $button-primary,
+                                $color: $button-color-ti-primary,
+                                $width: 2rem,
+                                $height: 2rem,
+                                $background-animation: $background-darker
+                            )

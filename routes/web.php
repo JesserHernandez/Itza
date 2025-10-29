@@ -3,8 +3,6 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use \Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Middleware\RoleMiddleware;
-
 
 $redirectByRole = fn($user) => redirect()->route($user->is_vendor === 1 ? 'admin' : 'customer');
 
@@ -20,11 +18,17 @@ Route::get('/register_type', fn() => Auth::check() ? $redirectByRole(Auth::user(
 
 Route::get('/dashboard', fn() => Auth::check() ? $redirectByRole(Auth::user()) : redirect()->route('/'))->name('dashboard');
 
-Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified', RoleMiddleware::class.':true'])->group(function () {
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified', 'role:vendor'])->group(function () {
     //Admin
     Route::get('/admin', fn() => Inertia::render('Vendor/Index'))->name('admin');
     //VerificationUser
     Route::resource('/verification_users', \App\Http\Controllers\VerificationUserController::class);
+    //Users
+    Route::resource('/users', \App\Http\Controllers\UserController::class);
+    //Roles
+    Route::resource('/roles', \App\Http\Controllers\RoleController::class);
+    //Permissions
+    Route::resource('/permissions', \App\Http\Controllers\PermissionController::class);
     //Category
     Route::resource('/categories', \App\Http\Controllers\CategoryController::class);
     //ProductMaterial
@@ -45,7 +49,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::resource('/order_returns', \App\Http\Controllers\OrderReturnController::class);
 });
 
-Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified', RoleMiddleware::class.':false'])->group(function () {
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified', 'role:customer'])->group(function () {
     //Customer
     Route::get('/customer', fn() => Inertia::render('Customer/Index'))->name('customer');
     //PaymentMethodUser
