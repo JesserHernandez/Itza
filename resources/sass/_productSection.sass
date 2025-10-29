@@ -131,11 +131,49 @@
                     font-size: $body-text-medium
                     color: $state-inactive
 
+@media screen and (max-width: 1600px) and (min-width: 1281px)
+    .container-products
+        justify-content: space-evenly
+
+        .products
+            width: 45rem
+
 @media screen and (max-width: 1211px) and (min-width: 600px)
     .container-products
         width: 34rem
         justify-content: center
-        
+
+
+        .products
+            width: 34rem
+            height: 57rem
+
+            .data-products
+
+                .description
+                    width: 100%
+                    height: 6.25rem
+                    padding: 1.6rem
+                    padding-bottom: .2rem
+
+                    p
+                    color: $state-inactive
+                    font-size: $body-small
+
+                .first-data
+
+                    .name
+                        padding: 1.15rem 0
+
+                        h4
+                            font-size: $subheading-small
+                            font-weight: 500
+
+@media screen and (max-width: 600px) and (min-width: 320px)
+    .container-products
+        width: 34rem
+        justify-content: center
+
 
         .products
             width: 34rem
