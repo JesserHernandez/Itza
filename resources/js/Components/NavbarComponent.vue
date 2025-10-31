@@ -56,7 +56,7 @@ const logout = () => {
                 </svg>
                 <span class="hidden">Home</span>
             </NavLink>
-            <NavLink>
+            <NavLink :href="route('card_cities')">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="18"
