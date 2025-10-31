@@ -1,0 +1,135 @@
+.main-city
+    overflow: hidden
+    margin-top: 2rem
+
+    .title-section
+
+        h1
+            text-align: center
+            color: $state-main
+            font-size: $title-page-medium
+
+        p
+            text-align: center
+            color: $state-main
+            font-size: $body-large  
+            margin-top: 2rem 
+            padding: 0 7.2rem
+
+        .map-cities
+            margin-top: 4rem
+            display: flex
+            justify-content: center
+
+    .ciudades-creativas
+        width: 100%
+        display: flex
+        flex-wrap: wrap
+        padding: 4rem
+        justify-content: space-between
+
+        .city-section
+            display: flex
+            flex-wrap: wrap
+            justify-content: center
+
+        .cards-artist
+            width: 58rem
+            cursor: pointer
+            height: 68.2rem
+            overflow: hidden
+            position: relative
+            margin-top: 4rem
+            border-radius: $br-section
+            background: $state-inactive
+
+            &::after
+                left: 0
+                top: 59rem
+                content: ""
+                opacity: 0.5
+                z-index: 100
+                width: 58rem
+                height: 28rem
+                display: block
+                position: absolute
+                background: $state-main
+                transition: $transition-slow
+                border-radius: 0 0 $br-section $br-section
+
+            &:hover::after
+                top: 37.5rem
+                height: 33rem
+                transition: $transition-fast
+
+            .image
+                z-index: 10
+                width: 58rem
+                height: inherit
+                object-fit: cover
+
+            .info
+                left: 0
+                opacity: 0
+                height: 30rem
+                z-index: 1000
+                bottom: -15rem
+                width: 58rem
+                overflow: hidden
+                position: absolute
+                pointer-events: none
+                background: $state-main
+                transition: $transition-fast
+                
+
+            &:hover .info, .info:hover
+                opacity: 1
+                bottom: -1.5rem
+                pointer-events: auto
+                background: transparent
+                transition: $transition-slow
+
+            .nombre
+                gap: 1.2rem
+                display: flex
+                width: 58rem
+                margin-left: 2rem
+                align-items: center
+
+                h2
+                    color:  $state-light
+                    font-size: $heading-large
+
+            .description
+                width: 54rem
+                color:  $state-light
+                margin: 1.2rem 0 0 2rem
+
+                p
+                    font-size: $body-large
+
+            .container-end
+                display: flex
+                width: 54rem
+                margin: 1.2rem 0 0 2rem
+                justify-content: right
+
+                .follow
+                    color:  $state-light
+                    transition: $transition-fast
+
+                    @include btnStandar(
+                        $border: none,
+                        $padding: 1.5rem 1.6rem,
+                        $weight: 400,
+                        $shadow: none,
+                        $font-size: $button-large,
+                        $br-rad: 2rem,
+                        $background: $button-secondary,
+                        $color: $button-color-ti-secondary,
+                        $width: 2.8rem,
+                        $height: 2.8rem,
+                        $background-animation: $background-light)
+
+   
+
