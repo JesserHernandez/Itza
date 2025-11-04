@@ -1,139 +1,150 @@
-.products
-    width: 38.1rem
-    padding: 0
-    height: 53rem
-    max-height: fit-content
-    overflow: hidden
-    border-radius: $br-card
-    box-shadow: $box-shbutton
-    transition: $transition-fast
+.container-products
+    gap: 2.24rem
+    width: 100%
+    display: flex
+    flex-wrap: wrap
+    padding-left: 4rem
+    margin-top: 4rem
+    height: fit-content
+    margin-bottom: 1rem
 
-    &:hover
-        box-shadow: $box-shadow
+    .products
+        width: 38.1rem
+        padding: 0
+        height: 53rem
+        max-height: fit-content
+        overflow: hidden
+        border-radius: $br-card
+        box-shadow: $box-shbutton
         transition: $transition-fast
 
-    .img-product
-        width: 100%
-        height: 22rem
+        &:hover
+            box-shadow: $box-shadow
+            transition: $transition-fast
 
-        img
-            width: inherit
+        .img-product
+            width: 100%
             height: 22rem
-            position: relative
-            object-fit: cover
 
-    .data-products
-        width: 100%
-        height: 28.6rem
+            img
+                width: inherit
+                height: 22rem
+                position: relative
+                object-fit: cover
 
-        .numbers
+        .data-products
             width: 100%
-            display: flex
-            height: 3.3rem
-            padding: 0 1.6rem
-            margin-top: 2.4rem
-            align-items: center
-            justify-content: space-between
+            height: 28.6rem
 
-            p
+            .numbers
+                width: 100%
                 display: flex
-                font-weight: 600
-                color: $state-main
+                height: 3.3rem
+                padding: 0 1.6rem
+                margin-top: 2.4rem
                 align-items: center
-                font-size: $heading-medium
+                justify-content: space-between
 
-                img
-                    width: 3.2rem
-                    height: 3.2rem
-
-        .first-data
-            display: flex
-            flex-direction: column
-            width: 100%
-            margin-top: 1rem
-            padding: 0 1.6rem
-            justify-content: flex-start
-            align-items: flex-start
-
-            .name
-                padding: 1.15rem 0
-
-                h4
-                    font-size: $heading-small
-                    font-weight: 500
-
-            .action-card
-                    gap: .8rem
+                p
                     display: flex
-                    width: 20.2rem
-                    height: 100%
-                    position: relative
+                    font-weight: 600
+                    color: $state-main
                     align-items: center
-                    justify-content: flex-start
+                    font-size: $heading-medium
 
-                    .section
-                        width: 4.4rem
+                    img
+                        width: 3.2rem
+                        height: 3.2rem
+
+            .first-data
+                display: flex
+                flex-direction: column
+                width: 100%
+                margin-top: 1rem
+                padding: 0 1.6rem
+                justify-content: flex-start
+                align-items: flex-start
+
+                .name
+                    padding: 1.15rem 0
+
+                    h4
+                        font-size: $heading-small
+                        font-weight: 500
+
+                .action-card
+                        gap: .8rem
                         display: flex
-                        height: 4.4rem
-                        cursor: pointer
+                        width: 20.2rem
+                        height: 100%
+                        position: relative
                         align-items: center
-                        justify-content: center
-                        border-radius: $br-radius
-                        background: $button-secondary
-                        border: .2rem solid $button-primary
+                        justify-content: flex-start
 
-                    @include btnStandar(
-                        $border: none,
-                        $padding: 1.2rem 1.2rem,
-                        $weight: bold,
-                        $shadow: none,
-                        $font-size: $button-small,
-                        $br-rad: $br-radius,
-                        $background: $button-primary,
-                        $color: $state-light,
-                        $width: fit-content,
-                        $height: fit-content,
-                        $background-animation: $background-darker)
+                        .section
+                            width: 4.4rem
+                            display: flex
+                            height: 4.4rem
+                            cursor: pointer
+                            align-items: center
+                            justify-content: center
+                            border-radius: $br-radius
+                            background: $button-secondary
+                            border: .2rem solid $button-primary
 
-                    svg path
-                            fill: currentColor
-                            color: $state-light
+                        @include btnStandar(
+                            $border: none,
+                            $padding: 1.2rem 1.2rem,
+                            $weight: bold,
+                            $shadow: none,
+                            $font-size: $button-small,
+                            $br-rad: $br-radius,
+                            $background: $button-primary,
+                            $color: $state-light,
+                            $width: fit-content,
+                            $height: fit-content,
+                            $background-animation: $background-darker)
 
-        .description
-            width: 100%
-            height: 10.25rem
-            padding: 1.6rem
-            padding-bottom: .2rem
+                        svg path
+                                fill: currentColor
+                                color: $state-light
 
-            p
-            color: $state-inactive
-            font-size: $body-medium
+            .description
+                width: 100%
+                height: 10.25rem
+                padding: 1.6rem
+                padding-bottom: .2rem
 
-        .end-data
-            display: flex
-            align-items: center
-            gap: 1.6rem
-            flex-wrap: wrap
-            padding: 0 1.6rem
+                p
+                color: $state-inactive
+                font-size: $body-medium
 
-            .location, .store
+            .end-data
                 display: flex
                 align-items: center
-                gap: 0.5rem
-                margin-left: 0
-                width: fit-content
+                gap: 1.6rem
+                flex-wrap: wrap
+                padding: 0 1.6rem
 
-                img
-                    width: 2rem
-                    height: 2rem
+                .location, .store
+                    display: flex
+                    align-items: center
+                    gap: 0.5rem
+                    margin-left: 0
+                    width: fit-content
 
-                span
-                    font-size: $body-text-medium
-                    color: $state-inactive
+                    img
+                        width: 2rem
+                        height: 2rem
+
+                    span
+                        font-size: $body-text-medium
+                        color: $state-inactive
 
 @media screen and (max-width: 1600px) and (min-width: 1281px)
     .container-products
         justify-content: space-evenly
+        padding: 0 4rem
 
         .products
             width: 45rem
@@ -171,7 +182,7 @@
 
 @media screen and (max-width: 600px) and (min-width: 320px)
     .container-products
-        width: 34rem
+        width: 35rem
         justify-content: center
 
 

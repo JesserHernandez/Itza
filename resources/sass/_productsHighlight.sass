@@ -131,19 +131,12 @@
                 top: -4rem
                 scale: 2.4
 
-.container-products
-    gap: 2.24rem
-    width: 100%
-    display: flex
-    flex-wrap: wrap
-    padding-left: 4rem
-    margin-top: 4rem
-    height: fit-content
-    margin-bottom: 1rem
+
 
 @media screen and (max-width: 1600px) and (min-width: 1281px)
 
     .container-products-cards
+        padding: 0 5rem
         justify-content: space-around
 
         .cards-product
@@ -181,7 +174,7 @@
     .container-products
         padding: 0
 
-@media screen and (max-width: 600px) and (min-width: 375px)
+@media screen and (max-width: 600px) and (min-width: 320px)
     .container-products-cards
             padding: 0
             width: 100%
@@ -194,9 +187,20 @@
 
             .cards-product
                 display: flex
-                width: 60.4rem
-                height: 46.8rem
-                background: $background-card
+                width: 30.4rem
+                flex-wrap: wrap
+                height: 86.2rem
+                // background: red
+
+                .image
+                    // z-index: 1000}
+                    position: relative
+                    top: -47rem
+                    overflow: hidden
+
+                    img
+                        top: 15rem
+
 
                 .text-section
                     width: 27.4rem
