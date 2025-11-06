@@ -1,0 +1,35 @@
+@mixin Switch
+    input[type="checkbox"]
+                margin: 0
+                appearance: none
+                -webkit-appearance: none
+                background: $background-system
+                font: inherit
+                color: currentColor
+                width: 8.8rem
+                background: $button-secondary
+                height: 3rem
+                display: grid;
+                border: none
+                transition: $transition-fast
+                place-content: center;
+
+                &::after
+                    content: ""
+                    width: 2rem
+                    height: 2rem
+                    position: absolute
+                    top: 91.25rem
+                    left: .8rem
+                    background: $button-primary
+                    border-radius: $br-link
+                    transform: scale(1)
+                    transition: $transition-fast
+
+                &:checked::after
+                    left: 6.2rem
+                    background: $background-system
+
+                &:checked
+                    background: $button-primary
+                    transition: $transition-fast
