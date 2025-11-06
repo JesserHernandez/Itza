@@ -7,12 +7,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\InventoryRequest;
 use App\Models\Movement;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
-use PhpParser\Node\Stmt\Else_;
 
 class InventoryController extends Controller
 {
@@ -25,7 +23,6 @@ class InventoryController extends Controller
     {
         return Inertia::render('Vendor/Inventory/Create', ['inventory' => new Inventory() ]);
     }
-
     public function store(InventoryRequest $request): RedirectResponse
     {
         try {
