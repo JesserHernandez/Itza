@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 
@@ -53,24 +51,22 @@ class PermissionSeeder extends Seeder
             "Editar Productos",
             "Mostrar Productos",
             "Eliminar Productos",
+
+            "Ver Inventario",
+            "Crear Inventario",
+            "Editar Inventario",
+            "Mostrar Inventario",
+            "Eliminar Inventario",
+
+            "Ver Movimientos",
+            "Crear Movimientos",
+            "Editar Movimientos",
+            "Mostrar Movimientos",
+            "Eliminar Movimientos",
         ];
 
         foreach ($permission as $value) {
-            Permission::create(["name" => $value]);
+            Permission::create(["name" => $value, "guard_name" => "sanctum"]);
         }
-
-        User::create([
-            'name' => 'Jesser Abener',
-            'surname' => 'Hernandez Talavera',
-            'identification_card' => '161-240303-1004W',
-            'phone_number' => '5705 3615',
-            'status' => 'Activo',
-            'gender' => 'Masculino',
-            'is_vendor' => true,
-            'is_outstanding' => false,
-            'email' => 'admin@gmail.com',
-            'email_verified_at' => now(),
-            'password' => bcrypt('123456789'),
-        ]);
     }
 }

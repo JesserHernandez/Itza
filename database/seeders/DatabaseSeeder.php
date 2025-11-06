@@ -10,5 +10,8 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->withPersonalTeam()->create();
         $this->call(PermissionSeeder::class);
+        $this->call(RoleSeeder::class);
+        $this->call(RoleHasPermissionSeeder::class);
+        $this->call(UserSeeder::class);
     }
 }
