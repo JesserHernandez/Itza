@@ -10,7 +10,13 @@ class RoleHasPermissionSeeder extends Seeder
 {
     public function run(): void
     {
-        $permissions = Permission::all();
-        Role::findByName('Administrador', 'sanctum')->syncPermissions($permissions);
+        $permissionsAdministrator = Permission::all();
+        Role::findByName('Administrador', 'sanctum')->syncPermissions($permissionsAdministrator);
+
+        $permissionsVendor = Permission::take(25)->get();
+        Role::findByName('Vendedor', 'sanctum')->syncPermissions($permissionsVendor);
+
+        $permissionsCustomer = Permission::orderBy('id', 'desc')->take(25)->get();
+        Role::findByName('Cliente', 'sanctum')->syncPermissions($permissionsCustomer);
     }
 }

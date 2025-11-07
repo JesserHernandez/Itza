@@ -16,6 +16,18 @@ class PermissionSeeder extends Seeder
             "Mostrar Usuarios",
             "Eliminar Usuarios",
 
+            "Ver Clientes",
+            "Crear Clientes",
+            "Editar Clientes",
+            "Mostrar Clientes",
+            "Eliminar Clientes",
+
+            "Ver Tiendas",
+            "Crear Tiendas",
+            "Editar Tiendas",
+            "Mostrar Tiendas",
+            "Eliminar Tiendas",
+
             "Ver Roles",
             "Crear Roles",
             "Editar Roles",
@@ -33,12 +45,6 @@ class PermissionSeeder extends Seeder
             "Editar Categoria",
             "Mostrar Categoria",
             "Eliminar Categoria",
-
-            "Ver Materiales",
-            "Crear Materiales",
-            "Editar Materiales",
-            "Mostrar Materiales",
-            "Eliminar Materiales",
 
             "Ver Etiquetas",
             "Crear Etiquetas",
@@ -63,6 +69,12 @@ class PermissionSeeder extends Seeder
             "Editar Movimientos",
             "Mostrar Movimientos",
             "Eliminar Movimientos",
+
+            "Ver Ordenes",
+            "Crear Ordenes",
+            "Editar Ordenes",
+            "Mostrar Ordenes",
+            "Eliminar Ordenes",
         ];
 
         foreach ($permission as $value) {
