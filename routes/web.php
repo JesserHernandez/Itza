@@ -35,14 +35,18 @@ Route::get('/card_cities', fn() => Inertia::render('CardCities'))->name('card_ci
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified', 'role:Administrador'])->group(function () {
     //Administrator
     Route::get('/administrator', fn() => Inertia::render('Administrator/Index'))->name('administrator');
-    //VerificationUser
-    Route::resource('/verification_users', \App\Http\Controllers\VerificationUserController::class);
     //Users
     Route::resource('/users', \App\Http\Controllers\UserController::class);
     //Roles
     Route::resource('/roles', \App\Http\Controllers\RoleController::class);
     //Permissions
     Route::resource('/permissions', \App\Http\Controllers\PermissionController::class);
+    //CreativeCities
+    Route::resource('creative_cities', \App\Http\Controllers\CreativeCityController::class);
+    //CreativeCircuit
+    Route::resource('creative_circuits', \App\Http\Controllers\CreativeCircuitController::class);
+    //TransportService
+    Route::resource('transport_services', \App\Http\Controllers\TransportServiceController::class);
 });
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified', 'role:Vendedor|Administrador'])->group(function () {
@@ -50,8 +54,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::get('/vendor', fn() => Inertia::render('Vendor/Index'))->name('vendor');
     //Category
     Route::resource('/categories', \App\Http\Controllers\CategoryController::class);
-    //ProductMaterial
-    Route::resource('/product_materials', \App\Http\Controllers\ProductMaterialController::class);
     //Tag
     Route::resource('/tags', \App\Http\Controllers\TagController::class);
      //Product
@@ -72,11 +74,11 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     //Customer
     Route::get('/customer', fn() => Inertia::render('Customer/Index'))->name('customer');
     //PaymentMethodUser
-    Route::resource('/payment_methods_users', \App\Http\Controllers\PaymentMethodUserController::class);
+    Route::resource('/user_payment_methods', \App\Http\Controllers\UserPaymentMethodController::class);
     //AddresseUser
-    Route::resource('/addresses_users', \App\Http\Controllers\AddresseUserController::class);
+    Route::resource('/user_addresses', \App\Http\Controllers\UserAddresseController::class);
     //RewardUser
-    Route::resource('/rewards_users', \App\Http\Controllers\RewardUserController::class);
+    Route::resource('/user_rewards', \App\Http\Controllers\UserRewardController::class);
     //Review
     Route::resource('/reviews', \App\Http\Controllers\ReviewController::class);
     //ResponseReview
