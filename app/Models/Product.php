@@ -24,10 +24,6 @@ class Product extends Model
     {
         return $this->hasMany(Inventory::class, 'id', 'product_id');
     }
-    public function materialProducts()
-    {
-        return $this->belongsToMany(ProductMaterial::class, 'material_product')->withPivot('is_main')->withTimestamps();
-    }
     public function orderDetails()
     {
         return $this->hasMany(OrderDetail::class, 'id', 'product_id');
@@ -59,5 +55,15 @@ class Product extends Model
     public function liked()
     {
         return $this->morphMany(LikeUser::class, 'liked');
+    }
+    public function productAttributeValues()
+    {
+        return $this->hasMany(ProductAttributeValue::class);
+    }
+    public function categoryAttributes()
+    {
+        return $this->belongsToMany(CategoryAttribute::class, 'product_attribute_values')
+                    ->withPivot(['value_text', 'value_number', 'value_boolean', 'value_date'])
+                    ->withTimestamps();
     }
 }
