@@ -2,7 +2,7 @@
 
 namespace App\Actions\Fortify;
 
-use App\Models\AddresseUser;
+use App\Models\UserAddresse;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -84,7 +84,7 @@ class CreateNewUser implements CreatesNewUsers
             'user_address.address_city' => ['required', 'string', 'min:3', 'max:20'],
             'user_address.address_municipality' => ['required', 'string', 'min:3', 'max:20'],
         ])->validate();
-        AddresseUser::create([
+        UserAddresse::create([
             'type'=> $array['user_address']['address_type'], 
             'address'=> $array['user_address']['address_user'], 
             'postal_code'=> $array['user_address']['postal_code'], 
