@@ -77,31 +77,35 @@ function toggleSubmenu() {
                     />
                     <span class="name-link"> Panel de control </span>
                 </NavLink>
+                    <!-- <NavLink class="btn-class" :href="route('permissions.index')">
 
-                <NavLink class="btn-class" :href="route('roles.index')">
-                    <img
-                        src="/icons/icons-ceramics/ceramic-mingle-icon.svg"
-                        alt=""
-                        class="icons"
-                    />
-                    <span class="name-link"> Rol </span>
-                </NavLink>
+                        <span class="name-link"> Permisos </span>
+                    </NavLink>
 
-                <NavLink class="btn-class" :href="route('users.index')">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="14"
-                        height="15"
-                        viewBox="0 0 14 15"
-                        fill="none"
-                    >
-                        <path
-                            d="M7.21289 0.505859C9.41453 0.617355 11.165 2.43765 11.165 4.66699L11.1602 4.88086C11.0852 6.3605 10.2378 7.63481 9.01367 8.3125C10.0226 8.6324 10.9507 9.19001 11.7129 9.95215C12.9631 11.2024 13.665 12.8989 13.665 14.667H0.332031C0.332032 12.899 1.03404 11.2024 2.28418 9.95215C3.04617 9.19016 3.9747 8.63333 4.9834 8.31348C3.7598 7.63554 2.91281 6.36026 2.83789 4.88086L2.83203 4.66699C2.83203 2.36591 4.69798 0.500164 6.99902 0.5L7.21289 0.505859ZM6.99902 10C5.76146 10.0001 4.57431 10.4921 3.69922 11.3672C3.31792 11.7485 3.00896 12.1889 2.78223 12.667H11.2148C10.9881 12.189 10.68 11.7484 10.2988 11.3672C9.42375 10.4922 8.23651 10.0001 6.99902 10ZM6.99902 2.5C5.80255 2.50016 4.83203 3.47048 4.83203 4.66699C4.83221 5.86336 5.80265 6.83284 6.99902 6.83301C8.19538 6.83283 9.16486 5.86335 9.16504 4.66699C9.16504 3.47048 8.19549 2.50018 6.99902 2.5Z"
-                            fill="#F0F0F0"
+                    <NavLink class="btn-class" :href="route('roles.index')">
+                        <img
+                            src="/icons/icons-ceramics/ceramic-mingle-icon.svg"
+                            alt=""
+                            class="icons"
                         />
-                    </svg>
-                    <span class="name-link"> Usuarios </span>
-                </NavLink>
+                        <span class="name-link"> Rol </span>
+                    </NavLink>
+
+                    <NavLink class="btn-class" :href="route('users.index')">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="14"
+                            height="15"
+                            viewBox="0 0 14 15"
+                            fill="none"
+                        >
+                            <path
+                                d="M7.21289 0.505859C9.41453 0.617355 11.165 2.43765 11.165 4.66699L11.1602 4.88086C11.0852 6.3605 10.2378 7.63481 9.01367 8.3125C10.0226 8.6324 10.9507 9.19001 11.7129 9.95215C12.9631 11.2024 13.665 12.8989 13.665 14.667H0.332031C0.332032 12.899 1.03404 11.2024 2.28418 9.95215C3.04617 9.19016 3.9747 8.63333 4.9834 8.31348C3.7598 7.63554 2.91281 6.36026 2.83789 4.88086L2.83203 4.66699C2.83203 2.36591 4.69798 0.500164 6.99902 0.5L7.21289 0.505859ZM6.99902 10C5.76146 10.0001 4.57431 10.4921 3.69922 11.3672C3.31792 11.7485 3.00896 12.1889 2.78223 12.667H11.2148C10.9881 12.189 10.68 11.7484 10.2988 11.3672C9.42375 10.4922 8.23651 10.0001 6.99902 10ZM6.99902 2.5C5.80255 2.50016 4.83203 3.47048 4.83203 4.66699C4.83221 5.86336 5.80265 6.83284 6.99902 6.83301C8.19538 6.83283 9.16486 5.86335 9.16504 4.66699C9.16504 3.47048 8.19549 2.50018 6.99902 2.5Z"
+                                fill="#F0F0F0"
+                            />
+                        </svg>
+                        <span class="name-link"> Usuarios </span>
+                    </NavLink> -->
 
                 <Dropdown>
                     <template #trigger>
@@ -137,7 +141,7 @@ function toggleSubmenu() {
                                 />
                                 Tiendas
                             </DropdownLink>
-                            <DropdownLink class="btn-class">
+                            <DropdownLink class="btn-class" :href="route('inventories.index')">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="20"
