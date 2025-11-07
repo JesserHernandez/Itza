@@ -14,7 +14,7 @@ class PostRequest extends FormRequest
     {
         return [
 			'title' => 'required|string|min:3|max:100',
-			'content' => 'required|string|min:3',
+			'content' => 'required|text|min:3',
 			'summary' => 'required|string|min:3|max:255',
 			'post_status' => 'required|string|min:3|max:20',
 			'post_date' => 'required|date|after_or_equal:today',

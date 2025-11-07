@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class VerificationUserRequest extends FormRequest
+class UserRewardRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -13,9 +13,9 @@ class VerificationUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'status' => 'required|string|min:3|max:20',
-			'submitted_documents' => 'required',
-			'comments' => 'string|min:3|max:255',
+			'points' => 'required|integer|min:0',
+			'points_expiration' => 'required|date|after_or_equal:today',
+			'reason' => 'string|min:3|max:255',
         ];
     }
 }

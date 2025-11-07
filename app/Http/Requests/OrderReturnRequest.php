@@ -14,7 +14,7 @@ class OrderReturnRequest extends FormRequest
     {
         return [
 			'title' => 'required|string|min:3|max:100',
-			'content' => 'required|string|min:3',
+			'content' => 'required|text|min:3',
 			'application_date' => 'required|date|after_or_equal:today',
 			'order_id' => 'required|exists:orders,id',
 
