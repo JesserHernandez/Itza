@@ -8,16 +8,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('material_product', function (Blueprint $table) {
+        Schema::create('team_images', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('photo_path', 2048)->nullable();
             $table->boolean('is_main')->default(false);
-            $table->foreignId('product_id')->constrained('products')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('product_material_id')->constrained('product_materials')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('team_id')->constrained('teams')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
     public function down(): void
     {
-        Schema::dropIfExists('material_product');
+        Schema::dropIfExists('team_images');
     }
 };

@@ -8,17 +8,17 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('reward_users', function (Blueprint $table) {
+        Schema::create('user_rewards', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('points');
             $table->date('points_expiration');
             $table->string('reason')->nullable();
-            $table->foreignId('user_Id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
     public function down(): void
     {
-        Schema::dropIfExists('reward_users');
+        Schema::dropIfExists('user_rewards');
     }
 };
