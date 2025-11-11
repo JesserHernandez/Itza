@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('order_date');
             $table->string('order_status', 20)->default('Pendiente');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('addresses_user_id')->constrained('addresse_users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('user_addresses_id')->constrained('user_addresse')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('coupon_id')->nullable()->constrained('coupons')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

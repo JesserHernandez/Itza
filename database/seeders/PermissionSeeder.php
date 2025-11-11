@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 
@@ -17,6 +15,18 @@ class PermissionSeeder extends Seeder
             "Editar Usuarios",
             "Mostrar Usuarios",
             "Eliminar Usuarios",
+
+            "Ver Clientes",
+            "Crear Clientes",
+            "Editar Clientes",
+            "Mostrar Clientes",
+            "Eliminar Clientes",
+
+            "Ver Tiendas",
+            "Crear Tiendas",
+            "Editar Tiendas",
+            "Mostrar Tiendas",
+            "Eliminar Tiendas",
 
             "Ver Roles",
             "Crear Roles",
@@ -36,12 +46,6 @@ class PermissionSeeder extends Seeder
             "Mostrar Categoria",
             "Eliminar Categoria",
 
-            "Ver Materiales",
-            "Crear Materiales",
-            "Editar Materiales",
-            "Mostrar Materiales",
-            "Eliminar Materiales",
-
             "Ver Etiquetas",
             "Crear Etiquetas",
             "Editar Etiquetas",
@@ -53,24 +57,28 @@ class PermissionSeeder extends Seeder
             "Editar Productos",
             "Mostrar Productos",
             "Eliminar Productos",
+
+            "Ver Inventario",
+            "Crear Inventario",
+            "Editar Inventario",
+            "Mostrar Inventario",
+            "Eliminar Inventario",
+
+            "Ver Movimientos",
+            "Crear Movimientos",
+            "Editar Movimientos",
+            "Mostrar Movimientos",
+            "Eliminar Movimientos",
+
+            "Ver Ordenes",
+            "Crear Ordenes",
+            "Editar Ordenes",
+            "Mostrar Ordenes",
+            "Eliminar Ordenes",
         ];
 
         foreach ($permission as $value) {
-            Permission::create(["name" => $value]);
+            Permission::create(["name" => $value, "guard_name" => "sanctum"]);
         }
-
-        User::create([
-            'name' => 'Jesser Abener',
-            'surname' => 'Hernandez Talavera',
-            'identification_card' => '161-240303-1004W',
-            'phone_number' => '5705 3615',
-            'status' => 'Activo',
-            'gender' => 'Masculino',
-            'is_vendor' => true,
-            'is_outstanding' => false,
-            'email' => 'admin@gmail.com',
-            'email_verified_at' => now(),
-            'password' => bcrypt('123456789'),
-        ]);
     }
 }

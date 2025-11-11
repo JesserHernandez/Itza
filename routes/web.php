@@ -3,36 +3,57 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use \Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Collection;
 
-$redirectByRole = fn($user) => redirect()->route($user->is_vendor === 1 ? 'admin' : 'customer');
+$redirectByRole = function (Collection $roles) {
+    if ($roles->isEmpty()) {
+        return redirect()->route('landingPage');
+    }
+
+    return match ($roles->first()) {
+        'Administrador' => redirect()->route('administrator'),
+        'Vendedor'      => redirect()->route('vendor'),
+        'Cliente'       => redirect()->route('customer'),
+        default         => redirect()->route('landingPage'),
+    };
+};
 
 Route::redirect('/', '/landingPage');
 
 Route::get('/landingPage', fn () => Inertia::render('LandingPage'))->name('landingPage');
 
-Route::get('/register', fn(Request $request) => Auth::check() ? $redirectByRole(Auth::user()) : Inertia::render('Auth/Register', ['is_vendor' => $request->query('is_vendor', false)]))->name('register');
+Route::get('/register', fn(Request $request) => Auth::check() ? $redirectByRole(Auth::user()->getRoleNames()) : Inertia::render('Auth/Register', ['is_vendor' => $request->query('is_vendor', false)]))->name('register');
 
-Route::get('/login', fn() => Auth::check() ? $redirectByRole(Auth::user()) : Inertia::render('Auth/Login'))->name('login');
+Route::get('/login', fn() => Auth::check() ? $redirectByRole(Auth::user()->getRoleNames()) : Inertia::render('Auth/Login'))->name('login');
 
-Route::get('/register_type', fn() => Auth::check() ? $redirectByRole(Auth::user()) : Inertia::render('Auth/RegisterType'))->name('register_type');
+Route::get('/register_type', fn() => Auth::check() ? $redirectByRole(Auth::user()->getRoleNames()) : Inertia::render('Auth/RegisterType'))->name('register_type');
 
-Route::get('/dashboard', fn() => Auth::check() ? $redirectByRole(Auth::user()) : redirect()->route('/'))->name('dashboard');
+Route::get('/dashboard', fn() => Auth::check() ? $redirectByRole(Auth::user()->getRoleNames()) : redirect()->route('/landingPage'))->name('dashboard');
 
-Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified', 'role:vendor'])->group(function () {
-    //Admin
-    Route::get('/admin', fn() => Inertia::render('Vendor/Index'))->name('admin');
-    //VerificationUser
-    Route::resource('/verification_users', \App\Http\Controllers\VerificationUserController::class);
+Route::get('/card_cities', fn() => Inertia::render('CardCities'))->name('card_cities');
+
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified', 'role:Administrador'])->group(function () {
+    //Administrator
+    Route::get('/administrator', fn() => Inertia::render('Administrator/Index'))->name('administrator');
     //Users
     Route::resource('/users', \App\Http\Controllers\UserController::class);
     //Roles
     Route::resource('/roles', \App\Http\Controllers\RoleController::class);
     //Permissions
     Route::resource('/permissions', \App\Http\Controllers\PermissionController::class);
+    //CreativeCities
+    Route::resource('creative_cities', \App\Http\Controllers\CreativeCityController::class);
+    //CreativeCircuit
+    Route::resource('creative_circuits', \App\Http\Controllers\CreativeCircuitController::class);
+    //TransportService
+    Route::resource('transport_services', \App\Http\Controllers\TransportServiceController::class);
+});
+
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified', 'role:Vendedor|Administrador'])->group(function () {
+    //Vendor
+    Route::get('/vendor', fn() => Inertia::render('Vendor/Index'))->name('vendor');
     //Category
     Route::resource('/categories', \App\Http\Controllers\CategoryController::class);
-    //ProductMaterial
-    Route::resource('/product_materials', \App\Http\Controllers\ProductMaterialController::class);
     //Tag
     Route::resource('/tags', \App\Http\Controllers\TagController::class);
      //Product
@@ -49,15 +70,15 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::resource('/order_returns', \App\Http\Controllers\OrderReturnController::class);
 });
 
-Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified', 'role:customer'])->group(function () {
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified', 'role:Cliente|Administrador'])->group(function () {
     //Customer
     Route::get('/customer', fn() => Inertia::render('Customer/Index'))->name('customer');
     //PaymentMethodUser
-    Route::resource('/payment_methods_users', \App\Http\Controllers\PaymentMethodUserController::class);
+    Route::resource('/user_payment_methods', \App\Http\Controllers\UserPaymentMethodController::class);
     //AddresseUser
-    Route::resource('/addresses_users', \App\Http\Controllers\AddresseUserController::class);
+    Route::resource('/user_addresses', \App\Http\Controllers\UserAddresseController::class);
     //RewardUser
-    Route::resource('/rewards_users', \App\Http\Controllers\RewardUserController::class);
+    Route::resource('/user_rewards', \App\Http\Controllers\UserRewardController::class);
     //Review
     Route::resource('/reviews', \App\Http\Controllers\ReviewController::class);
     //ResponseReview

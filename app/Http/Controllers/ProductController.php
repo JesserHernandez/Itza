@@ -7,9 +7,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
 use App\Models\Category;
+use App\Models\ProductAttributeValue;
 use App\Models\Tag;
 use App\Models\ProductImage;
-use App\Models\ProductMaterial;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -17,18 +17,26 @@ use Inertia\Inertia;
 
 class ProductController extends Controller
 {
-    public function index(Request $request): mixed
+    public function index(Request $request)
     {
-        $products = Product::paginate();
-        return Inertia::render('Vendor/Product/Index', ['products' => $products, 'i' => ($request->input('page', 1) - 1) * $products->perPage()]);
+        $query = Product::query()
+            ->with([
+                'categoryProducts:id,name',
+                'productTags:id,name',
+                'productImages:id,photo_path',
+                'productAttributeValues.categoryAttribute:id,name,label,data_type,unit'
+            ]);
+
+        $products = $query->orderBy('name')->paginate();
+
+        return Inertia::render('Vendor/Product/Index', ['products' => $products]);
     }
     public function create(): mixed
     {
         $categories = Category::all();
         $tags = Tag::all();
-        $materials = ProductMaterial::all() ;
         return Inertia::render('Vendor/Product/Create', [
-            'product' => new Product(), 'categories' => $categories, 'tags' => $tags, 'materials' => $materials
+            'product' => new Product(), 'categories' => $categories, 'tags' => $tags
         ]);
     }
     public function store(ProductRequest $request): RedirectResponse
@@ -39,12 +47,6 @@ class ProductController extends Controller
 
                 $product = Product::create($validated);
                 $product->productPriceHistories()->create(['old_price' => $product->price,'changing_user_id' => Auth::id() ]);
-
-                $materialData = collect($validated['materials'] ?? [])
-                    ->mapWithKeys(fn($id, $index) => [
-                        $id => ['is_main' => $index === 0],
-                    ]);
-                $product->materialProducts()->sync($materialData);
 
                 $tagData = collect($validated['tags'] ?? [])
                     ->mapWithKeys(fn($id, $index) => [
@@ -66,6 +68,17 @@ class ProductController extends Controller
                         'is_main' => $index === 0,
                     ]);
                 }
+
+                foreach ($validated['categoryAttributes'] ?? [] as $attr) {
+                    $categoryAttributes = $product->categoryProducts->categoryAttributes()->findOrFail($attr['id']);
+                    if ($categoryAttributes) {
+                        ProductAttributeValue::create([
+                            'product_id' => $product->id,
+                            'category_attribute_id' => $categoryAttributes->id,
+                            $this->resolveValueField($categoryAttributes->data_type) => $attr['value'],
+                        ]);
+                    }
+                }
             });
 
             return Redirect::route('products.index')->with('success', '¡El producto ha sido guardado correctamente!');
@@ -79,9 +92,8 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $categories = Category::all();
         $tags = Tag::all();
-        $materials = ProductMaterial::all() ;
         return Inertia::render('Vendor/Product/Show', [
-            'product' => $product, 'categories' => $categories, 'tags' => $tags, 'materials' => $materials
+            'product' => $product, 'categories' => $categories, 'tags' => $tags
         ]);
     }
     public function edit($id): mixed
@@ -89,9 +101,8 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $categories = Category::all();
         $tags = Tag::all();
-        $materials = ProductMaterial::all() ;
         return Inertia::render('Vendor/Product/Edit', [
-            'product' => $product, 'categories' => $categories, 'tags' => $tags, 'materials' => $materials
+            'product' => $product, 'categories' => $categories, 'tags' => $tags
         ]);
     }
     public function update(ProductRequest $request, Product $product): RedirectResponse
@@ -108,12 +119,6 @@ class ProductController extends Controller
                     ]);
                 }
 
-                $materialData = collect($validated['materials'] ?? [])
-                    ->mapWithKeys(fn($id, $index) => [
-                        $id => ['is_main' => $index === 0],
-                    ]);
-                $product->materialProducts()->sync($materialData);
-
                 $tagData = collect($validated['tags'] ?? [])
                     ->mapWithKeys(fn($id, $index) => [
                         $id => ['is_main' => $index === 0],
@@ -126,11 +131,11 @@ class ProductController extends Controller
                     ]);
                 $product->categoryProducts()->sync($categoryData);
 
-                $incomingImages = collect($request->input('photo_paths', []));
-                $existingIds = $product->productImages()->pluck('id')->toArray();
-                $incomingIds = $incomingImages->pluck('id')->filter()->toArray();
+                $incomingImages = collect($validated['photo_paths'] ?? []);
+                $incomingIdImages = $incomingImages->pluck('id')->filter()->toArray();
+                $existingIdImages = $product->productImages()->pluck('id')->toArray();
 
-                $product->productImages()->whereNotIn('id', $incomingIds)->delete();
+                $product->productImages()->whereNotIn('id', $incomingIdImages)->delete();
 
                 $hasMainImage = $product->productImages()->where('is_main', true)->exists();
 
@@ -142,7 +147,7 @@ class ProductController extends Controller
                         $hasMainImage = true;
                     }
 
-                    if (isset($imageData['id']) && in_array($imageData['id'], $existingIds)) {
+                    if (isset($imageData['id']) && in_array($imageData['id'], $existingIdImages)) {
                         ProductImage::where('id', $imageData['id'])->update([
                             'photo_path' => $imageData['photo_path'] ?? null,
                             'is_main'    => $isMain,
@@ -151,6 +156,35 @@ class ProductController extends Controller
                         $product->productImages()->create([
                             'photo_path' => $imageData['photo_path'] ?? null,
                             'is_main'    => $isMain,
+                        ]);
+                    }
+                }
+
+                $incomingCategoryAttributes = collect($validated['categoryAttributes'] ?? []);
+                $incomingCategoryAttributeId = $incomingCategoryAttributes->pluck('id')->filter()->toArray();
+                $product->productAttributeValues()->whereNotIn('category_attribute_id', $incomingCategoryAttributeId)->delete();
+
+                foreach ($incomingCategoryAttributes as $attr) {
+
+                    $categoryAttributes = $product->categoryProducts->categoryAttributes()->findOrFail($attr['id']);
+                    if (!$categoryAttributes) continue;
+
+                    $valueField = $this->resolveValueField($categoryAttributes->data_type);
+
+                    $existingValue = $product->productAttributeValues()->where('category_attribute_id', $categoryAttributes->id)->first();
+
+                    if ($existingValue) {
+                        $existingValue->update([
+                            $valueField => $attr['value'],
+                            'value_text' => $valueField === 'value_text' ? $attr['value'] : null,
+                            'value_number' => $valueField === 'value_number' ? $attr['value'] : null,
+                            'value_boolean' => $valueField === 'value_boolean' ? $attr['value'] : null,
+                            'value_date' => $valueField === 'value_date' ? $attr['value'] : null,
+                        ]);
+                    } else {
+                        $product->productAttributeValues()->create([
+                            'category_attribute_id' => $categoryAttributes->id,
+                            $valueField => $attr['value'],
                         ]);
                     }
                 }
@@ -166,5 +200,15 @@ class ProductController extends Controller
     {
         Product::findOrFail($id)->delete();
         return Redirect::route('products.index')->with('success', '¡El producto ha sido eliminado correctamente!');
+    }
+    private function resolveValueField(string $type): string
+    {
+        return match ($type) {
+            'text' => 'value_text',
+            'number', 'decimal' => 'value_number',
+            'boolean' => 'value_boolean',
+            'date' => 'value_date',
+            default => 'value_text',
+        };
     }
 }
