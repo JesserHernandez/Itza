@@ -9,7 +9,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('user_addresse', function (Blueprint $table) {
+        Schema::create('user_addresses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('type', 15);
             $table->string('address');
@@ -24,6 +24,6 @@ return new class extends Migration
     }
     public function down(): void
     {
-        Schema::dropIfExists('user_addresse');
+        Schema::dropIfExists('user_addresses');
     }
 };
