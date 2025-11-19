@@ -20,7 +20,7 @@ class UserRequest extends FormRequest
 			'status' => 'string|min:3|max:20',
 			'gender' => 'required|string|min:3|max:10',
 			'phone_number' => 'required|string|min:3|max:20',
-			'identification_card' => 'required|string|min:20',
+			'identification_card' => 'required|string|min:3|max:20',
 			'profile_photo_url' => 'image|max:2048|mimes:jpeg,png,jpg,svg',
 
             'roles' => 'required|array|min:1',
