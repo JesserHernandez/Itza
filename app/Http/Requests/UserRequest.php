@@ -24,7 +24,6 @@ class UserRequest extends FormRequest
 			'profile_photo_url' => 'image|max:2048|mimes:jpeg,png,jpg,svg',
 
             'roles' => 'required|array|min:1',
-			'roles.*' => 'required|exists:roles,id',
         ];
     }
 }
