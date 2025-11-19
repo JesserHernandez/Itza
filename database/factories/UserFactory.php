@@ -24,7 +24,7 @@ class UserFactory extends Factory
             'status' => fake()->randomElement(['Activo', 'Inactivo']),
             'gender' => fake()->randomElement(['Masculino', 'Femenino']),
             'phone_number' => fake()->unique()->phoneNumber(),
-            'identification_card' => fake()->randomNumber(),
+            'identification_card' => fake()->unique()->randomNumber(),
             'is_vendor' => true,
             'is_outstanding' => false,
             'two_factor_secret' => null,

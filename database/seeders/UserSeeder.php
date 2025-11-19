@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
@@ -56,5 +57,11 @@ class UserSeeder extends Seeder
         ]);
 
         $userCustomer->assignRole('Cliente');
+        
+        $roles = Role::all();
+        User::factory()->count(100)->create()->each(function ($user) use ($roles) {
+            $user->assignRole(collect($roles)->random());
+            $user->save();
+        });
     }
 }

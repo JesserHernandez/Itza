@@ -39,6 +39,7 @@ class CreateNewUser implements CreatesNewUsers
                 'identification_card' => $array['identification_card'],
                 'is_vendor' => $array['is_vendor'],
             ]), function ( $user) use ($array) {
+                $user->syncRoles('Cliente');
                 if($user->is_vendor)
                 {
                     $this->createTeam( $user,  $array);
