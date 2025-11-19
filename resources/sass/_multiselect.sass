@@ -1,6 +1,12 @@
 // Personalización del contenedor principal
 .multiselect
     width: 100%
+    display: flex
+    background: red
+    flex-wrap: wrap
+    overflow-y: auto
+    overflow-x: hidden
+    height: fit-content
     padding: .4rem .8rem
     font-size: $body-medium
     border-radius: $br-radius
@@ -13,28 +19,25 @@
         background-color: $state-inactive
         cursor: not-allowed
 
-// Personalización del input y el dropdown
-.multiselect__input
-    display: none
-
 .multiselect__content-wrapper
     // background: red
     width: 20rem
     color: red
-    
+
 
 .multiselect__content
     overflow-y: auto
-    background-color: #fff
+    background-color: #2ab90e
     border: 1px solid #ccc
     border-radius: 5px
     display: flex
-    z-index: 1000
+    margin-top: .5rem
+    width: 15rem
 
 // Personalización de las opciones
 .multiselect__option
-
-    width: 20rem
+    background: blue
+    width: 25rem
     cursor: pointer
 
     &:hover
@@ -55,16 +58,24 @@
 // Personalización de las etiquetas seleccionadas
 .multiselect__tags
     display: flex
-    flex-wrap: wrap
-    gap: 5px
+    // flex-direction: row
+    width: fit-content
+    // flex-wrap: wrap
+    // gap: 5px
+
+    .multiselect__tags-wrap
+        display: flex
+        width: 100%
+        gap: .8rem
 
 .multiselect__tag
-    color: red
-    padding: 5px 10px
-    border-radius: 3px
+    color: $state-span
+    padding: .1rem .8rem
+    border-radius: $br-radius
     display: flex
+    width: fit-content
     align-items: center
-    z-index: 10000
+    // z-index: 10000
     font-size: $body-medium
     background: $button-secondary
     transition: $transition-fast

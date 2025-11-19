@@ -170,17 +170,16 @@ function submit() {
                     <label for="roles">Rol</label>
                     <Multiselect
                         v-model="form.roles"
-                        :options="props.roles"
+                        :options="roles"
                         :multiple="true"
-                        :close-on-select="true"
-                        :clear-on-select="true"
-                        :preserve-search="false"
+                        :searchable="false"
+                        :close-on-select="false"
+                        :clear-on-select="false"
                         :allow-empty="true"
-                        :tag-placeholder="(option) => `Rol: ${option.name}`"
+                        :preserve-search="false"
                         placeholder="Seleccione uno o más roles"
                         track-by="id"
-                        class="input-class"
-                        :class="{ 'input-error': form.errors.roles }"
+                        :class="{ errors: form.errors.roles }"
                     />
 
                     <!-- <select
