@@ -62,7 +62,8 @@ function destroy(id) {
 
 <template>
     <Head title="Productos" />
-    <AppLayout :href="route('admin')">
+    <AppLayout :href="route('vendor')"
+    >
         <HeaderAdmin
             icon="/icons/icons-ceramics/ceramic-7-white-icon.svg"
             title="Administración/Productos"

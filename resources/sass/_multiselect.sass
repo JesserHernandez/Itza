@@ -1,0 +1,106 @@
+// Personalización del contenedor principal
+.multiselect
+    width: 100%
+    display: flex
+    background: red
+    flex-wrap: wrap
+    overflow-y: auto
+    overflow-x: hidden
+    height: fit-content
+    padding: .4rem .8rem
+    font-size: $body-medium
+    border-radius: $br-radius
+    border: .1rem solid $state-inactive
+
+    &--active
+        border-color: #702b21 // Color del borde cuando está activo
+
+    &--disabled
+        background-color: $state-inactive
+        cursor: not-allowed
+
+.multiselect__content-wrapper
+    // background: red
+    width: 20rem
+    color: red
+
+
+.multiselect__content
+    overflow-y: auto
+    background-color: #2ab90e
+    border: 1px solid #ccc
+    border-radius: 5px
+    display: flex
+    margin-top: .5rem
+    width: 15rem
+
+// Personalización de las opciones
+.multiselect__option
+    background: blue
+    width: 25rem
+    cursor: pointer
+
+    &:hover
+        background-color: #f93b3b
+
+    &--highlight
+        background-color: #702b21
+        color: #fff
+
+    &--selected
+        background-color: #702b21
+        color: #fff
+
+    &--disabled
+        color: #ccc
+        cursor: not-allowed
+
+// Personalización de las etiquetas seleccionadas
+.multiselect__tags
+    display: flex
+    // flex-direction: row
+    width: fit-content
+    // flex-wrap: wrap
+    // gap: 5px
+
+    .multiselect__tags-wrap
+        display: flex
+        width: 100%
+        gap: .8rem
+
+.multiselect__tag
+    color: $state-span
+    padding: .1rem .8rem
+    border-radius: $br-radius
+    display: flex
+    width: fit-content
+    align-items: center
+    // z-index: 10000
+    font-size: $body-medium
+    background: $button-secondary
+    transition: $transition-fast
+
+    &-icon
+        margin-left: 5px
+        cursor: pointer
+        width: 2rem
+        height: 2rem
+        background: url('/icons/icons-interface/x-icon.svg')
+        background-repeat: no-repeat
+        background-position: center
+        color: white
+
+
+
+    &:hover
+        transition: $transition-fast
+
+// Personalización de los mensajes
+    .multiselect__placeholder
+    color: #aaa
+
+    .multiselect__no-options,
+    .multiselect__no-results
+    color: #999
+    font-style: italic
+    padding: 10px

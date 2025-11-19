@@ -1,6 +1,7 @@
-@mixin Switch
+@mixin Switch($leftAfter, $topAfter, $leftAfterActive )
     input[type="checkbox"]
                 margin: 0
+                cursor: pointer
                 appearance: none
                 -webkit-appearance: none
                 background: $background-system
@@ -19,15 +20,15 @@
                     width: 2rem
                     height: 2rem
                     position: absolute
-                    top: 91.25rem
-                    left: .8rem
+                    top: $topAfter
+                    left: $leftAfter
                     background: $button-primary
                     border-radius: $br-link
                     transform: scale(1)
                     transition: $transition-fast
 
                 &:checked::after
-                    left: 6.2rem
+                    left: $leftAfterActive
                     background: $background-system
 
                 &:checked

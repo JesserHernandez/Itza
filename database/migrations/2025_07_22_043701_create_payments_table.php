@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('payment_reference', 20);
             $table->string('payment_status', 20);
             $table->date('payment_date');
-            $table->foreignId('payment_method_user_id')->constrained('payment_method_users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('user_payment_method_id')->constrained('user_payment_methods')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('order_id')->constrained('orders')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

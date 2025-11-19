@@ -13,7 +13,7 @@ class ReviewResponseRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'comment' => 'required|string|min:3',
+			'comment' => 'required|text|min:3',
 			'review_date' => 'required|date|after_or_equal:today',
 			'like_count' => 'required|integer|min:0',
 			'dis_like_count' => 'required|integer|min:0',
