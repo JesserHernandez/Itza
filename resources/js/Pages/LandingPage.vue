@@ -9,6 +9,7 @@ import CarruselSection from "@/Components/CarruselSection.vue";
 import SectionCreative from "@/Components/SectionCreative.vue";
 import ProductHighlight from "@/Components/ProductHighlight.vue";
 import CardsPresentation from "@/Components/CardsPresentation.vue";
+// import InstallButton from "@/Components/InstallButton.vue";
 
 defineProps({
     canLogin: Boolean,
@@ -35,6 +36,8 @@ function scrollTo(id) {
         <!--? Inicio de la Navbar -->
         <NavbarComponent :scrollTo="scrollTo" />
         <!--? Fin de la Navbar -->
+
+        <!-- <InstallButton /> -->
 
         <!--? Inicio de 'hero information'  -->
         <div
@@ -182,7 +185,7 @@ function scrollTo(id) {
                 </div>
                 <div class="container-action">
                     <div class="button-containers">
-                        <Link :href="route('register_type')" class="btn-class"
+                        <Link :href="route('register')" class="btn-class" :data="{ is_vendor: false }"
                             >Registrarse en ITZ´AT
                             <img
                                 src="/icons/icons-interface/next-white-icon.svg"
