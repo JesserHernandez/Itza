@@ -22,7 +22,7 @@ return new class extends Migration
             $table->boolean('is_active')->default(false);
             $table->string('photo_path', 2048)->nullable();
             $table->foreignId('user_id')->index();
-            $table->foreignId('creative_circuit_id')->constrained('creative_circuits')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('creative_circuit_id')->nullable()->constrained('creative_circuits')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

@@ -12,7 +12,7 @@ class Team extends JetstreamTeam
 {
     use HasFactory;
     
-    protected $fillable = ['name_team','personal_team','address','type', 'history','city','municipality','phoneNumber','ruc','is_active','photo_path','user_id'];
+    protected $fillable = ['name_team','personal_team','address','type', 'history','city','municipality','phoneNumber','ruc','is_active','photo_path','user_id', 'creative_circuit_id'];
     protected $dispatchesEvents = ['created' => TeamCreated::class, 'updated' => TeamUpdated::class, 'deleted' => TeamDeleted::class];
     
     protected function casts(): array
