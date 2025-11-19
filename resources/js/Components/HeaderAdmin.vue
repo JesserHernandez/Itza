@@ -148,7 +148,7 @@ const logout = () => {
     </div>
 
     <div class="text-body">
-        <h1 v-if="showTitle">Bienvenido {{ text }}</h1>
+        <h1 v-if="showTitle">¡Bienvenido! {{ text }}</h1>
         <p>{{ paragraph }}</p>
     </div>
 </template>
