@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\TestLoginController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use \Illuminate\Http\Request;
@@ -17,6 +19,10 @@ $redirectByRole = function (Collection $roles) {
         default         => redirect()->route('landingPage'),
     };
 };
+
+Route::post('/login-test', [TestLoginController::class, 'login'])
+    ->withoutMiddleware(['web'])
+    ->name('login.test');
 
 Route::redirect('/', '/landingPage');
 
