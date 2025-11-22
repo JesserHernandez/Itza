@@ -23,6 +23,8 @@
         "vue": "^3.3.13"
     },
     "dependencies": {
-        "sass": "^1.89.2"
+        "@inertiajs/inertia-vue3": "^0.6.0",
+        "sass": "^1.89.2",
+        "vue-i18n": "^9.14.5"
     }
 }
