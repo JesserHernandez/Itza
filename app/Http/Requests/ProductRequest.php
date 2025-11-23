@@ -27,9 +27,9 @@ class ProductRequest extends FormRequest
 			'creation_date' => 'required|date|before_or_equal:today',
 			'price' => 'required|numeric|min:0',
 
-            'categoryAttributes' => 'required|array|min:1',
-            'categoryAttributes.*.id' => 'required|exists:category_attributes,id',
-            'categoryAttributes.*.value' => 'required',
+            'category_attributes' => 'required|array|min:1',
+            'category_attributes.*.id' => 'required|exists:category_attributes,id',
+            'category_attributes.*.value' => 'required',
 
 			'tags' => 'required|array|min:1',
 			'tags.*' => 'required|exists:tags,id',

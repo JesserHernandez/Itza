@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CategoryAttribute extends Model
 {
     protected $perPage = 20;
-    protected $fillable = ['name', 'label', 'data_type', 'unit', 'category_id'];
+    protected $fillable = ['category_name', 'label', 'data_type', 'unit', 'category_id'];
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');

@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('category_attributes', function (Blueprint $table) {
             $table->bigIncrements(column: 'id');
-            $table->string('name');
+            $table->string('category_name');
             $table->string('label');
             $table->string('data_type');
             $table->string('unit');
