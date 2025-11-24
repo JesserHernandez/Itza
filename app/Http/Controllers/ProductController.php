@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
 use App\Models\Category;
+use App\Models\CategoryAttribute;
 use App\Models\ProductAttributeValue;
 use App\Models\Tag;
 use App\Models\ProductImage;
@@ -35,8 +36,9 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $tags = Tag::all();
+        $categoryAttributes = CategoryAttribute::all();
         return Inertia::render('Vendor/Product/Create', [
-            'product' => new Product(), 'categories' => $categories, 'tags' => $tags
+            'product' => new Product(), 'categories' => $categories, 'tags' => $tags, 'category_attributes' => $categoryAttributes
         ]);
     }
     public function store(ProductRequest $request): RedirectResponse
@@ -92,8 +94,9 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $categories = Category::all();
         $tags = Tag::all();
+        $categoryAttributes = CategoryAttribute::all();
         return Inertia::render('Vendor/Product/Show', [
-            'product' => $product, 'categories' => $categories, 'tags' => $tags
+            'product' => $product, 'categories' => $categories, 'tags' => $tags, 'category_attributes' => $categoryAttributes
         ]);
     }
     public function edit($id): mixed
@@ -101,8 +104,9 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $categories = Category::all();
         $tags = Tag::all();
+        $categoryAttributes = CategoryAttribute::all();
         return Inertia::render('Vendor/Product/Edit', [
-            'product' => $product, 'categories' => $categories, 'tags' => $tags
+            'product' => $product, 'categories' => $categories, 'tags' => $tags, 'category_attributes' => $categoryAttributes
         ]);
     }
     public function update(ProductRequest $request, Product $product): RedirectResponse
