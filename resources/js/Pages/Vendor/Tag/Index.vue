@@ -70,7 +70,7 @@ function destroy(id) {
 
 <template>
     <Head title="Tags" />
-    <AppLayout href="route('admin')">
+    <AppLayout href="route('vendor')">
         <HeaderAdmin
             icon="/icons/icons-interface/tag-darker-icon.svg"
             title="Tags"

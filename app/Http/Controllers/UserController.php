@@ -14,13 +14,13 @@ class UserController extends Controller
     public function index(Request $request): mixed
     {
         $users = User::with("roles")->paginate();
-        return Inertia::render('Auth/User/Index', ['users' => $users, 'i' => ($request->input('page', 1) - 1) * $users->perPage()]);
+        return Inertia::render('Administrator/User/Index', ['users' => $users, 'i' => ($request->input('page', 1) - 1) * $users->perPage()]);
     }
     public function create(): mixed
     {
         $roles = Role::pluck("name")->all();
         $user = new User();
-        return Inertia::render('Auth/User/Create', ['user' => $user, 'roles' => $roles]);
+        return Inertia::render('Administrator/User/Create', ['user' => $user, 'roles' => $roles]);
     }
     public function store(UserRequest $request): RedirectResponse
     {
@@ -40,13 +40,13 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $userRoles = $user->roles()->pluck("name")->all();
-        return Inertia::render('Auth/User/Show', ['user' => $user, 'userRoles' => $userRoles]);
+        return Inertia::render('Administrator/User/Show', ['user' => $user, 'userRoles' => $userRoles]);
     }
     public function edit($id): mixed
     {
         $user = User::findOrFail($id);
         $userRoles = $user->roles()->pluck("name")->all();
-        return Inertia::render('Auth/User/Edit', ['user' => $user, 'userRoles' => $userRoles]);
+        return Inertia::render('Administrator/User/Edit', ['user' => $user, 'userRoles' => $userRoles]);
     }
     public function update(UserRequest $request, User $user): RedirectResponse
     {

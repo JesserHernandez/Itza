@@ -10,11 +10,11 @@ class Order extends Model
     use HasFactory;
     
     protected $perPage = 20;
-    protected $fillable = ['code', 'sub_total', 'shipping_cost', 'total', 'shipping_number', 'estimated_time', 'warranty', 'order_date', 'order_status', 'user_id', 'addresses_user_id', 'coupon_Id'];
+    protected $fillable = ['code', 'sub_total', 'shipping_cost', 'total', 'shipping_number', 'estimated_time', 'warranty', 'order_date', 'order_status', 'user_id', 'user_addresses_id', 'coupon_Id'];
     
     public function addresseUser()
     {
-        return $this->belongsTo(AddresseUser::class, 'addresses_user_id', 'id');
+        return $this->belongsTo(UserAddresse::class, 'user_addresses_id', 'id');
     }
     public function coupon()
     {

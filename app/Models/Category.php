@@ -20,4 +20,8 @@ class Category extends Model
     {
         return $this->hasMany(CategoryPost::class, 'id', 'category_id');
     }
+    public function categoryAttributes()
+    {
+        return $this->hasMany(CategoryAttribute::class, 'id', 'category_id');
+    }
 }

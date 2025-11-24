@@ -12,7 +12,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('name', 50);
             $table->string('surname', 50);
-            $table->string('email', 50)->unique();
+            $table->string('email', 50)->unique()->index();
             $table->string('password');
             $table->string('status', 10)->nullable()->default('Activo');
             $table->string('gender', 10);

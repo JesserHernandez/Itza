@@ -17,11 +17,11 @@ class ReviewResponseController extends Controller
     public function index(Request $request): mixed
     {
         $reviewResponses = ReviewResponse::paginate();
-        return Inertia::render('Customer/ReviewResponse/Index', ['ReviewResponses' => $reviewResponses, 'i' => ($request->input('page', 1) - 1) * $reviewResponses->perPage()]);
+        return Inertia::render('Customer/ReviewResponse/Index', ['reviewResponses' => $reviewResponses, 'i' => ($request->input('page', 1) - 1) * $reviewResponses->perPage()]);
     }
     public function create(): mixed
     {
-        return Inertia::render('Customer/ReviewResponse/Create', ['ReviewResponse' => new ReviewResponse() ]);
+        return Inertia::render('Customer/ReviewResponse/Create', ['reviewResponse' => new ReviewResponse() ]);
     }
     public function store(ReviewResponseRequest $request): RedirectResponse
     {
@@ -48,12 +48,12 @@ class ReviewResponseController extends Controller
     public function show($id): mixed
     {
         $reviewResponse = ReviewResponse::findOrFail($id);
-        return Inertia::render('Customer/ReviewResponse/Show', ['ReviewResponse' => $reviewResponse ]);
+        return Inertia::render('Customer/ReviewResponse/Show', ['reviewResponse' => $reviewResponse ]);
     }
     public function edit($id): mixed
     {
         $reviewResponse = ReviewResponse::findOrFail($id);
-        return Inertia::render('Customer/ReviewResponse/Edit', ['ReviewResponse' => $reviewResponse ]);
+        return Inertia::render('Customer/ReviewResponse/Edit', ['reviewResponse' => $reviewResponse ]);
     }
     public function update(ReviewResponseRequest $request, ReviewResponse $reviewResponse): RedirectResponse
     {

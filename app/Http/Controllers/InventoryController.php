@@ -7,12 +7,11 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\InventoryRequest;
 use App\Models\Movement;
-use Illuminate\Support\Arr;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
-use PhpParser\Node\Stmt\Else_;
 
 class InventoryController extends Controller
 {
@@ -23,9 +22,8 @@ class InventoryController extends Controller
     }
     public function create(): mixed
     {
-        return Inertia::render('Vendor/Inventory/Create', ['inventory' => new Inventory() ]);
+        return Inertia::render('Vendor/Inventory/Create', ['inventory' => new Inventory(), 'movements' => Movement::all(), 'products' => Product::all()]);
     }
-
     public function store(InventoryRequest $request): RedirectResponse
     {
         try {
@@ -46,11 +44,7 @@ class InventoryController extends Controller
                         ]);
                     } else {
                         $inventory = Inventory::where('product_id', $validated['product_id'])->where('team_id', $teamId)->firstOrFail();
-
-                        if ($inventory->current_balance < $validated['quantity']) {
-                            return Redirect::route('movements.index')->with('error', '¡Vaya!... No hay suficientes existencias para realizar el movimiento');
-                        }
-
+                        
                         $this->applyMovement($inventory, $validated['movement'], $validated['quantity']);
                     }
                 } else {
@@ -74,12 +68,13 @@ class InventoryController extends Controller
     public function show($id): mixed
     {
         $inventory = Inventory::findOrFail($id);
-        return Inertia::render('Vendor/Inventory/Show', ['inventory' => $inventory ]);
+        return Inertia::render('Vendor/Inventory/Show', ['inventory' => $inventory, 'movements' => Movement::all(), 'products' => Product::all() ]);
     }
     public function edit($id): mixed
     {
         $inventory = Inventory::findOrFail($id);
-        return Inertia::render('Vendor/Inventory/Edit', ['inventory' => $inventory ]);
+        $movement = Movement::all();
+        return Inertia::render('Vendor/Inventory/Edit', ['inventory' => $inventory, 'movements' => $movement, 'products' => Product::all() ]);
     }
     public function update(InventoryRequest $request, Inventory $inventory): RedirectResponse
     {
@@ -106,7 +101,7 @@ class InventoryController extends Controller
     private function applyMovement(Inventory $inventory, string $direction, int $quantity): void
     {
         $inventory->current_balance += $direction === 'Entrada' ? $quantity : -$quantity;
-        $inventory->balancing_status = $inventory->current_balance < $inventory->minimum_balance ? 'Bajo' : 'Normal';
+        $inventory->balancing_status = $inventory->current_balance < $inventory->minimum_balance ? 'Bajo' : 'Alto';
         $inventory->save();
     }
 }
