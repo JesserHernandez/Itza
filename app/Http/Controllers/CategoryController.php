@@ -14,7 +14,7 @@ class CategoryController extends Controller
 {
     public function index(Request $request): mixed
     {
-        $categories = Category::with('category_attributes')->paginate();
+        $categories = Category::with('categoryAttributes')->paginate();
         return Inertia::render('Vendor/Category/Index', ['categories' => $categories, 'i' => ($request->input('page', 1) - 1) * $categories->perPage()]);
     }
     public function create(): mixed

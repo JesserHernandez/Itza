@@ -29,6 +29,7 @@ class ProductRequest extends FormRequest
 
             'category_attributes' => 'required|array|min:1',
             'category_attributes.*.id' => 'required|exists:category_attributes,id',
+            'category_attributes.*.product_id' => 'required|exists:products,id',
             'category_attributes.*.value' => 'required',
 
 			'tags' => 'required|array|min:1',
