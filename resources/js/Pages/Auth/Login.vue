@@ -26,7 +26,7 @@ const submit = () => {
     form.transform((data) => ({
         ...data,
         remember: form.remember ? "on" : "",
-    })).post(route("login.test"), {
+    })).post(route("login"), {
         onFinish: () => form.reset("password"),
     });
 };
@@ -84,13 +84,10 @@ const showPassword = () => {
             <div class="container-one">
                 <div class="header">
                     <h1>
-                        ¡Bienvenido a ITZ'AT! Ya tienes una cuenta en nuestra
-                        plataforma. Accede a ella con total seguridad.
+                        Bienvenido a ITZ'AT, la comunidad más grande de artesanos
                     </h1>
                     <p>
-                        Accede a tu cuenta de ITZ'AT sin problemas. Ya seas
-                        artista o comprador, ingresa a nuestro marketplace y
-                        apoya la identidad cultural nicaragüense.
+                        Te damos la bienvenida a ITZ'AT, el lugar donde la tradición y el talento local se encuentran. Apoya a nuestros artesanos nacionales y explora la riqueza de la artesanía precolombina.
                     </p>
                 </div>
 
@@ -114,7 +111,7 @@ const showPassword = () => {
                                 Ejemplo: luisgonzales@gmail.com
                             </p>
                         </div>
-                        <InputError class="" :message="form.errors.email" />
+                        <InputError class="error" :message="form.errors.email" />
 
                         <div class="items-login">
                             <InputLabel
@@ -145,7 +142,7 @@ const showPassword = () => {
                                 Debe tener al menos 6 caracteres
                             </p>
                             <InputError
-                                class=""
+                                class="error"
                                 :message="form.errors.password"
                             />
                         </div>
@@ -153,7 +150,7 @@ const showPassword = () => {
                             <PrimaryButton
                                 class="btn-class"
                                 id="btn-login"
-                                :description="'¡Vamos! Ingresa a tu cuenta de ITZ´AT'"
+                                :description="'¡Adelante! desatemos nuestra creatividad'"
                                 :disabled="form.processing"
                             >
                             </PrimaryButton>
@@ -168,9 +165,9 @@ const showPassword = () => {
                 </div>
 
                 <span class="questions" id="question-login"
-                    >¿Aún no te registras?
+                    >¿Ya tienes una cuenta?
                     <Link :href="route('register_type')" class="register-link"
-                        >Únete ahora.</Link
+                        >Puedes acceder a ella</Link
                     >
                 </span>
             </div>

@@ -80,3 +80,38 @@
                         $width: fit-content,
                         $height: fit-content,
                         $background-animation: $background-darker)
+
+@media screen and (max-width: 1211px) and (min-width: 600px)
+    .container-hero
+        width: 121.1rem
+        height: 90rem
+    
+    .main-landing
+        width: 121.1rem
+        overflow: hidden
+        margin-top: 2rem
+
+        .title-section
+            height: auto
+
+@media screen and (max-width: 1600px) and (min-width: 1366px)
+    .container-hero
+
+        .hero-information
+            width: 125rem
+
+            .hero-text
+                width: 75rem
+
+                .text-welcome
+                    margin-top: 2rem
+
+                    h1
+                        color: $state-main
+                        font-size: $title-page-medium
+
+                .paragraph-welcome
+                    font-size: $subheading-large
+
+        .hero-image
+            width: 75rem
