@@ -15,11 +15,11 @@ class CreativeCityController extends Controller
     public function index(Request $request): mixed
     {
         $creativeCities = CreativeCity::paginate();
-        return Inertia::render('Administrator/CreativeCity/Index', ['creativeCities' => $creativeCities, 'i' => ($request->input('page', 1) - 1) * $creativeCities->perPage()]);
+        return Inertia::render('Administrator/CreativeCity/Index', ['creative_cities' => $creativeCities, 'i' => ($request->input('page', 1) - 1) * $creativeCities->perPage()]);
     }
     public function create(): mixed
     {
-        return Inertia::render('Administrator/CreativeCity/Create', ['creativeCity' => new CreativeCity()]);
+        return Inertia::render('Administrator/CreativeCity/Create', ['creative_city' => new CreativeCity()]);
     }
     public function store(CreativeCityRequest $request): RedirectResponse
     {
@@ -31,12 +31,12 @@ class CreativeCityController extends Controller
     public function show($id): mixed
     {
         $creativeCity = CreativeCity::findOrFail($id);
-        return Inertia::render('Administrator/CreativeCity/Show', ['creativeCity' => $creativeCity ]);
+        return Inertia::render('Administrator/CreativeCity/Show', ['creative_city' => $creativeCity ]);
     }
     public function edit($id): mixed
     {
         $creativeCity = CreativeCity::findOrFail($id);
-        return Inertia::render('Administrator/CreativeCity/Edit', ['creativeCity' => $creativeCity ]);
+        return Inertia::render('Administrator/CreativeCity/Edit', ['creative_city' => $creativeCity ]);
     }
     public function update(CreativeCityRequest $request, CreativeCity $creativeCity): RedirectResponse
     {
