@@ -21,15 +21,13 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $query = Product::query()
-            ->with([
-                'categoryProducts:id,name',
-                'productTags:id,name',
-                'productImages:id,photo_path',
-                'productAttributeValues.categoryAttribute:id,name,label,data_type,unit'
-            ]);
-
+        ->with([
+            'categoryProducts:id,name',
+            'productTags:id,name',
+            'productImages:id,photo_path,product_id',
+            'productAttributeValues:id,product_id,category_attribute_id,value_text,value_number,value_boolean,value_date'
+        ]);
         $products = $query->orderBy('name')->paginate();
-
         return Inertia::render('Vendor/Product/Index', ['products' => $products]);
     }
     public function create(): mixed
@@ -46,6 +44,7 @@ class ProductController extends Controller
         try {
             DB::transaction(function () use ($request) {
                 $validated = $request->validated();
+                $validated['team_id'] = Auth::user()->current_team_id;
 
                 $product = Product::create($validated);
                 $product->productPriceHistories()->create(['old_price' => $product->price,'changing_user_id' => Auth::id() ]);
@@ -70,9 +69,9 @@ class ProductController extends Controller
                         'is_main' => $index === 0,
                     ]);
                 }
+                foreach ($validated['category_attributes'] ?? [] as $attr) {
+                $categoryAttributes = $product->categoryProducts()->with('categoryAttributes')->get()->flatMap->categoryAttributes->firstWhere('id', $attr['id']);
 
-                foreach ($validated['categoryAttributes'] ?? [] as $attr) {
-                    $categoryAttributes = $product->categoryProducts->categoryAttributes()->findOrFail($attr['id']);
                     if ($categoryAttributes) {
                         ProductAttributeValue::create([
                             'product_id' => $product->id,
@@ -81,6 +80,7 @@ class ProductController extends Controller
                         ]);
                     }
                 }
+
             });
 
             return Redirect::route('products.index')->with('success', '¡El producto ha sido guardado correctamente!');
@@ -164,13 +164,13 @@ class ProductController extends Controller
                     }
                 }
 
-                $incomingCategoryAttributes = collect($validated['categoryAttributes'] ?? []);
+                $incomingCategoryAttributes = collect($validated['category_attributes'] ?? []);
                 $incomingCategoryAttributeId = $incomingCategoryAttributes->pluck('id')->filter()->toArray();
                 $product->productAttributeValues()->whereNotIn('category_attribute_id', $incomingCategoryAttributeId)->delete();
 
                 foreach ($incomingCategoryAttributes as $attr) {
 
-                    $categoryAttributes = $product->categoryProducts->categoryAttributes()->findOrFail($attr['id']);
+                    $categoryAttributes = $product->categoryProducts()->with('categoryAttributes')->get()->flatMap->categoryAttributes->firstWhere('id', $attr['id']);
                     if (!$categoryAttributes) continue;
 
                     $valueField = $this->resolveValueField($categoryAttributes->data_type);

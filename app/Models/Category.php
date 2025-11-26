@@ -14,14 +14,14 @@ class Category extends Model
 
     public function categoryProducts()
     {
-        return $this->hasMany(CategoryProduct::class, 'id', 'category_id');
+        return $this->hasMany(CategoryProduct::class, 'category_id', 'id');
     }
     public function categoryPosts()
     {
-        return $this->hasMany(CategoryPost::class, 'id', 'category_id');
+        return $this->hasMany(CategoryPost::class, 'category_id', 'id');
     }
     public function categoryAttributes()
     {
-        return $this->hasMany(CategoryAttribute::class, 'id', 'category_id');
+        return $this->hasMany(CategoryAttribute::class, 'category_id', 'id');
     }
 }
