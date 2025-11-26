@@ -18,7 +18,7 @@ const props = defineProps({
     <Head title="Crear circuito creativo" />
     <AppLayout title="Crear circuito creativo" :href="route('creative_circuits.index')">
         <HeaderAdmin
-        title="Crear"
+        title="Circuitos Creativos/Crear"
         icon="/icons/icons-interface/task-darker-icon.svg"
         :showTitle="false"
     />

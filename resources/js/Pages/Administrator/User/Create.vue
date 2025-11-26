@@ -5,6 +5,8 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import Multiselect from "vue-multiselect";
 import HeaderAdmin from "@/Components/HeaderAdmin.vue";
 
+const Swal = window.Swal;
+
 const form = useForm({
     name: "",
     surname: "",
@@ -22,9 +24,45 @@ const props = defineProps({
     roles: Array,
 
 });
-
 function submit() {
-    form.post(route("users.store"));
+    // Transformar el array de objetos a array de IDs
+    form.transform((data) => ({
+        ...data,
+        roles: data.roles.map(r => r.id),
+    })).post(route("users.store"), {
+        onSuccess: () => {
+            Swal.fire({
+                title: "¡Creado!",
+                text: "El usuario ha sido creado con éxito.",
+                icon: "success",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#702b21",
+                customClass: {
+                    title: "title-swal",
+                    text: "text-swal",
+                    popup: "popup-swal",
+                    confirmButton: "confirm-button-swal",
+                },
+            });
+        },
+        onError: (errors) => {
+            // Convertimos los errores en una lista HTML
+            const listaErrores = Object.values(errors).map(err => `<li>${err}</li>`).join('');
+
+            Swal.fire({
+                title: "¡Error!",
+                html: `<ul style="text-align: left; margin-left: 20px;">${listaErrores}</ul>`,
+                icon: "error",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#702b21",
+                customClass: {
+                    title: "title-swal",
+                    popup: "popup-swal",
+                    confirmButton: "confirm-button-swal",
+                },
+            });
+        }
+    });
 }
 </script>
 
@@ -180,30 +218,13 @@ function submit() {
                         :options="roles"
                         :multiple="true"
                         :searchable="false"
-                        :close-on-select="false"
+                        :close-on-select="true"
                         :clear-on-select="false"
-                        :allow-empty="true"
                         :preserve-search="false"
                         placeholder="Seleccione uno o más roles"
-                        track-by="id"
+
                         :class="{ errors: form.errors.roles }"
                     />
-
-                    <!-- <select
-                        id="roles"
-                        v-model="form.roles"
-                        multiple
-                        class="input-class"
-                        :class="{ 'input-error': form.errors.roles }"
-                    >
-                        <option
-                            v-for="role in props.roles"
-                            :key="role.id"
-                            :value="role.id"
-                        >
-                            {{ role.name }}
-                        </option>
-                    </select> -->
                     <div v-if="form.errors.roles" class="error-message">
                         {{ form.errors.roles }}
                     </div>

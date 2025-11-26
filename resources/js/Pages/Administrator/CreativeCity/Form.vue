@@ -2,27 +2,32 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { useForm } from '@inertiajs/vue3';
 
-// SweetAlert desde el CDN
 const Swal = window.Swal;
 
 const props = defineProps({
-    creativeCity: Object, // Recibe la ciudad creativa a editar
+    creativeCity: Object,
 });
 
 const form = useForm({
-    name: props.creativeCity?.name || "", // Carga el nombre si existe
-    description: props.creativeCity?.description || "", // Carga la descripción si existe
-    specialty: props.creativeCity?.specialty || "", // Carga la especialidad si existe
-    region: props.creativeCity?.region || "", // Carga la región si existe
-    latitude: props.creativeCity?.latitude || "", // Carga la latitud si existe
-    longitude: props.creativeCity?.longitude || "", // Carga la longitud si existe
-
+    name: props.creativeCity?.name || "",
+    description: props.creativeCity?.description || "",
+    specialty: props.creativeCity?.specialty || "",
+    region: props.creativeCity?.region || "",
+    latitude: props.creativeCity?.latitude || "",
+    longitude: props.creativeCity?.longitude || "",
+    photo_path: null,
 });
 
 function submitForm() {
     if (props.creativeCity && props.creativeCity.id) {
-        // Actualizar ciudad creativa existente
-        form.put(route("creative_cities.update", props.creativeCity.id), {
+        // TRUCO PARA ARCHIVOS EN EDICIÓN:
+        // Usamos POST pero enviamos _method: 'put' para que Laravel entienda que es una actualización
+        // y pueda leer el archivo correctamente.
+        form.transform((data) => ({
+            ...data,
+            _method: 'put',
+        })).post(route("creative_cities.update", props.creativeCity.id), {
+            forceFormData: true, // Obligatorio para archivos
             onSuccess: () => {
                 Swal.fire({
                     title: "¡Actualizado!",
@@ -30,18 +35,13 @@ function submitForm() {
                     icon: "success",
                     confirmButtonText: "Aceptar",
                     confirmButtonColor: "#702b21",
-                    customClass: {
-                        title: "title-swal",
-                        text: "text-swal",
-                        popup: "popup-swal",
-                        confirmButton: "confirm-button-swal",
-                    },
                 });
             },
         });
     } else {
-        // Crear nueva etiqueta
+        // Crear nueva (POST normal)
         form.post(route("creative_cities.store"), {
+            forceFormData: true,
             onSuccess: () => {
                 Swal.fire({
                     title: "¡Creado!",
@@ -49,16 +49,15 @@ function submitForm() {
                     icon: "success",
                     confirmButtonText: "Aceptar",
                     confirmButtonColor: "#702b21",
-                    customClass: {
-                        title: "title-swal",
-                        text: "text-swal",
-                        popup: "popup-swal",
-                        confirmButton: "confirm-button-swal",
-                    },
                 });
             },
         });
     }
+}
+
+// Función para capturar el archivo
+function handleFileUpload(event) {
+    form.photo_path = event.target.files[0];
 }
 </script>
 
@@ -149,8 +148,25 @@ function submitForm() {
                     {{ form.errors.longitude }}
                 </div>
             </div>
-
-
+            <div class="items">
+                <label for="photo_path" class="form-label">Ruta de la Foto</label>
+                <!-- CORRECCIÓN AQUÍ: Quitamos v-model y usamos @change -->
+                <input
+                    id="photo_path"
+                    type="file"
+                    accept=".jpg,.png,.pdf"
+                    @change="handleFileUpload"
+                    class="form-input"
+                    :class="{ errors: form.errors.photo_path }"
+                />
+                <div v-if="form.errors.photo_path" class="errors">
+                    {{ form.errors.photo_path }}
+                </div>
+                <!-- Opcional: Mostrar barra de progreso -->
+                <progress v-if="form.progress" :value="form.progress.percentage" max="100">
+                    {{ form.progress.percentage }}%
+                </progress>
+            </div>
 
             <div class="container-button">
                 <button
