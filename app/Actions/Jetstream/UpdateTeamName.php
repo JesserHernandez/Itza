@@ -24,6 +24,7 @@ class UpdateTeamName implements UpdatesTeamNames
             'phoneNumber' => ['required', 'string', 'max:20'],
             'ruc' => ['required', 'string', 'min:3', 'max:20'],
             'is_active' => ['required'],
+            'creative_circuit_id' => ['required'],
             'photo_path' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
         ])->validateWithBag('updateTeamName');
 
@@ -38,6 +39,7 @@ class UpdateTeamName implements UpdatesTeamNames
             'ruc' => $input['ruc'],
             'is_active' => $input['is_active'],
             'photo_path' => $input['photo_path'],
+            'creative_circuit_id' => $input['creative_circuit_id']
         ])->save();
     }
 }
