@@ -23,10 +23,8 @@ defineProps({
     },
 });
 
-// Estado para la cantidad de registros por página
-const cantidad = ref(10); // Valor predeterminado
+const cantidad = ref(10);
 
-// Función para actualizar la cantidad de registros por página
 function updatePerPage() {
     router.get(
         route("users.index"),
