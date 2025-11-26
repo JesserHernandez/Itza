@@ -7,7 +7,7 @@ import Form from "@/Pages/Administrator/CreativeCity/Form.vue";
 
 
 const props = defineProps({
-    creativeCity: Object,
+    creativeCity: Object, // Recibe la ciudad creativa a editar 
 });
 
 

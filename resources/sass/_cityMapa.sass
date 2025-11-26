@@ -37,6 +37,28 @@
         height: 73.2rem
         width: 100%
 
+        .menos
+            position: absolute
+            left: 8rem
+            top: 79rem
+
+        .mas
+            position: absolute
+            left: 12rem
+            top: 79rem
+
+        .menu
+            position: absolute
+            right: 8rem
+            top: 79rem
+            transform: scale(1.3)
+
+        .label
+            position: absolute
+            right: 12rem
+            top: 79.5rem
+            transform: scale(1.1)
+
         img
             margin-top: 8.89rem
 
@@ -81,6 +103,28 @@
             position: absolute
             left: 5rem
             top: 112.9rem
+            cursor: pointer
+
+            &:hover + .cancha
+                opacity: 1
+                transition: $transition-slow
+
+        .cancha
+            opacity: 0
+            left: 7.6rem
+            top: 119rem
+            z-index: 1000
+            padding: 0.5rem
+            position: absolute
+            background: $button-secondary
+            border: .1rem solid $state-span
+            border-radius: 1rem 1rem 1rem 0
+            transition: $transition-slow
+
+            h2
+                font-size: $body-small
+                weight: 20rem
+                color: $button-primary   
       
         .left-ceramica
             left: 3.7rem
@@ -113,6 +157,28 @@
             position: absolute
             left: 13.9rem
             top: 122.6rem
+            cursor: pointer
+
+            &:hover + .tienda-1
+                opacity: 1
+                transition: $transition-slow
+
+        .tienda-1
+            opacity: 0
+            left: 16rem
+            top: 129rem
+            z-index: 1000
+            padding: 0.5rem
+            position: absolute
+            background: $button-secondary
+            border: .1rem solid $state-span
+            border-radius: 1rem 1rem 1rem 0
+            transition: $transition-slow
+
+            h2
+                font-size: $body-small
+                weight: 20rem
+                color: $button-primary    
 
         .center-1
             position: absolute
@@ -188,6 +254,30 @@
             position: absolute
             left: 27rem
             top: 126rem
+            cursor: pointer
+
+            &:hover + .tienda-3
+                opacity: 1
+                transition: $transition-slow
+
+        .tienda-3
+            opacity: 0
+            left: 29rem
+            top: 133rem
+            z-index: 1000
+            padding: 0.5rem
+            position: absolute
+            background: $button-secondary
+            border: .1rem solid $state-span
+            border-radius: 1rem 1rem 1rem 0
+            transition: $transition-slow
+
+            h2
+                font-size: $body-small
+                weight: 20rem
+                color: $button-primary
+
+        
 
         .center-2
             position: absolute
@@ -289,22 +379,113 @@
             position: absolute
             left: 33.8rem
             top: 138.9rem
+            cursor: pointer
+
+            &:hover + .farmacia
+                opacity: 1
+                transition: $transition-slow
+
+        .farmacia
+            opacity: 0
+            left: 35rem
+            top: 145rem
+            z-index: 1000
+            padding: 0.5rem
+            position: absolute
+            background: $button-secondary
+            border: .1rem solid $state-span
+            border-radius: 1rem 1rem 1rem 0
+            transition: $transition-slow
+
+            h2
+                font-size: $body-small
+                weight: 20rem
+                color: $button-primary
+            
 
         .center-salud
             position: absolute
             left: 31.5rem
             top: 136.8rem
+            cursor: pointer
+
+            &:hover + .salud
+                opacity: 1
+                transition: $transition-slow
+
+        .salud
+            opacity: 0
+            left: 32.6rem
+            top: 143rem
+            z-index: 1000
+            padding: 0.5rem
+            position: absolute
+            background: $button-secondary
+            border: .1rem solid $state-span
+            border-radius: 1rem 1rem 1rem 0
+            transition: $transition-slow
+
+            h2
+                font-size: $body-small
+                weight: 20rem
+                color: $button-primary
 
         .center-policia
             position: absolute
             left: 30rem
             top: 134rem
+            cursor: pointer
+
+            &:hover + .policia
+                opacity: 1
+                transition: $transition-slow
+
+        .policia
+            opacity: 0
+            left: 31rem
+            top: 140rem
+            z-index: 1000
+            padding: 0.5rem
+            position: absolute
+            background: $button-secondary
+            border: .1rem solid $state-span
+            border-radius: 1rem 1rem 1rem 0
+            transition: $transition-slow
+
+            h2
+                font-size: $body-small
+                weight: 20rem
+                color: $button-primary
+        
+
         
         .center-ceramica-6
             position: absolute
             left: 29rem
             top: 142rem
             transform: scale(1.2)
+            cursor: pointer
+
+            &:hover + .arte
+                opacity: 1
+                transition: $transition-slow
+
+        .arte
+            opacity: 0
+            left: 31rem
+            top: 149rem
+            z-index: 1000
+            padding: 0.5rem
+            position: absolute
+            background: $button-secondary
+            border: .1rem solid $state-span
+            border-radius: 1rem 1rem 1rem 0
+            transition: $transition-slow
+
+            h2
+                font-size: $body-small
+                weight: 20rem
+                color: $button-primary
 
         .center-7
             position: absolute
@@ -397,12 +578,56 @@
             left: 41rem
             top: 127.9rem
             transform: scale(0.9)
+            cursor: pointer
+
+            &:hover + .institucion
+                opacity: 1
+                transition: $transition-slow
+
+        .institucion
+            opacity: 0
+            left: 43rem
+            top: 134.5rem
+            z-index: 1000
+            padding: 0.5rem
+            position: absolute
+            background: $button-secondary
+            border: .1rem solid $state-span
+            border-radius: 1rem 1rem 1rem 0
+            transition: $transition-slow
+
+            h2
+                font-size: $body-small
+                weight: 20rem
+                color: $button-primary
         
         .center-iglesia-2
             position: absolute
             left: 45.5rem
             top: 128.1rem
             transform: scale(0.9)
+            cursor: pointer
+
+            &:hover + .iglesia-seg
+                opacity: 1
+                transition: $transition-slow
+
+        .iglesia-seg
+            opacity: 0
+            left: 48rem
+            top: 135rem
+            z-index: 1000
+            padding: 0.5rem
+            position: absolute
+            background: $button-secondary
+            border: .1rem solid $state-span
+            border-radius: 1rem 1rem 1rem 0
+            transition: $transition-slow
+
+            h2
+                font-size: $body-small
+                weight: 20rem
+                color: $button-primary
         
         .center-escuela
             position: absolute
