@@ -4,12 +4,13 @@ import CarruselSection from "@/Components/CarruselSection.vue";
 import ArtistSection from "@/Components/ArtistSection.vue";
 import FooterSection from "@/Components/FooterSection.vue";
 import CitySection from "@/Components/CitySection.vue";
-
+import { Head } from "@inertiajs/vue3";
+import { Link } from "@inertiajs/inertia-vue3";
 
 </script>
 
 <template>
-
+    <Head title="Ciudades Creativas" />
     <div
         class="container-hero"
         role="contentinfo"
@@ -166,7 +167,7 @@ import CitySection from "@/Components/CitySection.vue";
                 </div>
                 <div class="container-action">
                     <div class="button-containers">
-                        <Link :href="route('register_type')" class="btn-class"
+                        <Link :href="route('register')" class="btn-class" :data="{ is_vendor: false }"
                             >Registrarse en ITZ´AT
                             <img
                                 src="/icons/icons-interface/next-white-icon.svg"
@@ -250,7 +251,7 @@ import CitySection from "@/Components/CitySection.vue";
                 description="La herencia caribeña y afrodescendiente de la ciudad se refleja en su vida diaria, desde la música, como el reggae y el calypso, hasta la comida, tradiciones y el idioma creole."
             />
         </div>
-        
+
         <!--? Fin de las Sección de Comentarios -->
 
         <FooterSection />

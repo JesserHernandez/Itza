@@ -166,7 +166,7 @@ const showPassword = () => {
 
                 <span class="questions" id="question-login"
                     >¿Ya tienes una cuenta?
-                    <Link :href="route('register_type')" class="register-link"
+                    <Link :href="route('register')" class="register-link"
                         >Puedes acceder a ella</Link
                     >
                 </span>

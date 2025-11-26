@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\TestLoginController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use \Illuminate\Http\Request;
@@ -20,10 +19,6 @@ $redirectByRole = function (Collection $roles) {
     };
 };
 
-Route::post('/login-test', [TestLoginController::class, 'login'])
-    ->withoutMiddleware(['web'])
-    ->name('login.test');
-
 Route::redirect('/', '/landingPage');
 
 Route::get('/landingPage', fn () => Inertia::render('LandingPage'))->name('landingPage');
@@ -31,8 +26,6 @@ Route::get('/landingPage', fn () => Inertia::render('LandingPage'))->name('landi
 Route::get('/register', fn(Request $request) => Auth::check() ? $redirectByRole(Auth::user()->getRoleNames()) : Inertia::render('Auth/Register', ['is_vendor' => $request->query('is_vendor', false)]))->name('register');
 
 Route::get('/login', fn() => Auth::check() ? $redirectByRole(Auth::user()->getRoleNames()) : Inertia::render('Auth/Login'))->name('login');
-
-Route::get('/register_type', fn() => Auth::check() ? $redirectByRole(Auth::user()->getRoleNames()) : Inertia::render('Auth/RegisterType'))->name('register_type');
 
 Route::get('/dashboard', fn() => Auth::check() ? $redirectByRole(Auth::user()->getRoleNames()) : redirect()->route('/landingPage'))->name('dashboard');
 

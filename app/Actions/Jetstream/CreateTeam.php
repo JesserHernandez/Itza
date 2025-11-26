@@ -25,6 +25,7 @@ class CreateTeam implements CreatesTeams
             'municipality' => ['required', 'string', 'min:3', 'max:20'],
             'phoneNumber' => ['required', 'string', 'max:20'],
             'ruc' => ['required', 'string', 'min:3', 'max:20'],
+            'creative_circuit_id' => ['required'],
             'photo_path' => ['mimes:jpg,jpeg,png', 'max:1024'],
         ])->validateWithBag('createTeam');
 
@@ -42,6 +43,7 @@ class CreateTeam implements CreatesTeams
             'is_active' => true,
             'photo_path' => $input['photo_path'],
             'personal_team' => false,
+            'creative_circuit_id' => $input['creative_circuit_id']
         ]));
         return $team;
     }
