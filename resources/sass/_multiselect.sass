@@ -1,13 +1,13 @@
 // Personalización del contenedor principal
 .multiselect
     width: 100%
+    height: 5rem
     display: flex
-    background: red
     flex-wrap: wrap
-    overflow-y: auto
-    overflow-x: hidden
-    height: fit-content
+    align-items: center
+    overflow: auto
     padding: .4rem .8rem
+    // outline: none
     font-size: $body-medium
     border-radius: $br-radius
     border: .1rem solid $state-inactive
@@ -19,53 +19,65 @@
         background-color: $state-inactive
         cursor: not-allowed
 
+
 .multiselect__content-wrapper
-    // background: red
-    width: 20rem
-    color: red
-
-
-.multiselect__content
-    overflow-y: auto
-    background-color: #2ab90e
-    border: 1px solid #ccc
-    border-radius: 5px
+    height: 5rem
     display: flex
-    margin-top: .5rem
-    width: 15rem
+    z-index: 1000
+    min-width: 30rem
+    margin-top: 12rem
+    width: fit-content
+    position: absolute
+    margin-left: -1rem
+    background: transparent
 
+    .multiselect__content
+        gap: 4rem
+        display: flex
+        min-width: 55%
+        width: fit-content
+        list-style: none
+        margin-top: .5rem
+        // outline: none
+        height: fit-content
+        padding-left: .8rem
+        background: $button-secondary
+        border-radius: $br-radius
+
+        .multiselect__option
+            gap: .9rem
+            display: flex
+            margin: .5rem
+            padding: .5rem
+            cursor: pointer
+            color: $state-span
+            width: fit-content
+            border-radius: $br-radius
+            background: $button-secondary
+
+            &--highlight
+                color: $state-light
+                background-color: #702b21
+
+            &--selected
+                color: #fff
+                background-color: #702b21
+
+            &--disabled
+                color: #ccc
+                cursor: not-allowed
 // Personalización de las opciones
-.multiselect__option
-    background: blue
-    width: 25rem
-    cursor: pointer
 
-    &:hover
-        background-color: #f93b3b
 
-    &--highlight
-        background-color: #702b21
-        color: #fff
-
-    &--selected
-        background-color: #702b21
-        color: #fff
-
-    &--disabled
-        color: #ccc
-        cursor: not-allowed
 
 // Personalización de las etiquetas seleccionadas
 .multiselect__tags
     display: flex
-    // flex-direction: row
     width: fit-content
-    // flex-wrap: wrap
-    // gap: 5px
 
     .multiselect__tags-wrap
         display: flex
-        width: 100%
+        width: fit-content
         gap: .8rem
 
 .multiselect__tag
@@ -75,7 +87,9 @@
     display: flex
     width: fit-content
     align-items: center
-    // z-index: 10000
+    height: fit-content
+    flex-wrap: nowrap
+    justify-content: center
     font-size: $body-medium
     background: $button-secondary
     transition: $transition-fast
@@ -90,14 +104,22 @@
         background-position: center
         color: white
 
+        &:hover
+            transform: scale(1.1)
+            transition: $transition-fast
 
+    span
+        width: fit-content
+        // text-wrap: none
+        white-space: nowrap
+        width: fit-content
 
     &:hover
         transition: $transition-fast
 
 // Personalización de los mensajes
     .multiselect__placeholder
-    color: #aaa
+    color: $state-inactive
 
     .multiselect__no-options,
     .multiselect__no-results

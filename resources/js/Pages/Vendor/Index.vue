@@ -6,7 +6,7 @@ import HeaderAdmin from "@/Components/HeaderAdmin.vue";
 
 <template>
     <Head title="Artesanos" />
-    <AppLayout>
+    <AppLayout  title="Artesanos">
         <HeaderAdmin
             icon="/icons/icons-ceramics/paint-woman-icon.svg"
             title="Administración"

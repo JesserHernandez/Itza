@@ -25,10 +25,10 @@ defineProps({
                 <div class="container-end">
                    
                     <div class="follow">
-                        <button class="btn-class">
+                        <a :href="route('sjo')" class="btn-class">
                             <span>Conocer más</span>
                             <img src="/icons/icons-interface/conocer-icon.png" alt="" class="icons add">
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

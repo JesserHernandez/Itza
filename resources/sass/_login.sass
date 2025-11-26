@@ -33,8 +33,8 @@
 
     .logo-itzat
         margin-left: auto
-        height: 12rem
-        width: 13.9rem
+        height: 13.9rem
+        width: 12rem
 
 .welcome-container-login
     display: flex
@@ -55,7 +55,7 @@
                 font-size: $subtitle-medium
 
             p
-                font-size: $body-large
+                font-size: $body-medium
                 padding-top: 1.2rem
 
         .form-login
@@ -78,12 +78,12 @@
 
                     label
                         font-size: $heading-small
+                        font-weight: 600
 
                         .asterisco
                             color: $state-error
 
                     input
-                        background: blue
                         outline: none
                         width: 70.5rem
                         height: 5.1rem
@@ -99,6 +99,10 @@
                         color: $state-inactive
                         font-size: $body-medium
 
+                .error
+                        font-size: $body-medium
+                        color: $state-error  
+                        margin-bottom: .8rem  
 
                 .password
                     display: flex
@@ -116,7 +120,7 @@
 
                         @include btnStandar(
                             $border: .2rem solid $button-primary,
-                            $padding: 1.5rem 12rem,
+                            $padding: 1.5rem 10rem,
                             $weight: 700,
                             $shadow: none,
                             $font-size: $button-large,
@@ -152,16 +156,16 @@
             font-size: $subheading-large
             color: $state-inactive
 
-
             .register-link
                 color: $button-primary
-                font-weight: bold
                 cursor: pointer
+                font-weight: 500
                 text-decoration: none
-
 
     .img-login
             width: 46.3rem
             height: 60rem
             margin-left: 3.2rem
-            margin-top: 3.4rem
+            display: flex
+            justify-content: center
+            align-items: center

@@ -10,7 +10,7 @@ class Product extends Model
     use HasFactory;
     
     protected $perPage = 20;
-    protected $fillable = ['code', 'name', 'technique', 'cultural_origin', 'dimensions', 'color', 'shape', 'history', 'status', 'physical_location', 'creator', 'creation_date', 'price', 'is_active'];
+    protected $fillable = ['code', 'name', 'description', 'status', 'physical_location', 'creator', 'creation_date', 'price', 'is_active', 'team_id'];
     
     public function cartDetails()
     {
@@ -18,7 +18,7 @@ class Product extends Model
     }
     public function categoryProducts()
     {
-        return $this->belongsToMany(Category::class, 'category_product')->withPivot('is_main')->withTimestamps();
+        return $this->belongsToMany(Category::class, 'product_category')->withPivot('is_main')->withTimestamps();
     }
     public function inventories()
     {

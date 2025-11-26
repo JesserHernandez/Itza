@@ -2,6 +2,7 @@
 import { Head } from "@inertiajs/inertia-vue3";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import { useForm } from "@inertiajs/vue3";
+import HeaderAdmin from "@/Components/HeaderAdmin.vue";
 import Form from "@/Pages/Vendor/Category/Form.vue";
 
 
@@ -17,9 +18,11 @@ const props = defineProps({
 <template>
     <Head title="Crear categoría" />
     <AppLayout title="Crear categoría" :href="route('categories.index')">
-        <div class="title-create">
-            <h1>Crear categoría</h1>
-        </div>
+        <HeaderAdmin
+        title="Crear"
+        icon="/icons/icons-interface/task-darker-icon.svg"
+        :showTitle="false"
+    />
 
         <Form :categories="categories" @success="showSuccessAlert" />
     </AppLayout>
