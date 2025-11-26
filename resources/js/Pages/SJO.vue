@@ -36,6 +36,11 @@ import { Head } from '@inertiajs/vue3';
         <CarruselSection />
 
         <div class="mapa">
+
+            <img src="/img/img-mapa/menos.svg" alt="" class="menos">
+            <img src="/img/img-mapa/mas.svg" alt="" class="mas">
+            <img src="/img/img-mapa/menu.svg" alt="" class="menu">
+            <img src="/img/img-mapa/label.svg" alt="" class="label">
             <img src="/img/img-mapa/mapa.svg" alt="" />
 
             <!--* Partes del mapa -->
@@ -129,6 +134,10 @@ import { Head } from '@inertiajs/vue3';
 
             <img src="/img/img-mapa/soccer.svg" alt="" class="left-ball" />
 
+            <div class="cancha">
+                <h2>Cancha de Fútbol</h2>
+            </div>
+
             <!-- Parte izquierda ceramica -->
 
             <img
@@ -144,6 +153,10 @@ import { Head } from '@inertiajs/vue3';
             <!-- Parte izquierda tienda 1 -->
 
             <img src="/img/img-mapa/tienda.svg" alt="" class="left-tienda-1" />
+
+            <div class="tienda-1">
+                <h2>Pulpería</h2>
+            </div>
 
             <!--?------------ FIN IZQUIERDA ------------->
 
@@ -206,6 +219,10 @@ import { Head } from '@inertiajs/vue3';
                 class="center-tienda-2"
             />
 
+            <div class="tienda-3">
+                <h2>Pulpería</h2>
+            </div>
+
             <!-- Parte centro 2 -->
             <img src="/img/img-mapa/center.svg" alt="" class="center-2" />
 
@@ -250,6 +267,8 @@ import { Head } from '@inertiajs/vue3';
                 alt=""
                 class="center-tienda-3"
             />
+
+
 
             <!-- Parte centro 4 -->
 
@@ -317,8 +336,16 @@ import { Head } from '@inertiajs/vue3';
                 class="center-admin-3"
             />
 
+            <div class="farmacia">
+                <h2>Farmacia</h2>
+            </div>
+
             <!-- Parte centro salud-->
             <img src="/img/img-mapa/salud.svg" alt="" class="center-salud" />
+
+            <div class="salud">
+                <h2>Centro de Salud</h2>
+            </div>
 
             <!-- Parte centro policia -->
             <img
@@ -327,12 +354,20 @@ import { Head } from '@inertiajs/vue3';
                 class="center-policia"
             />
 
+            <div class="policia">
+                <h2>Policía</h2>
+            </div>
+
             <!-- Parte centro 6 ceramica -->
             <img
                 src="/img/img-mapa/ceramica.svg"
                 alt=""
                 class="center-ceramica-6"
             />
+
+            <div class="arte">
+                <h2>Artesanía</h2>
+            </div>
 
             <!-- Parte Centro 7 -->
 
@@ -435,12 +470,20 @@ import { Head } from '@inertiajs/vue3';
                 class="center-alcaldia"
             />
 
+            <div class="institucion">
+                <h2>Institución</h2>
+            </div>
+
             <!-- Parte centro iglesia 2 -->
             <img
                 src="/img/img-mapa/iglesia.svg"
                 alt=""
                 class="center-iglesia-2"
             />
+
+            <div class="iglesia-seg">
+                <h2>Iglesia</h2>
+            </div>
 
             <!-- Parte Centro escuela -->
             <img
