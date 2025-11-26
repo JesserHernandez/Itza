@@ -15,11 +15,11 @@ class LikeUserController extends Controller
     public function index(Request $request): mixed
     {
         $likeUsers = LikeUser::paginate();
-        return Inertia::render('Customer/LikeUser/Index', ['likeUsers' => $likeUsers, 'i' => ($request->input('page', 1) - 1) * $likeUsers->perPage()]);
+        return Inertia::render('Customer/LikeUser/Index', ['like_users' => $likeUsers, 'i' => ($request->input('page', 1) - 1) * $likeUsers->perPage()]);
     }
     public function create(): mixed
     {
-        return Inertia::render('Customer/LikeUser/Create', ['likeUser' => new LikeUser() ]);
+        return Inertia::render('Customer/LikeUser/Create', ['like_user' => new LikeUser() ]);
     }
     public function store(LikeUserRequest $request): RedirectResponse
     {
@@ -31,12 +31,12 @@ class LikeUserController extends Controller
     public function show($id): mixed
     {
         $likeUser = LikeUser::findOrFail($id);
-        return Inertia::render('Customer/LikeUser/Show', ['likeUser' => $likeUser ]);
+        return Inertia::render('Customer/LikeUser/Show', ['like_user' => $likeUser ]);
     }
     public function edit($id): mixed
     {
         $likeUser = LikeUser::findOrFail($id);
-        return Inertia::render('Customer/LikeUser/Edit', ['likeUser' => $likeUser ]);
+        return Inertia::render('Customer/LikeUser/Edit', ['like_user' => $likeUser ]);
     }
     public function update(LikeUserRequest $request, LikeUser $likeUser): RedirectResponse
     {

@@ -15,11 +15,11 @@ class CouponUserController extends Controller
     public function index(Request $request): mixed
     {
         $couponUsers = CouponUser::paginate();
-        return Inertia::render( 'Customer/CouponUser/Index', ['couponUsers' => $couponUsers, 'i' => ($request->input('page', 1) - 1) * $couponUsers->perPage()]);
+        return Inertia::render( 'Customer/CouponUser/Index', ['coupon_users' => $couponUsers, 'i' => ($request->input('page', 1) - 1) * $couponUsers->perPage()]);
     }
     public function create(): mixed
     {
-        return Inertia::render('Customer/CouponUser/Create', ['couponUser' => new CouponUser() ]);
+        return Inertia::render('Customer/CouponUser/Create', ['coupon_user' => new CouponUser() ]);
     }
     public function store(CouponUserRequest $request): RedirectResponse
     {
@@ -31,12 +31,12 @@ class CouponUserController extends Controller
     public function show($id): mixed
     {
         $couponUser = CouponUser::findOrFail($id);
-        return Inertia::render('Customer/CouponUser/Show', ['couponUser' => $couponUser ]);
+        return Inertia::render('Customer/CouponUser/Show', ['coupon_user' => $couponUser ]);
     }
     public function edit($id): mixed
     {
         $couponUser = CouponUser::findOrFail($id);
-        return Inertia::render('Customer/CouponUser/Edit', ['couponUser' => $couponUser ]);
+        return Inertia::render('Customer/CouponUser/Edit', ['coupon_user' => $couponUser ]);
     }
     public function update(CouponUserRequest $request, CouponUser $couponUser): RedirectResponse
     {
