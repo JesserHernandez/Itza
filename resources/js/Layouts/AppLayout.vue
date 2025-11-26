@@ -84,12 +84,19 @@ function toggleSubmenu() {
                     />
                     <span class="name-link"> Panel de control </span>
                 </NavLink>
+
                 <!-- ? VALIDACIÓN PARA ADMINISTRADORES -->
                 <template
                     v-if="$page.props.auth.role.includes('Administrador')"
                 >
-                    <NavLink class="btn-class" :href="route('permissions.index')">
-
+                    <NavLink
+                        class="btn-class"
+                        :href="route('permissions.index')"
+                    >
+                        <img
+                            src="/icons/icons-ceramics/vasija-4-icon.svg"
+                            alt=""
+                        />
                         <span class="name-link"> Permisos </span>
                     </NavLink>
 
@@ -101,7 +108,6 @@ function toggleSubmenu() {
                         />
                         <span class="name-link"> Rol </span>
                     </NavLink>
-
 
                     <NavLink
                         class="btn-class"
@@ -121,6 +127,29 @@ function toggleSubmenu() {
                             />
                         </svg>
                         <span class="name-link"> Usuarios </span>
+                    </NavLink>
+
+                    <NavLink
+                        class="btn-class"
+                        :href="route('creative_cities.index')"
+                    >
+                        <img
+                            src="/icons/icons-ceramics/cuadro-patron-icon.svg"
+                            alt=""
+                            class="icons"
+                        />
+                        <span class="name-link"> Ciudades creativas</span>
+                    </NavLink>
+                    <NavLink
+                        class="btn-class"
+                        :href="route('creative_circuits.index')"
+                    >
+                        <img
+                            src="/icons/icons-ceramics/city-creative-icon.svg"
+                            alt=""
+                            class="icons"
+                        />
+                        <span class="name-link"> Circuitos creativos</span>
                     </NavLink>
                 </template>
 
@@ -280,18 +309,6 @@ function toggleSubmenu() {
                                         />
                                         <span class="name-link">
                                             Categorías
-                                        </span>
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink class="btn-class">
-                                        <img
-                                            src="/icons/icons-ceramics/ceramic-mingle-icon.svg"
-                                            alt=""
-                                            class="icons"
-                                        />
-                                        <span class="name-link">
-                                            Materiales
                                         </span>
                                     </NavLink>
                                 </li>

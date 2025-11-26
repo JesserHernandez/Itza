@@ -38,6 +38,8 @@ Route::get('/dashboard', fn() => Auth::check() ? $redirectByRole(Auth::user()->g
 
 Route::get('/card_cities', fn() => Inertia::render('CardCities'))->name('card_cities');
 
+Route::get('/sjo', fn() => Inertia::render('SJO'))->name('sjo');
+
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified', 'role:Administrador'])->group(function () {
     //Administrator
     Route::get('/administrator', fn() => Inertia::render('Administrator/Index'))->name('administrator');

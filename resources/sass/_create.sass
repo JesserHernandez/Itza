@@ -28,7 +28,7 @@
         border-radius: $br-card
         background: $background-form
 
-        .items-form
+        .items-form, .attribute-form
             gap: 1.2rem
             width: 40rem
             display: flex
@@ -38,7 +38,7 @@
                 width: 100%
                 font-size: $heading-small
 
-            input, textarea
+            input, textarea, select
                 width: 100%
                 outline: none
                 height: 3.5rem
@@ -82,7 +82,26 @@
                                 $background-animation: $background-darker
                             )
 
+        .add-container, .add-actions
+            width: 100%
+            display: flex
+            justify-content: end
 
+            @include btnStandar(
+                                $border: none,
+                                $padding: 1rem 1rem,
+                                $weight: 700,
+                                $shadow: none,
+                                $font-size: $button-small - 0.2rem,
+                                $br-rad: $br-radius,
+                                $background: $button-secondary,
+                                $color: $button-color-ti-secondary,
+                                $width: 2rem,
+                                $height: 2rem,
+                                $background-animation: $background-light
+                            )
+        .add-actions
+            justify-content: start
 //? Create product
 .content
     height: 90vdh
@@ -352,13 +371,12 @@
                     border: 1px solid $state-inactive
 
         .destacado
-            border: 1px solid red
             display: flex
             flex-wrap: wrap
 
             label
                 width: 100%
-            @include Switch($leftAfter: 61rem, $topAfter: 21.6rem, $leftAfterActive: 66.5rem )
+            @include Switch($leftAfter: 61rem, $topAfter: 30rem, $leftAfterActive: 66.5rem )
 
 
         .container-button
@@ -469,3 +487,5 @@
                                 $height: 2rem,
                                 $background-animation: $background-darker
                             )
+
+

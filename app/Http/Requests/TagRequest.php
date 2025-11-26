@@ -14,7 +14,7 @@ class TagRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'name' => ['required','string','min:3','max:20', Rule::unique('product_materials')->ignore($this->route('product_material')) ],
+			'name' => ['required','string','min:3','max:20', Rule::unique('tags')->ignore($this->route('tag')) ],
 			'description' => 'string|min:3|max:255',
         ];
     }

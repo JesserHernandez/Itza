@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('creation_date');
             $table->decimal('price', 10, 2);
             $table->boolean('is_active')->default(true);
-            $table->foreignId('team_id')->constrained('teams')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('team_id')->nullable()->constrained('teams')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

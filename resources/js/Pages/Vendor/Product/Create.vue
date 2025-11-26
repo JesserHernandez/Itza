@@ -3,41 +3,92 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import TextInput from "@/Components/TextInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import { Head, useForm } from "@inertiajs/vue3";
-import { ref } from "vue";
+import { ref, watch, computed } from "vue"; // <-- Agregamos watch y computed
 import HeaderAdmin from "@/Components/HeaderAdmin.vue";
+import Multiselect from "vue-multiselect";
 
 const Swal = window.Swal;
+
+const props = defineProps({
+    categories: Array,
+    tags: Array,
+    teams: Array,
+    tags: Array,
+    category_attributes: Array,
+});
 
 const form = useForm({
     name: "",
     code: "",
-    technique: "",
-    cultural_origin: "",
-    dimensions: "",
-    color: "",
-    shape: "",
-    history: "",
     status: "",
+    description: "",
     physical_location: "",
     creator: "",
     creation_date: "",
     price: "",
     is_active: true,
-    materials: [],
-    tags: [],
+    team_id: null,
     categories: [],
     photo_paths: [],
+    tags: [],
+    category_attributes: [],
 });
 
-// Datos provenientes de otras tablas
-defineProps({
-    categories: Array,
-    materials: Array,
-    tags: Array,
+
+watch(() => form.categories, (selectedCategories) => {
+    const selectedIds = (selectedCategories || []).map(c => c.id);
+
+
+    const relevantAttributes = (props.category_attributes || []).filter(attr =>
+        selectedIds.includes(attr.category_id)
+    );
+
+
+    const newAttributesState = relevantAttributes.map(attr => {
+        const existing = form.category_attributes.find(fa => fa.attribute_id === attr.id);
+
+        return {
+            attribute_id: attr.id,
+            category_id: attr.category_id,
+            label: attr.label,
+            value: existing ? existing.value : ''
+        };
+    });
+
+    form.category_attributes = newAttributesState;
+}, { deep: true });
+
+const groupedAttributes = computed(() => {
+    const groups = {};
+
+    (form.category_attributes || []).forEach(attr => {
+        const category = props.categories.find(c => c.id === attr.category_id);
+        const categoryName = category ? category.name : 'Otros';
+
+        if (!groups[categoryName]) {
+            groups[categoryName] = [];
+        }
+        groups[categoryName].push(attr);
+    });
+
+    return groups;
 });
+
 
 function submit() {
-    form.post(route("products.store"), {
+    form.transform((data) => ({
+        ...data,
+        categories: data.categories.map(c => c.id),
+
+        tags: data.tags.map(t => t.id),
+
+        category_attributes: data.category_attributes.map(attr => ({
+            id: attr.attribute_id,
+            value: attr.value,
+            product_id: attr.product_id,
+        }))
+
+    })).post(route("products.store"), {
         forceFormData: true,
         onSuccess: () => {
             Swal.fire({
@@ -54,21 +105,38 @@ function submit() {
                 },
             });
         },
+        onError: (errors) => {
+            const listaErrores = Object.values(errors).map(err => `<li>${err}</li>`).join('');
+
+            Swal.fire({
+                title: "¡Error de validación!",
+                html: `<ul style="text-align: left; margin-left: 20px;">${listaErrores}</ul>`,
+                icon: "error",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#702b21",
+                customClass: {
+                    title: "title-swal",
+                    popup: "popup-swal",
+                    confirmButton: "confirm-button-swal",
+                },
+            });
+        },
     });
 }
 
-const preview = ref([]); // Array para almacenar las URLs de vista previa
+const preview = ref([]);
 
 function previewImage(event) {
     const files = event.target.files;
 
-    // Convierte los archivos seleccionados en un array y los acumula en form.photo_paths
     Array.from(files).forEach((file) => {
-        // Verifica si el archivo ya existe en el array para evitar duplicados
-        if (!form.photo_paths.some((existingFile) => existingFile.name === file.name)) {
+        if (
+            !form.photo_paths.some(
+                (existingFile) => existingFile.name === file.name
+            )
+        ) {
             form.photo_paths.push(file);
 
-            // Genera la vista previa
             const reader = new FileReader();
             reader.onload = (event) => {
                 preview.value.push({
@@ -82,22 +150,20 @@ function previewImage(event) {
     });
 }
 
-// Función para alternar la selección de un elemento en un campo múltiple
 function toggleSelection(field, id) {
     if (form[field].includes(id)) {
-        // Si el elemento ya está seleccionado, lo eliminamos
         form[field] = form[field].filter((item) => item !== id);
     } else {
-        // Si el elemento no está seleccionado, lo agregamos
         form[field].push(id);
     }
 }
 </script>
 
 <template>
-    <Head title="Crear Producto" />
+    <Head title="Crear Productos" />
     <AppLayout :href="route('products.index')">
-        <HeaderAdmin :showTitle="false"
+        <HeaderAdmin
+            :showTitle="false"
             icon="/icons/icons-ceramics/ceramic-7-white-icon.svg"
             title="Administración/Productos"
         />
@@ -106,7 +172,7 @@ function toggleSelection(field, id) {
                 <div class="items photo_paths">
                     <div class="add-image">
                         <InputLabel
-                            value="Imagen/Producto"
+                            value="Imagenes/Producto"
                             textAdd=" *"
                             for="photo"
                             class="label"
@@ -162,10 +228,46 @@ function toggleSelection(field, id) {
                     </span>
                 </div>
                 <div class="items">
+                    <InputLabel value="Tienda del producto" textAdd=" *" />
+                    <select name="store" id="store">
+                        <option value="" disabled selected>
+                            Seleccione una tienda
+                        </option>
+                        <option value="1">Artesanías Helio Gutierrez</option>
+                        <option value="2">Artesanías Doña Doriz</option>
+                        <option value="3">Artesanías Urracas</option>
+                    </select>
+                </div>
+
+                <div class="items">
+                    <InputLabel value="Etiquetas" textAdd=" *" />
+
+                    <Multiselect
+                        v-model="form.tags"
+                        :options="tags"
+                        :multiple="true"
+                        :searchable="false"
+                        class="select"
+                        :close-on-select="true"
+                        :clear-on-select="false"
+                        :allow-empty="true"
+                        :preserve-search="false"
+                        placeholder="Seleccione una etiqueta"
+                        label="name"
+                        track-by="id"
+                        :class="{ errors: form.errors.tags }"
+                    />
+                    <span v-if="form.errors.tags" class="errors">
+                        {{ form.errors.tags }}
+                    </span>
+                </div>
+
+                <div class="items">
                     <InputLabel value="Código/Producto" textAdd=" *" />
                     <TextInput
                         type="text"
                         required
+                        placeholder="Ingresar el código del producto"
                         v-model="form.code"
                         :class="{ errors: form.errors.code }"
                     />
@@ -173,78 +275,22 @@ function toggleSelection(field, id) {
                         {{ form.errors.code }}
                     </span>
                 </div>
-                <div class="items">
-                    <InputLabel value="Técnica/Producto " textAdd=" *" />
-                    <TextInput
-                        type="text"
-                        v-model="form.technique"
-                        :class="{ errors: form.errors.technique }"
-                    />
-                    <span v-if="form.errors.technique" class="errors">
-                        {{ form.errors.technique }}
-                    </span>
-                </div>
-                <div class="items">
-                    <InputLabel value="Origen cultural/Producto" textAdd=" *" />
-                    <TextInput
-                        type="text"
-                        v-model="form.cultural_origin"
-                        :class="{ errors: form.errors.cultural_origin }"
-                    />
-                    <span v-if="form.errors.cultural_origin" class="errors">
-                        {{ form.errors.cultural_origin }}
-                    </span>
-                </div>
-                <div class="items">
-                    <InputLabel value="Dimensiones/Producto" textAdd=" *" />
+
+                <div class="items items-des">
+                    <InputLabel value="Descripción/Producto" textAdd=" *" />
                     <TextInput
                         type="text"
                         required
-                        v-model="form.dimensions"
-                        :class="{ errors: form.errors.dimensions }"
+                        placeholder="De donde nace este producto"
+                        v-model="form.description"
+                        :class="{ errors: form.errors.description }"
                     />
-                    <span v-if="form.errors.dimensions" class="errors">
-                        {{ form.errors.dimensions }}
+                    <span v-if="form.errors.description" class="errors">
+                        {{ form.errors.description }}
                     </span>
                 </div>
                 <div class="items">
-                    <InputLabel value="Color/Producto" textAdd=" *" />
-                    <TextInput
-                        type="text"
-                        required
-                        v-model="form.color"
-                        :class="{ errors: form.errors.color }"
-                    />
-                    <span v-if="form.errors.color" class="errors">
-                        {{ form.errors.color }}
-                    </span>
-                </div>
-                <div class="items">
-                    <InputLabel value="Forma/Producto" textAdd=" *" />
-                    <TextInput
-                        type="text"
-                        required
-                        v-model="form.shape"
-                        :class="{ errors: form.errors.shape }"
-                    />
-                    <span v-if="form.errors.shape" class="errors">
-                        {{ form.errors.shape }}
-                    </span>
-                </div>
-                <div class="items">
-                    <InputLabel value="Historia/Producto" textAdd=" *" />
-                    <TextInput
-                        type="text"
-                        required
-                        v-model="form.history"
-                        :class="{ errors: form.errors.history }"
-                    />
-                    <span v-if="form.errors.history" class="errors">
-                        {{ form.errors.history }}
-                    </span>
-                </div>
-                <div class="items">
-                    <InputLabel value="Estado/Producto" textAdd=" *" />
+                    <InputLabel value="Estado físico/Producto" textAdd=" *" />
                     <TextInput
                         type="text"
                         required
@@ -253,31 +299,6 @@ function toggleSelection(field, id) {
                     />
                     <span v-if="form.errors.status" class="errors">
                         {{ form.errors.status }}
-                    </span>
-                </div>
-                <div class="items">
-                    <InputLabel
-                        value="Ubicación física/Producto"
-                        textAdd=" *"
-                    />
-                    <TextInput
-                        type="text"
-                        v-model="form.physical_location"
-                        :class="{ errors: form.errors.physical_location }"
-                    />
-                    <span v-if="form.errors.physical_location" class="errors">
-                        {{ form.errors.physical_location }}
-                    </span>
-                </div>
-                <div class="items">
-                    <InputLabel value="Creador/Producto" textAdd=" *" />
-                    <TextInput
-                        type="text"
-                        v-model="form.creator"
-                        :class="{ errors: form.errors.creator }"
-                    />
-                    <span v-if="form.errors.creator" class="errors">
-                        {{ form.errors.creator }}
                     </span>
                 </div>
                 <div class="items">
@@ -295,6 +316,20 @@ function toggleSelection(field, id) {
                         {{ form.errors.creation_date }}
                     </span>
                 </div>
+                <div class="items items-des">
+                    <InputLabel
+                        value="Ubicación física/Producto"
+                        textAdd=" *"
+                    />
+                    <TextInput
+                        type="text"
+                        v-model="form.physical_location"
+                        :class="{ errors: form.errors.physical_location }"
+                    />
+                    <span v-if="form.errors.physical_location" class="errors">
+                        {{ form.errors.physical_location }}
+                    </span>
+                </div>
                 <div class="items">
                     <InputLabel value="Precio/Producto" textAdd=" *" />
                     <TextInput
@@ -307,81 +342,74 @@ function toggleSelection(field, id) {
                         {{ form.errors.price }}
                     </span>
                 </div>
-                <div class="items">
-                    <InputLabel value="Disponibilidad" textAdd=" *" />
-                    <select
+                <div class="items items-active">
+                    <label for="">Activo</label>
+                    <input
+                        type="checkbox"
                         name="is_active"
                         id="is_active"
                         v-model="form.is_active"
-                    >
-                        <option value="true">Activo</option>
-                        <option value="false">Inactivo</option>
-                    </select>
+                    />
+                    <p>Confirma si esta obra se encuentra disponible</p>
+                </div>
+                <div class="items">
+                    <InputLabel value="Creador/Producto" textAdd=" *" />
+                    <TextInput
+                        type="text"
+                        required
+                        v-model="form.creator"
+                        :class="{ errors: form.errors.creator }"
+                    />
+                    <span v-if="form.errors.creator" class="errors">
+                        {{ form.errors.creator }}
+                    </span>
                 </div>
 
                 <div class="items">
                     <InputLabel value="Categorías" textAdd=" *" />
-                    <select
-                        name="categories"
+
+                    <Multiselect
                         v-model="form.categories"
-                        multiple
+                        :options="categories"
+                        :multiple="true"
+                        :searchable="false"
+                        class="select"
+                        :close-on-select="true"
+                        :clear-on-select="false"
+                        :allow-empty="true"
+                        :preserve-search="false"
+                        placeholder="Seleccione una categoría"
+                        label="name"
+                        track-by="id"
                         :class="{ errors: form.errors.categories }"
-                    >
-                        <option
-                            v-for="category in categories"
-                            :key="category.id"
-                            :value="category.id"
-                        >
-                            {{ category.name }}
-                        </option>
-                    </select>
+                    />
                     <span v-if="form.errors.categories" class="errors">
                         {{ form.errors.categories }}
                     </span>
                 </div>
 
-                <div class="items">
-                    <InputLabel value="Materiales" textAdd=" *" />
-                    <select
-                        name="materials"
-                        v-model="form.materials"
-                        multiple
-                        :class="{ errors: form.errors.materials_ids }"
+                <!-- ESTO ES LO QUE HACE QUE SE VEAN LOS INPUTS -->
+            <div
+                v-for="(attributes, categoryName) in groupedAttributes"
+                :key="categoryName"
+                class="items"
+            >
 
-                    >
-                        <option
-                            v-for="material in materials"
-                            :key="material.id"
-                            :value="material.id"
-                        >
-                            {{ material.name }}
-                        </option>
-                    </select>
-                    <span v-if="form.errors.materials_ids" class="errors">
-                        {{ form.errors.materials_ids }}
-                    </span>
+                <div
+                    v-for="attr in attributes"
+                    :key="attr.attribute_id"
+                    class="items"
+                >
+                    <InputLabel :value="attr.label" />
+                    <TextInput
+                        type="text"
+                        v-model="attr.value"
+                        :placeholder="`Ingrese ${attr.label}`"
+                        class="w-full"
+                    />
                 </div>
+            </div>
 
-                <div class="items">
-                    <InputLabel value="Tags" textAdd=" *" />
-                    <select
-                        name="tags"
-                        v-model="form.tags"
-                        multiple
-                        :class="{ errors: form.errors.tags_ids }"
-                    >
-                        <option
-                            v-for="tag in tags"
-                            :key="tag.id"
-                            :value="tag.id"
-                        >
-                            {{ tag.name }}
-                        </option>
-                    </select>
-                    <span v-if="form.errors.tags_ids" class="errors">
-                        {{ form.errors.tags_ids }}
-                    </span>
-                </div>
                 <div class="container-button">
                     <button
                         type="submit"
