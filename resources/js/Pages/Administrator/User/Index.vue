@@ -17,6 +17,10 @@ defineProps({
         type: Object,
         required: true,
     },
+    roles: {
+        type: Array,
+        required: true,
+    },
 });
 
 // Estado para la cantidad de registros por página
@@ -146,7 +150,7 @@ function destroy(id) {
                             <td>{{ user.id }}</td>
                             <td>{{ user.name }}</td>
                             <td>{{ user.email }}</td>
-                            <td>{{ user.role }}</td>
+                            <td>{{ user.roles.map(role => role.name).join(', ') }}</td>
                             <td class="td-actions">
                                 <NavLink
                                     :href="

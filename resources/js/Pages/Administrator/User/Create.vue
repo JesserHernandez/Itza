@@ -1,8 +1,9 @@
 <script setup>
 import { ref } from "vue";
-import { useForm } from "@inertiajs/vue3";
+import { useForm, Head } from "@inertiajs/vue3";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Multiselect from "vue-multiselect";
+import HeaderAdmin from "@/Components/HeaderAdmin.vue";
 
 const form = useForm({
     name: "",
@@ -28,7 +29,13 @@ function submit() {
 </script>
 
 <template>
+    <Head title="Crear Usuario" />
     <AppLayout>
+        <HeaderAdmin
+            icon="/icons/icons-interface/user-darker-icon.svg"
+            title="Administración/Usuarios"
+            :showTitle="false"
+        />
         <div class="create-user">
             <form @submit.prevent="submit" class="form" enctype="multipart/form-data">
                 <div class="form-group">
