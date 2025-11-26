@@ -14,11 +14,11 @@ class TransportServiceController extends Controller
     public function index(Request $request): mixed
     {
         $transportServices = TransportService::paginate();
-        return Inertia::render('Administrator/TransportService/Index', ['transportServices' => $transportServices, 'i' => ($request->input('page', 1) - 1) * $transportServices->perPage()]);
+        return Inertia::render('Administrator/TransportService/Index', ['transport_services' => $transportServices, 'i' => ($request->input('page', 1) - 1) * $transportServices->perPage()]);
     }
     public function create(): mixed
     {
-        return Inertia::render('Administrator/TransportService/Create', ['transportService' => new TransportService()]);
+        return Inertia::render('Administrator/TransportService/Create', ['transport_service' => new TransportService()]);
     }
     public function store(TransportServiceRequest $request): RedirectResponse
     {
@@ -28,12 +28,12 @@ class TransportServiceController extends Controller
     public function show($id): mixed
     {
         $transportService = TransportService::findOrFail($id);
-        return Inertia::render('Administrator/TransportService/Show', ['transportService' => $transportService ]);
+        return Inertia::render('Administrator/TransportService/Show', ['transport_service' => $transportService ]);
     }
     public function edit($id): mixed
     {
         $transportService = TransportService::findOrFail($id);
-        return Inertia::render('Administrator/TransportService/Edit', ['transportService' => $transportService ]);
+        return Inertia::render('Administrator/TransportService/Edit', ['transport_service' => $transportService ]);
     }
     public function update(TransportServiceRequest $request, TransportService $transportService): RedirectResponse
     {

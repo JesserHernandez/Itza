@@ -15,11 +15,11 @@ class UserRewardController extends Controller
     public function index(Request $request): mixed
     {
         $userRewards = UserReward::paginate();
-        return Inertia::render('Customer/UserReward/Index', ['userRewards' => $userRewards, 'i' => ($request->input('page', 1) - 1) * $userRewards->perPage()]);
+        return Inertia::render('Customer/UserReward/Index', ['user_rewards' => $userRewards, 'i' => ($request->input('page', 1) - 1) * $userRewards->perPage()]);
     }
     public function create(): mixed
     {
-        return Inertia::render('Customer/UserReward/Create', ['userReward' => new UserReward() ]);
+        return Inertia::render('Customer/UserReward/Create', ['user_reward' => new UserReward() ]);
     }
     public function store(UserRewardRequest $request): RedirectResponse
     {
@@ -31,12 +31,12 @@ class UserRewardController extends Controller
     public function show($id): mixed
     {
         $userReward = UserReward::findOrFail($id);
-        return Inertia::render('Customer/UserReward/Show', ['userReward' => $userReward ]);
+        return Inertia::render('Customer/UserReward/Show', ['user_reward' => $userReward ]);
     }
     public function edit($id): mixed
     {
         $userReward = UserReward::findOrFail($id);
-        return Inertia::render('Customer/UserReward/Edit', ['userReward' => $userReward ]);
+        return Inertia::render('Customer/UserReward/Edit', ['user_reward' => $userReward ]);
     }
     public function update(UserRewardRequest $request, UserReward $userReward): RedirectResponse
     {

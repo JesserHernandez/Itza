@@ -13,11 +13,11 @@ class UserAddresseController extends Controller
     public function index(Request $request): mixed
     {
         $userAddresses = UserAddresse::paginate();
-        return Inertia::render('Customer/UserAddresses/Index', ['userAddresses' => $userAddresses, 'i' => ($request->input('page', 1) - 1) * $userAddresses->perPage()]);
+        return Inertia::render('Customer/UserAddresses/Index', ['user_addresses' => $userAddresses, 'i' => ($request->input('page', 1) - 1) * $userAddresses->perPage()]);
     }
     public function create(): mixed
     {
-        return Inertia::render('Customer/UserAddresses/Create', ['userAddresses' => new UserAddresse() ]);
+        return Inertia::render('Customer/UserAddresses/Create', ['user_addresses' => new UserAddresse() ]);
     }
     public function store(UserAddresseRequest $request): RedirectResponse
     {
@@ -27,12 +27,12 @@ class UserAddresseController extends Controller
     public function show($id): mixed
     {
         $userAddresses = UserAddresse::findOrFail($id);
-        return Inertia::render('Customer/UserAddresses/Show', ['userAddresses' => $userAddresses ]);
+        return Inertia::render('Customer/UserAddresses/Show', ['user_addresses' => $userAddresses ]);
     }
     public function edit($id): mixed
     {
         $userAddresses = UserAddresse::findOrFail($id);
-        return Inertia::render('Customer/UserAddresses/Edit', ['userAddresses' => $userAddresses ]);
+        return Inertia::render('Customer/UserAddresses/Edit', ['user_addresses' => $userAddresses ]);
     }
     public function update(UserAddresseRequest $request, UserAddresse $userAddresses): RedirectResponse
     {
