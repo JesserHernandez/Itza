@@ -2,9 +2,11 @@
 import NavbarComponent from "@/Components/NavbarComponent.vue";
 import CarruselSection from "@/Components/CarruselSection.vue";
 import FooterSection from "@/Components/FooterSection.vue";
+import { Head } from '@inertiajs/vue3';
 </script>
 
 <template>
+    <Head title="San Juan de Oriente" />
     <NavbarComponent />
 
     <div class="container-city">
@@ -74,7 +76,7 @@ import FooterSection from "@/Components/FooterSection.vue";
             </svg>
 
             <!-- Texto Inicio -->
-             <h2 class="text-inicio">Inicio</h2>
+            <h2 class="text-inicio">Inicio</h2>
 
             <!--?------------ INICIO IZQUIERDA ------------->
 
@@ -135,6 +137,10 @@ import FooterSection from "@/Components/FooterSection.vue";
                 class="left-ceramica"
             />
 
+            <div class="taller-valentin">
+                <h2>Taller Escuela de Cerámica Valentín López</h2>
+            </div>
+
             <!-- Parte izquierda tienda 1 -->
 
             <img src="/img/img-mapa/tienda.svg" alt="" class="left-tienda-1" />
@@ -163,6 +169,10 @@ import FooterSection from "@/Components/FooterSection.vue";
             <!-- Parte centro parque -->
             <img src="/img/img-mapa/parque.svg" alt="" class="center-parque" />
 
+            <div class="parque-municipal">
+                <h2>Parque Municipal</h2>
+            </div>
+
             <!-- Parte Centro escuela-sendero -->
             <img
                 src="/img/img-mapa/escuela.svg"
@@ -176,6 +186,10 @@ import FooterSection from "@/Components/FooterSection.vue";
                 alt=""
                 class="center-sendero-1"
             />
+
+            <div class="mural-artistico">
+                <h2>Mural Artístico</h2>
+            </div>
 
             <!-- Parte Centro escuela sendero 2 -->
             <img
@@ -225,6 +239,10 @@ import FooterSection from "@/Components/FooterSection.vue";
                 class="center-sendero"
             />
 
+            <div class="sendero-mistico">
+                <h2>Sendero Místico</h2>
+            </div>
+
             <!-- Parte centro tienda 3 -->
 
             <img
@@ -272,6 +290,10 @@ import FooterSection from "@/Components/FooterSection.vue";
                 class="center-5-ceramica"
             />
 
+            <div class="taller-carlos">
+                <h2>Taller Carlos López</h2>
+            </div>
+            
             <!-- Parte Centro 6 -->
 
             <svg
@@ -336,6 +358,10 @@ import FooterSection from "@/Components/FooterSection.vue";
                 class="center-iglesia"
             />
 
+            <div class="iglesia-mun">
+                <h2>Iglesia San Juan Bautista</h2>
+            </div>
+
             <!-- Parte centro ceramica -->
 
             <img
@@ -343,6 +369,10 @@ import FooterSection from "@/Components/FooterSection.vue";
                 alt=""
                 class="center-ceramica"
             />
+
+            <div class="casa-ceramica">
+                <h2>Taller de Cerámica Stanley Torrez</h2>
+            </div>
 
             <!-- Parte Centro 8 -->
 
@@ -495,6 +525,10 @@ import FooterSection from "@/Components/FooterSection.vue";
                 class="center-ceramica-4"
             />
 
+            <div class="taller-bladimir">
+                <h2>Taller de Cerámica Bladimir</h2>
+            </div>
+
             <!-- Parte centro iglesia 3 -->
             <img
                 src="/img/img-mapa/iglesia.svg"
@@ -530,6 +564,10 @@ import FooterSection from "@/Components/FooterSection.vue";
                 class="center-tienda-8"
             />
 
+            <div class="chicha">
+                <h2>Comercio La Chicha Bruja</h2>
+            </div>
+
             <!--?------------ FIN CENTRO ---------------->
 
             <!--?--------- INICIO DERECHA -------------->
@@ -543,6 +581,10 @@ import FooterSection from "@/Components/FooterSection.vue";
                 alt=""
                 class="sendero-right"
             />
+
+            <div class="caballito">
+                <h2>Sendero El Caballito</h2>
+            </div>
 
             <!-- Parte derecha lineas del sendero -->
             <svg
