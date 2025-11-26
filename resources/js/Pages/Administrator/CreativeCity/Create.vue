@@ -6,9 +6,7 @@ import Form from "@/Pages/Administrator/CreativeCity/Form.vue";
 
 
 
-const props = defineProps({
-    creativeCity: Object,
-});
+
 
 
 </script>
@@ -22,6 +20,6 @@ const props = defineProps({
         :showTitle="false"
     />
 
-        <Form :creativeCity="creativeCity" @success="showSuccessAlert" />
+        <Form  @success="showSuccessAlert" />
     </AppLayout>
 </template>
