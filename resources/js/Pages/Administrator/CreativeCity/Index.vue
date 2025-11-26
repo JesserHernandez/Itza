@@ -119,7 +119,7 @@ function destroy(id) {
             </div>
 
             <div class="details">
-                <h2>Listado de usuarios</h2>
+                <h2>Listado de ciudades creativas   </h2>
             </div>
 
             <div class="container-table">

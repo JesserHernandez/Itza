@@ -17,7 +17,7 @@ const props = defineProps({
     <Head title="Crear ciudad creativa" />
     <AppLayout title="Crear ciudad creativa" :href="route('creative_cities.index')">
         <HeaderAdmin
-        title="Crear"
+        title="Ciudades Creativas/Crear"
         icon="/icons/icons-interface/task-darker-icon.svg"
         :showTitle="false"
     />
