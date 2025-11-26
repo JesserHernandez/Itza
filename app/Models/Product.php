@@ -18,7 +18,7 @@ class Product extends Model
     }
     public function categoryProducts()
     {
-        return $this->belongsToMany(Category::class, 'category_product')->withPivot('is_main')->withTimestamps();
+        return $this->belongsToMany(Category::class, 'product_category')->withPivot('is_main')->withTimestamps();
     }
     public function inventories()
     {

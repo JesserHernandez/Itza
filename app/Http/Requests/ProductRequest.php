@@ -21,11 +21,10 @@ class ProductRequest extends FormRequest
 			'creator' => 'required|string|min:3|max:100',
 			'creation_date' => 'required|date|before_or_equal:today',
 			'price' => 'required|numeric|min:0',
-			'team_id*' => 'required|exists:teams,id',
+			// 'team_id*' => 'required|exists:teams,id',
 
             'category_attributes' => 'required|array|min:1',
             'category_attributes.*.id' => 'required|exists:category_attributes,id',
-            'category_attributes.*.product_id' => 'required|exists:products,id',
             'category_attributes.*.value' => 'required',
 
 			'tags' => 'required|array|min:1',
