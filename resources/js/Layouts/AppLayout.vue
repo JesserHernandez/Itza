@@ -59,14 +59,14 @@ function toggleSubmenu() {
         <aside class="aside">
             <div class="items-aside">
                 <div class="actions-aside">
-                    <NavLink :href="href" class="btn-class back">
+                    <!-- <NavLink :href="href" class="btn-class back">
                         <img
                             src="/icons/icons-interface/double-arrow-icon.svg"
                             alt=""
                             class="icons"
                         />
                         <span class="name-link"> Volver </span>
-                    </NavLink>
+                    </NavLink> -->
 
                     <button class="open-close btn-class">
                         <img
