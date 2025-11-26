@@ -8,7 +8,7 @@ import { ref } from 'vue';
 
 defineProps({
     products: Object,
-    categories: Array,
+    categories: Object,
     productMaterials: Array,
     filters: Object,
 });
@@ -119,18 +119,12 @@ function destroy(id) {
                         <tr>
                             <th>Nombre</th>
                             <th>Código</th>
-                            <th>Categoría</th>
-                            <th>Materiales</th>
-                            <th>Historia</th>
-                            <th>Origen culturales</th>
-                            <th>Dimensiones</th>
-                            <th>Color</th>
-                            <th>Forma</th>
-                            <th>Técnica</th>
+                            <th>Descripción</th>
                             <th>Ubicación física</th>
                             <th>Creador</th>
                             <th>Fecha de creación</th>
                             <th>Precio</th>
+                            <th>Categoría</th>
                             <th>Tags</th>
                             <th>Disponibilidad</th>
                             <th>Opciones</th>
@@ -143,18 +137,12 @@ function destroy(id) {
                         >
                         <td>{{ product.name }}</td>
                         <td>{{ product.code }}</td>
-                        <td>{{ product.categories?.name }}</td>
-                        <td>{{ product.materials?.name }}</td>
-                        <td>{{ product.history }}</td>
-                        <td>{{ product.cultural_origin }}</td>
-                        <td>{{ product.dimensions }}</td>
-                        <td>{{ product.color }}</td>
-                        <td>{{ product.shape }}</td>
-                        <td>{{ product.technique }}</td>
+                        <td>{{ product.description }}</td>
                         <td>{{ product.physical_location }}</td>
                         <td>{{ product.creator }}</td>
                         <td>{{ product.creation_date }}</td>
                         <td>{{ product.price }}</td>
+                        <td>{{ product.categories  }}</td>
                         <td>{{ product.tags?.name }}</td>
                         <td>{{ product.is_active }}</td>
 
