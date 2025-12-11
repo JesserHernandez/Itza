@@ -5,28 +5,28 @@ import { useForm } from '@inertiajs/vue3';
 const Swal = window.Swal;
 
 const props = defineProps({
-    creativeCity: Object,
+    creative_city: Object,
 });
 
 const form = useForm({
-    name: props.creativeCity?.name || "",
-    description: props.creativeCity?.description || "",
-    specialty: props.creativeCity?.specialty || "",
-    region: props.creativeCity?.region || "",
-    latitude: props.creativeCity?.latitude || "",
-    longitude: props.creativeCity?.longitude || "",
+    name: props.creative_city?.name || "",
+    description: props.creative_city?.description || "",
+    specialty: props.creative_city?.specialty || "",
+    region: props.creative_city?.region || "",
+    latitude: props.creative_city?.latitude || "",
+    longitude: props.creative_city?.longitude || "",
     photo_path: null,
 });
 
 function submitForm() {
-    if (props.creativeCity && props.creativeCity.id) {
+    if (props.creative_city && props.creative_city.id) {
         // TRUCO PARA ARCHIVOS EN EDICIÓN:
         // Usamos POST pero enviamos _method: 'put' para que Laravel entienda que es una actualización
         // y pueda leer el archivo correctamente.
         form.transform((data) => ({
             ...data,
             _method: 'put',
-        })).post(route("creative_cities.update", props.creativeCity.id), {
+        })).post(route("creative_cities.update", props.creative_city.id), {
             forceFormData: true, // Obligatorio para archivos
             onSuccess: () => {
                 Swal.fire({
@@ -120,7 +120,6 @@ function handleFileUpload(event) {
                     {{ form.errors.region }}
                 </div>
             </div>
-
             <div class="items">
                 <label for="latitude" class="form-label">Latitud</label>
                 <input
@@ -174,7 +173,7 @@ function handleFileUpload(event) {
                     class="btn-class"
                     :disabled="form.processing"
                 >
-                    {{ props.creativeCity ? "Actualizar ciudad creativa" : "Crear ciudad creativa" }}
+                    {{ props.creative_city ? "Actualizar ciudad creativa" : "Crear ciudad creativa" }}
                 </button>
             </div>
         </form>

@@ -8,7 +8,7 @@ import { Head } from '@inertiajs/vue3';
 const Swal = window.Swal;
 
 defineProps({
-    creativeCircuits: {
+    creative_circuits: {
         type: Object,
         required: true,
     },
@@ -132,7 +132,7 @@ function destroy(id) {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="circuit in creativeCircuits.data" :key="circuit.id" class="">
+                        <tr v-for="circuit in creative_circuits.data" :key="circuit.id" class="">
                             <td>{{ circuit.id }}</td>
                             <td>{{ circuit.name }}</td>
                             <td>{{ circuit.description }}</td>

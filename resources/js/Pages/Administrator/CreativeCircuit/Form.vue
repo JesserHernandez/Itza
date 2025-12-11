@@ -6,19 +6,20 @@ import { useForm } from '@inertiajs/vue3';
 const Swal = window.Swal;
 
 const props = defineProps({
-    creativeCircuit: Object, // Recibe la ciudad creativa a editar
-    creativeCities: Object // Recibe la ciudad creativa a la que pertenece
+    creative_circuit: Object, // Recibe la ciudad creativa a editar
+    creative_city: Array // Recibe la ciudad creativa a la que pertenece
 });
 
 const form = useForm({
-    name: props.creativeCircuit?.name || "", // Carga el nombre si existe
-    description: props.creativeCircuit?.description || "", // Carga la descripción si existe
+    name: props.creative_circuit?.name || "", // Carga el nombre si existe
+    description: props.creative_circuit?.description || "", // Carga la descripción si existe
+    creative_city_id: props.creative_city?.creative_city_id || "" // Carga la ciudad creativa si existe
 });
 
 function submitForm() {
-    if (props.creativeCircuit && props.creativeCircuit.id) {
+    if (props.creative_circuit && props.creative_circuit.id) {
         // Actualizar ciudad creativa existente
-        form.put(route("creative_circuits.update", props.creativeCircuit.id), {
+        form.put(route("creative_circuits.update", props.creative_circuit.id), {
             onSuccess: () => {
                 Swal.fire({
                     title: "¡Actualizado!",
@@ -99,7 +100,7 @@ function submitForm() {
                 >
                     <option value="" disabled>Seleccione una ciudad creativa</option>
                     <option
-                        v-for="city in creativeCities"
+                        v-for="city in city_creative"
                         :key="city.id"
                         :value="city.id"
                     >

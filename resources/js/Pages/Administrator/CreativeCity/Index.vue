@@ -8,7 +8,7 @@ import { Head } from '@inertiajs/vue3';
 const Swal = window.Swal;
 
 defineProps({
-    creativeCities: {
+    creative_cities: {
         type: Object,
         required: true,
     },
@@ -137,7 +137,7 @@ function destroy(id) {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="city in creativeCities.data" :key="city.id" class="">
+                        <tr v-for="city in creative_cities.data" :key="city.id" class="">
                             <td>{{ city.id }}</td>
                             <td>{{ city.name }}</td>
                             <td>{{ city.description }}</td>

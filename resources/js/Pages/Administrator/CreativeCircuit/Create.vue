@@ -4,11 +4,9 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import HeaderAdmin from "@/Components/HeaderAdmin.vue";
 import Form from "@/Pages/Administrator/CreativeCircuit/Form.vue";
 
-
-
-const props = defineProps({
-    creativeCircuit: Object,
-    creativeCities: Array
+defineProps({
+    // creativeCircuit: Object,
+    creative_city: Array
 });
 
 
@@ -18,7 +16,7 @@ const props = defineProps({
     <Head title="Crear circuito creativo" />
     <AppLayout title="Crear circuito creativo" :href="route('creative_circuits.index')">
         <HeaderAdmin
-        title="Circuitos Creativos/Crear"
+        title="Circuitos Creativos/Crear"|
         icon="/icons/icons-interface/task-darker-icon.svg"
         :showTitle="false"
     />
