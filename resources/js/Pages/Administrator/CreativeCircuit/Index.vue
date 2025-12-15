@@ -2,6 +2,7 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import HeaderAdmin from '@/Components/HeaderAdmin.vue';
 import { ref } from 'vue';
+import TextInput from '@/Components/TextInput.vue';
 import NavLink from '@/Components/NavLink.vue';
 import { Head } from '@inertiajs/vue3';
 
@@ -18,7 +19,7 @@ const cantidad = ref(10); // Valor predeterminado
 
 // Función para actualizar la cantidad de registros por página
 function updatePerPage() {
-    router.get(
+    route.get(
         route("creative_circuits.index"),
         { perPage: cantidad.value },
         { preserveState: true, replace: true }
@@ -44,7 +45,7 @@ function destroy(id) {
         },
     }).then((result) => {
         if (result.isConfirmed) {
-            router.delete(route("creative_circuits.destroy", { creative_circuit: id }));
+            route.delete(route("creative_circuits.destroy", { creative_circuit: id }));
             Swal.fire({
                 title: "¡Eliminado!",
                 text: "La ciudad creativa ha sido eliminada con éxito.",
@@ -107,6 +108,12 @@ function destroy(id) {
                                 fill="#702b21"
                             />
                         </svg>
+                        <TextInput
+                            type="search"
+                            placeholder="Buscar"
+                            v-model="search"
+                            @input="updateSearch"
+                        />
                     </div>
                 </section>
                 <NavLink class="btn-class" :href="route('creative_circuits.create')">
@@ -129,6 +136,7 @@ function destroy(id) {
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Descripción</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
