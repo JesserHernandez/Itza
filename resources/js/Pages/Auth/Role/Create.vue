@@ -16,6 +16,7 @@ const form = useForm({
 });
 
 function submit() {
+    console.log(form.permissions); 
     form.post(route("roles.store"));
 }
 </script>
@@ -39,16 +40,16 @@ function submit() {
                     <h3>Permisos</h3>
                     <div
                         v-for="permission in permissions"
-                        :key="permission"
+                        :key="permission.id"
                         class="items"
                     >
                         <label>
                             <input
                                 type="checkbox"
-                                :value="permission"
+                                :value="permission.id"
                                 v-model="form.permissions"
                             />
-                            {{ permission }}
+                            {{ permission }} <!-- Muestra el nombre del permiso -->
                         </label>
                     </div>
                 </div>

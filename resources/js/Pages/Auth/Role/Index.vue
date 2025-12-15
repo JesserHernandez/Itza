@@ -75,7 +75,7 @@ function destroy(id) {
     <AppLayout title="Roles" :href="route('admin')">
         <!-- Encabezado -->
         <HeaderAdmin
-            icon="/icons/icons-interface/role-darker-icon.svg"
+            
             title="Administración/Roles"
             paragraph="La sección Roles te permite gestionar los roles disponibles en el sistema. Aquí puedes ver, editar o eliminar roles, así como asignar permisos específicos a cada uno. Mantén esta sección organizada para garantizar un control eficiente de los accesos y privilegios."
         />

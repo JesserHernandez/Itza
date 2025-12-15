@@ -65,7 +65,7 @@ function destroy(id) {
 
 <template>
     <Head title="Inventario" />
-    <AppLayout :href="route('admin')">
+    <AppLayout :href="route('vendor')">
         <HeaderAdmin
             icon="/icons/icons-interface/inventory-dark-icon.svg"
             title="Administración/Inventario"

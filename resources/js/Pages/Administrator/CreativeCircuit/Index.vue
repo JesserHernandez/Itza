@@ -2,13 +2,14 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import HeaderAdmin from '@/Components/HeaderAdmin.vue';
 import { ref } from 'vue';
+import TextInput from '@/Components/TextInput.vue';
 import NavLink from '@/Components/NavLink.vue';
-import { Head } from '@inertiajs/vue3';
+import { router, Head } from '@inertiajs/vue3';
 
 const Swal = window.Swal;
 
 defineProps({
-    creativeCircuits: {
+    creative_circuits: {
         type: Object,
         required: true,
     },
@@ -18,7 +19,7 @@ const cantidad = ref(10); // Valor predeterminado
 
 // Función para actualizar la cantidad de registros por página
 function updatePerPage() {
-    router.get(
+    route.get(
         route("creative_circuits.index"),
         { perPage: cantidad.value },
         { preserveState: true, replace: true }
@@ -107,6 +108,12 @@ function destroy(id) {
                                 fill="#702b21"
                             />
                         </svg>
+                        <TextInput
+                            type="search"
+                            placeholder="Buscar"
+                            v-model="search"
+                            @input="updateSearch"
+                        />
                     </div>
                 </section>
                 <NavLink class="btn-class" :href="route('creative_circuits.create')">
@@ -129,10 +136,11 @@ function destroy(id) {
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Descripción</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="circuit in creativeCircuits.data" :key="circuit.id" class="">
+                        <tr v-for="circuit in creative_circuits.data" :key="circuit.id" class="">
                             <td>{{ circuit.id }}</td>
                             <td>{{ circuit.name }}</td>
                             <td>{{ circuit.description }}</td>

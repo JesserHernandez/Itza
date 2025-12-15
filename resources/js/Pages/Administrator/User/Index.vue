@@ -4,11 +4,9 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import HeaderAdmin from "@/Components/HeaderAdmin.vue";
 import TextInput from "@/Components/TextInput.vue";
 import NavLink from "@/Components/NavLink.vue";
-
 import { router, Head } from "@inertiajs/vue3";
 import { ref } from "vue";
 
-// Importa SweetAlert desde el CDN
 const Swal = window.Swal;
 
 // Props para recibir los datos de usuarios
@@ -117,6 +115,13 @@ function destroy(id) {
                                 fill="#702b21"
                             />
                         </svg>
+
+                        <TextInput
+                            type="search"
+                            placeholder="Buscar"
+                            v-model="search"
+                            @input="updateSearch"
+                        />
                     </div>
                 </section>
                 <NavLink class="btn-class" :href="route('users.create')">

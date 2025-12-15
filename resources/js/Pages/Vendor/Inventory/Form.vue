@@ -20,7 +20,7 @@ const form = useForm({
     minimum_stock: props.inventory ? props.inventory.minimum_stock : "",
     state: props.inventory ? props.inventory.state : "",
     observations: props.inventory ? props.inventory.observations : "",
-    is_active: props.inventory ? props.inventory.is_active : true,
+    is_active: props.inventory ? props.inventory.is_active : false,
 });
 
 function submitForm() {
@@ -82,7 +82,7 @@ function submitForm() {
                         v-model="form.move"
                         :class="{ 'input-error': form.errors.move }"
                     >
-                    <option disabled selected>Seleccione un movimiento</option>
+                    <option disabled selected value="">Seleccione un movimiento</option>
                         <option value="out">Salida</option>
                         <option value="in">Entrada</option>
                     </select>
@@ -98,7 +98,7 @@ function submitForm() {
                         v-model="form.type_move"
                         :class="{ 'input-error': form.errors.type_move }"
                     >
-                        <option disabled selected>Seleccione un tipo de movimiento</option>
+                        <option disabled selected value="">Seleccione un tipo de movimiento</option>
                         <option value="sale">Venta al cliente</option>
                         <option value="deletion">Eliminación</option>
                         <option value="transfer">Transferencia</option>
@@ -193,6 +193,7 @@ function submitForm() {
                     v-model="form.state"
                     :class="{ 'input-error': form.errors.state }"
                 >
+                <option value="" selected disabled>Seleccione el estado</option>
                     <option value="active">Activo</option>
                     <option value="inactive">Inactivo</option>
                 </select>

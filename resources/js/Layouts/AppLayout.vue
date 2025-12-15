@@ -76,7 +76,16 @@ function toggleSubmenu() {
                         />
                     </button>
                 </div>
-                <NavLink class="btn-class" :href="route('vendor')">
+                <NavLink class="btn-class" v-if="$page.props.auth.role.includes('Administrador')" :href="route('administrator')">
+                    <img
+                        src="/icons/icons-interface/dashboard-icon.svg"
+                        alt=""
+                        class="icons"
+                    />
+                    <span class="name-link"> Panel de control </span>
+                </NavLink>
+
+                <NavLink class="btn-class" v-else="$page.props.auth.role.includes('Vendedor')" :href="route('vendor')">
                     <img
                         src="/icons/icons-interface/dashboard-icon.svg"
                         alt=""

@@ -3,12 +3,12 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import HeaderAdmin from '@/Components/HeaderAdmin.vue';
 import { ref } from 'vue';
 import NavLink from '@/Components/NavLink.vue';
-import { Head } from '@inertiajs/vue3';
+import {router, Head } from '@inertiajs/vue3';
 
 const Swal = window.Swal;
 
 defineProps({
-    creativeCities: {
+    creative_cities: {
         type: Object,
         required: true,
     },
@@ -107,6 +107,13 @@ function destroy(id) {
                                 fill="#702b21"
                             />
                         </svg>
+
+                        <TextInput
+                            type="search"
+                            placeholder="Buscar"
+                            v-model="search"
+                            @input="updateSearch"
+                        />
                     </div>
                 </section>
                 <NavLink class="btn-class" :href="route('creative_cities.create')">
@@ -137,7 +144,7 @@ function destroy(id) {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="city in creativeCities.data" :key="city.id" class="">
+                        <tr v-for="city in creative_cities.data" :key="city.id" class="">
                             <td>{{ city.id }}</td>
                             <td>{{ city.name }}</td>
                             <td>{{ city.description }}</td>
