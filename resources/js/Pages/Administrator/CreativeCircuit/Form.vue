@@ -1,6 +1,6 @@
 <script setup>
-import AppLayout from '@/Layouts/AppLayout.vue';
 import { useForm } from '@inertiajs/vue3';
+import { ref } from 'vue';
 
 // SweetAlert desde el CDN
 const Swal = window.Swal;
@@ -17,10 +17,35 @@ const form = useForm({
     creative_city_id: props.creative_circuit?.creative_city_id || "" 
 });
 
+const hasNewImage = ref(false);
+
+function handleImageChange(event) {
+    const file = event.target.files[0];
+    if (file) {
+        form.photo_path = file;
+        hasNewImage.value = true;
+    }
+}
+
 function submitForm() {
+    
     if (props.creative_circuit && props.creative_circuit.id) {
         // Actualizar ciudad creativa existente
-        form.put(route("creative_circuits.update", props.creative_circuit.id), {
+        form.transform((data) => {
+            const formData = new FormData();
+            
+            formData.append("name", data.name);
+            formData.append("description", data.description);
+            formData.append("creative_city_id", data.creative_city_id);
+            if (hasNewImage.value) {
+                formData.append("photo_path", data.photo_path);
+            }
+
+            formData.append("_method", "PUT");
+            return formData;
+        })
+        .post(route("creative_circuits.update", props.creative_circuit.id), {
+            preserveScroll: true,
             onSuccess: () => {
                 Swal.fire({
                     title: "¡Actualizado!",
@@ -40,6 +65,7 @@ function submitForm() {
     } else {
         // Crear nueva etiqueta
         form.post(route("creative_circuits.store"), {
+            preserveScroll: true,
             onSuccess: () => {
                 Swal.fire({
                     title: "¡Creado!",
@@ -96,8 +122,9 @@ function submitForm() {
                 <label for="photo_path" class="form-label">Foto</label>
                 <input
                     type="file"
+                    accept=".jpg, .png, .jpeg, .svg"
                     id="photo_path"
-                    @change="form.photo_path"
+                    @change="handleImageChange"
                     class="form-input"
                     :class="{ errors: form.errors.photo_path }"
                 />
