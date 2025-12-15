@@ -3,7 +3,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import HeaderAdmin from '@/Components/HeaderAdmin.vue';
 import { ref } from 'vue';
 import NavLink from '@/Components/NavLink.vue';
-import { Head } from '@inertiajs/vue3';
+import {router, Head } from '@inertiajs/vue3';
 
 const Swal = window.Swal;
 
@@ -107,6 +107,13 @@ function destroy(id) {
                                 fill="#702b21"
                             />
                         </svg>
+
+                        <TextInput
+                            type="search"
+                            placeholder="Buscar"
+                            v-model="search"
+                            @input="updateSearch"
+                        />
                     </div>
                 </section>
                 <NavLink class="btn-class" :href="route('creative_cities.create')">

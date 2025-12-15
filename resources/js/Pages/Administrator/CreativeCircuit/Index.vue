@@ -4,7 +4,7 @@ import HeaderAdmin from '@/Components/HeaderAdmin.vue';
 import { ref } from 'vue';
 import TextInput from '@/Components/TextInput.vue';
 import NavLink from '@/Components/NavLink.vue';
-import { Head } from '@inertiajs/vue3';
+import { router, Head } from '@inertiajs/vue3';
 
 const Swal = window.Swal;
 
@@ -45,7 +45,7 @@ function destroy(id) {
         },
     }).then((result) => {
         if (result.isConfirmed) {
-            route.delete(route("creative_circuits.destroy", { creative_circuit: id }));
+            router.delete(route("creative_circuits.destroy", { creative_circuit: id }));
             Swal.fire({
                 title: "¡Eliminado!",
                 text: "La ciudad creativa ha sido eliminada con éxito.",
