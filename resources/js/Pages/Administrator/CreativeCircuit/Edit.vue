@@ -1,6 +1,7 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Form from "@/Pages/Administrator/CreativeCircuit/Form.vue";
+import HeaderAdmin from "@/Components/HeaderAdmin.vue";
 
 const props = defineProps({
     creative_circuit: {
@@ -16,6 +17,7 @@ const props = defineProps({
 
 <template>
     <AppLayout title="Editar circuito creativo">
+        <HeaderAdmin />
         <Form :creative_circuit="creative_circuit" :creative_city="creative_city" />
     </AppLayout>
 </template>
