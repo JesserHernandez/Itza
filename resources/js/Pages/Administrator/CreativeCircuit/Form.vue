@@ -6,14 +6,15 @@ import { useForm } from '@inertiajs/vue3';
 const Swal = window.Swal;
 
 const props = defineProps({
-    creative_circuit: Object, // Recibe la ciudad creativa a editar
-    creative_city: Array // Recibe la ciudad creativa a la que pertenece
+    creative_circuit: Object, 
+    creative_city: Array 
 });
 
 const form = useForm({
-    name: props.creative_circuit?.name || "", // Carga el nombre si existe
-    description: props.creative_circuit?.description || "", // Carga la descripción si existe
-    creative_city_id: props.creative_city?.creative_city_id || "" // Carga la ciudad creativa si existe
+    name: props.creative_circuit?.name || "", 
+    description: props.creative_circuit?.description || "", 
+    photo_path: props.creative_circuit?.photo_path || "", 
+    creative_city_id: props.creative_circuit?.creative_city_id || "" 
 });
 
 function submitForm() {
@@ -23,7 +24,7 @@ function submitForm() {
             onSuccess: () => {
                 Swal.fire({
                     title: "¡Actualizado!",
-                    text: "La ciudad creativa ha sido actualizada con éxito.",
+                    text: "El circuito creativo ha sido actualizado con éxito.", // Corrected text context
                     icon: "success",
                     confirmButtonText: "Aceptar",
                     confirmButtonColor: "#702b21",
@@ -42,7 +43,7 @@ function submitForm() {
             onSuccess: () => {
                 Swal.fire({
                     title: "¡Creado!",
-                    text: "La ciudad creativa ha sido creada con éxito.",
+                    text: "El circuito creativo ha sido creado con éxito.", // Corrected text context
                     icon: "success",
                     confirmButtonText: "Aceptar",
                     confirmButtonColor: "#702b21",
@@ -90,6 +91,21 @@ function submitForm() {
                     {{ form.errors.description }}
                 </div>
             </div>
+
+            <div class="items">
+                <label for="photo_path" class="form-label">Foto</label>
+                <input
+                    type="file"
+                    id="photo_path"
+                    @change="form.photo_path"
+                    class="form-input"
+                    :class="{ errors: form.errors.photo_path }"
+                />
+                <div v-if="form.errors.photo_path" class="errors">
+                    {{ form.errors.photo_path }}
+                </div>
+            </div>
+
             <div class="items">
                 <label for="creative_city_id" class="form-label">Ciudad Creativa</label>
                 <select
@@ -100,7 +116,7 @@ function submitForm() {
                 >
                     <option value="" disabled>Seleccione una ciudad creativa</option>
                     <option
-                        v-for="city in city_creative"
+                        v-for="city in creative_city"
                         :key="city.id"
                         :value="city.id"
                     >
@@ -111,6 +127,7 @@ function submitForm() {
                     {{ form.errors.creative_city_id }}
                 </div>
             </div>
+            
 
             <div class="container-button">
                 <button
@@ -118,7 +135,7 @@ function submitForm() {
                     class="btn-class"
                     :disabled="form.processing"
                 >
-                    {{ props.creativeCircuit ? "Actualizar circuito" : "Crear circuito" }}
+                    {{ props.creative_circuit ? "Actualizar circuito" : "Crear circuito" }}
                 </button>
             </div>
         </form>
