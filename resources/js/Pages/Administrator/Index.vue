@@ -6,14 +6,13 @@ import HeaderAdmin from "@/Components/HeaderAdmin.vue";
 
 <template>
     <Head title="Artesanos" />
-    <AppLayout  title="Artesanos">
+    <AppLayout  title="Administración">
         <HeaderAdmin
             icon="/icons/icons-ceramics/paint-woman-icon.svg"
             title="Administración"
             text="a la administración de ITZ´AT"
-            paragraph="¡Gracias por elegir ITZ´AT! En este espacio podrás administrar las tiendas que tengas
-                    disponibles, las categoría, materiales para la creación de una artesanía,
-                    etiquetas para filtrar la búsqueda en la aplicación, los productos mismos, las publicaciones y más."
+            paragraph="¡Gracias por elegir ITZ´AT! En este espacio podrás administrar las ciudades creativas, 
+            sus circuitos, los artesanos, los permisos y los roles."
         />
     </AppLayout>
 </template>
