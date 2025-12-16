@@ -33,6 +33,8 @@ Route::get('/card_cities', fn() => Inertia::render('CardCities'))->name('card_ci
 
 Route::get('/sjo', fn() => Inertia::render('SJO'))->name('sjo');
 
+Route::get('/status_fase', fn() => Inertia::render('StatusFase'))->name('status_fase');
+
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified', 'role:Administrador'])->group(function () {
     //Administrator
     Route::get('/administrator', fn() => Inertia::render('Administrator/Index'))->name('administrator');
