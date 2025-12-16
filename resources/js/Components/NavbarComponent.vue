@@ -105,7 +105,7 @@ const logout = () => {
                     <!--? Submenú -->
                     <template #content>
                         <section class="submenu">
-                            <DropdownLink>
+                            <DropdownLink :href="route('status_fase')">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
@@ -120,7 +120,7 @@ const logout = () => {
                                 </svg>
                                 <span class="submenu-items">Cerámicas</span>
                             </DropdownLink>
-                            <DropdownLink>
+                            <DropdownLink :href="route('status_fase')">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
@@ -137,7 +137,7 @@ const logout = () => {
                                     >Artistas</span
                                 >
                             </DropdownLink>
-                            <DropdownLink>
+                            <DropdownLink :href="route('status_fase')">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"
@@ -158,7 +158,7 @@ const logout = () => {
                     </template>
                 </Dropdown>
             </section>
-            <NavLink>
+            <NavLink :href="route('status_fase')">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="22"

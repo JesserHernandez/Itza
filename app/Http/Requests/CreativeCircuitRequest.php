@@ -14,7 +14,7 @@ class CreativeCircuitRequest extends FormRequest
     {
         return [
 			'name' => 'required|string|min:3|max:20',
-			'description' => 'required|text|min:3',
+			'description' => 'required|string|min:3',
 			'photo_path' => 'required|image|max:2048|mimes:jpeg,png,jpg,svg',
 			'creative_city_id' => 'required|exists:creative_cities,id',
         ];
