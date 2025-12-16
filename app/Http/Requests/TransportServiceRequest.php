@@ -15,7 +15,7 @@ class TransportServiceRequest extends FormRequest
         return [
 			'type' => 'required|string|min:3|max:20',
 			'name' => 'required|string|min:3|max:20',
-			'description' => 'required|text|min:3',
+			'description' => 'required|string|min:3',
 			'company_name' => 'required|string|min:3|max:30',
 			'schedule' => 'required|string|min:3|max:100',
 			'email' => 'string|min:3|max:50',
