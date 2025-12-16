@@ -1,0 +1,48 @@
+.status-container
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    background: $background-hero
+    height: 100vh
+    width: 100%
+    padding: 2rem 2rem 1.2rem 2rem
+
+    .status-picture
+        background: url('/img/img-interfaces/artist-status.png') no-repeat center center/contain
+        height: 30rem
+        width: 30rem
+        
+    .status-content
+        display: flex
+        flex-direction: column
+        align-items: center
+        justify-content: center
+        margin-top: 2.3rem
+        padding: 2rem 2rem 0 2rem
+
+        h1
+            font-size: $subtitle-small
+            font-weight: 500
+            color: $state-neutral
+
+        p
+            font-size: $subtitle-small
+            font-weight: 400
+            color: $state-span
+    
+    .status-button
+        margin-top: 3rem
+
+        @include btnStandar(
+                            $border: .1rem solid $button-primary,
+                            $padding: 1.5rem 2rem,
+                            $weight: bold,
+                            $shadow: none,
+                            $font-size: $button-large,
+                            $br-rad: 2rem,
+                            $background: $button-primary,
+                            $color: $button-color-ti-primary,
+                            $width: 2.8rem,
+                            $height: 2.8rem,
+                            $background-animation: $background-darker)
