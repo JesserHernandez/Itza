@@ -1,35 +1,36 @@
 .status-container
+    width: 100%
     display: flex
-    flex-direction: column
+    height: 100vh
     align-items: center
     justify-content: center
+    flex-direction: column
     background: $background-hero
-    height: 100vh
-    width: 100%
     padding: 2rem 2rem 1.2rem 2rem
 
     .status-picture
-        background: url('/img/img-interfaces/artist-status.png') no-repeat center center/contain
-        height: 30rem
         width: 30rem
+        height: 30rem
+        background: url('/img/img-interfaces/artist-status.png') no-repeat center center/contain
         
     .status-content
         display: flex
-        flex-direction: column
-        align-items: center
-        justify-content: center
+        width: 100%
         margin-top: 2.3rem
+        align-items: center
+        flex-direction: column
+        justify-content: center
         padding: 2rem 2rem 0 2rem
 
         h1
-            font-size: $subtitle-small
             font-weight: 500
             color: $state-neutral
+            font-size: $subtitle-small
 
         p
-            font-size: $subtitle-small
             font-weight: 400
             color: $state-span
+            font-size: $subtitle-small - .2rem
     
     .status-button
         margin-top: 3rem
