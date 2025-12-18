@@ -6,10 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/img/img-logo/recurso.png" type="image/x-icon" style="height: 40px; width: 40px;"
         class="favicon">
-    <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#2E3A59">
-    {{-- <link rel="icon" href="/img/img-logo/Logo_itzat.svg" type="image/svg+xml" /> --}}
-
 
     <title inertia>{{ config('app.name', 'Itz´at') }}</title>
 
@@ -30,7 +27,6 @@
 <body>
     @inertia
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 </body>
 
 </html>
