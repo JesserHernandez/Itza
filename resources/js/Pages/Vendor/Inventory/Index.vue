@@ -102,7 +102,7 @@ function destroy(id) {
                 </section>
 
                 <NavLink class="btn-class" :href="route('inventories.create')">
-                    <span class="name-link"> Nuevo producto </span>
+                    <span class="name-link"> Nuevo inventario </span>
                     <img
                         src="/icons/icons-interface/add-white-icon.svg"
                         alt=""
@@ -111,16 +111,21 @@ function destroy(id) {
             </div>
 
             <div class="details">
-                <h2>Listado de productos</h2>
+                <h2>Listado de inventario</h2>
             </div>
 
             <div class="container-table">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Existencia inicial</th>
-                            <th>Existencia actual</th>
-                            <th>Existencia mínima</th>
+                            <th>Producto</th>
+                            <th>Código</th>
+                            <th>Categoría</th>
+                            <th>Equipo</th>
+                            <th>Movimiento</th>
+                            <th>Tipo de movimiento</th>
+                            <th>Fecha</th>
+                            <th>Balance</th>
                             <th>Estado</th>
                             <th>Activo</th>
                             <th>Opciones</th>
@@ -134,9 +139,11 @@ function destroy(id) {
                         <td>{{ inventory.products?.name }}</td>
                         <td>{{ inventory.code }}</td>
                         <td>{{ inventory.categories?.name }}</td>
-                        <td>{{ inventory.initial_stock }}</td>
-                        <td>{{ inventory.current_stock }}</td>
-                        <td>{{ inventory.minimum_stock }}</td>
+                        <td>{{ inventory.teams?.name }}</td>
+                        <td>{{ inventory.movement }}</td>
+                        <td>{{ inventory.type_movement }}</td>
+                        <td>{{ inventory.date }}</td>
+                        <td>{{ inventory.balance }}</td>
                         <td>{{ inventory.status }}</td>
                         <td>{{ inventory.is_active }}</td>
 
