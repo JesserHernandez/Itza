@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\InventoryRequest;
 use App\Models\Movement;
 use App\Models\Product;
+use App\Models\Team;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -22,7 +23,7 @@ class InventoryController extends Controller
     }
     public function create(): mixed
     {
-        return Inertia::render('Vendor/Inventory/Create', ['inventory' => new Inventory(), 'movements' => Movement::all(), 'products' => Product::all()]);
+        return Inertia::render('Vendor/Inventory/Create', ['teams' => new Team(), 'inventory' => new Inventory(), 'movements' => Movement::all(), 'products' => Product::all()]);
     }
     public function store(InventoryRequest $request): RedirectResponse
     {
@@ -68,13 +69,12 @@ class InventoryController extends Controller
     public function show($id): mixed
     {
         $inventory = Inventory::findOrFail($id);
-        return Inertia::render('Vendor/Inventory/Show', ['inventory' => $inventory, 'movements' => Movement::all(), 'products' => Product::all() ]);
+        return Inertia::render('Vendor/Inventory/Show', ['teams' => Team::all() ,'inventory' => $inventory, 'movements' => Movement::all(), 'products' => Product::all() ]);
     }
     public function edit($id): mixed
     {
         $inventory = Inventory::findOrFail($id);
-        $movement = Movement::all();
-        return Inertia::render('Vendor/Inventory/Edit', ['inventory' => $inventory, 'movements' => $movement, 'products' => Product::all() ]);
+        return Inertia::render('Vendor/Inventory/Edit', ['teams' => Team::all(),'inventory' => $inventory, 'movements' => Movement::all(), 'products' => Product::all() ]);
     }
     public function update(InventoryRequest $request, Inventory $inventory): RedirectResponse
     {
