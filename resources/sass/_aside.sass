@@ -11,34 +11,30 @@
         position: fixed
         padding: 2.4rem 1rem
         background: $button-primary
+        transition: $transition-fast
 
         .items-aside
-            width: 100%
-            display: flex
             gap: .5rem
+            width: 23rem
+            display: flex
             flex-direction: column
 
             .actions-aside
-                width: 25rem
+                width: 15rem
                 display: flex
                 align-items: center
                 justify-content: space-between
 
-                a
+                // a
+                //     gap: .8rem
+                //     display: flex
+                //     padding: 1.2rem
+                //     align-items: center
 
-                    gap: .8rem
-                    display: flex
-                    padding: 1.2rem
-                    align-items: center
 
-                    .name-link
-                        text-decoration: none
-                        font-size: $button-small
-                        color: $state-hover-l
-
-                    .icons-aside
-                        width: 2rem
-                        height: 2rem
+                // .icons-aside
+                //     width: 2rem
+                //     height: 2rem
 
                 .open-close
                     width: 4rem
@@ -46,16 +42,36 @@
                     border: none
                     outline: none
                     padding: 1rem
+                    transition: $transition-fast
                     border-radius: $br-radius
 
+                @include btnStandar(
+                            $border: none,
+                            $padding: none,
+                            $weight: 700,
+                            $shadow: none,
+                            $font-size: $button-small,
+                            $br-rad: 2rem,
+                            $background: transparent,
+                            $color: $button-color-ti-primary,
+                            $width: 2rem,
+                            $height: 2rem,
+                            $background-animation: transparent
+                        )
+
+            .name-link
+                text-decoration: none
+                opacity: 1
+                font-size: $button-small
+
             @include btnStandar(
-                            $border: .2rem solid $button-primary,
+                            $border: none,
                             $padding: 1.5rem 3rem 1.5rem 1.2rem,
                             $weight: 700,
                             $shadow: none,
                             $font-size: $button-small,
                             $br-rad: 2rem,
-                            $background: $button-primary,
+                            $background: transparent,
                             $color: $button-color-ti-primary,
                             $width: 2rem,
                             $height: 2rem,
@@ -105,19 +121,19 @@
 
 
 
-            //? Lista desplegable
+            // ? Lista desplegable
             .title-list
                 height: 5rem
                 width: 25rem
                 display: flex
                 flex-wrap: wrap
-                align-items: center
+                align-items: start
+                z-index: 10
                 flex-direction: column
                 transition: $transition-fast
 
                 .item-list
                     gap: .8rem
-                    width: 25rem
                     display: flex
                     justify-content: start
 
@@ -164,13 +180,158 @@
                             $height: 2rem,
                             $background-animation: $background-darker
                         )
+// ? Sidebar collapsed
+.container-admin.sidebar-collapsed  
+    transition: $transition-fast
+
+    .aside
+        width: 6dvw
+        transition: $transition-fast
+
+        .items-aside
+            width: 100%
+            margin-left: .3rem
+            transition: $transition-fast
+            justify-content: center
+
+            .actions-aside
+                width: 4rem
+                transition: $transition-fast
+
+                button
+                    transform: rotateY(180deg)
+
+                @include btnStandar(
+                            $border: none,
+                            $padding: none,
+                            $weight: 700,
+                            $shadow: none,
+                            $font-size: $button-small,
+                            $br-rad: 2rem,
+                            $background: transparent,
+                            $color: $button-color-ti-primary,
+                            $width: 2rem,
+                            $height: 2rem,
+                            $background-animation: transparent
+                        )
 
 
+            a
+                gap: .8rem
+                display: flex
+                padding: 1.2rem
+                align-items: center                   
+
+            .name-link
+                display: none
+                opacity: 0
+
+
+            @include btnStandar(
+                            $border: none,
+                            $padding: 1rem 1rem 1rem 1rem,
+                            $weight: 700,
+                            $shadow: none,
+                            $font-size: $button-small,
+                            $br-rad: 2rem,
+                            $background: transparent,
+                            $color: $button-color-ti-primary,
+                            $width: 2rem,
+                            $height: 2rem,
+                            $background-animation: $background-darker
+                        )
+
+            .relative
+                    
+                .admin-store
+                    width: 100%
+
+                    @include btnStandar(
+                            $border: none,
+                            $padding: 1rem 1rem 1rem 1rem,
+                            $weight: 700,
+                            $shadow: none,
+                            $font-size: $button-small,
+                            $br-rad: 2rem,
+                            $background: transparent,
+                            $color: $button-color-ti-primary,
+                            $width: 2rem,
+                            $height: 2rem,
+                            $background-animation: $background-darker
+                        )
+
+                    span
+                        display: none
+                        opacity: 0
+                    
+                
+
+                .content
+                    width: 4.7rem
+                    height: 25rem
+                    z-index: 10000
+
+                    a
+                        width: 100%
+
+                        .hidden
+                            opacity: 0
+                            cursor: none
+                            display: none
+                            pointer-events: none
+
+                    @include btnStandar(
+                            $border: .2rem solid $button-primary,
+                            $padding: 1rem 0rem 1rem 0rem,
+                            $weight: 700,
+                            $shadow: none,
+                            $font-size: $button-small,
+                            $br-rad: 2rem,
+                            $background: $button-primary,
+                            $color: $button-color-ti-primary,
+                            $width: 2rem,
+                            $height: 2rem,
+                            $background-animation: $background-darker
+                        )
+
+        .title-list
+            width: 5rem
+            
+            .item-list
+                width: 85%
+                translate: 0rem .5rem
+
+                button
+                    width: 2rem
+                    height: 2rem
+
+                    &.btn-class
+
+                        height: 4rem
+
+                        span
+                            display: none
+
+                .list-admin
+                    translate: -1rem 5.15rem
+
+                    &.list-admin.expanded
+                        width: 100%
+    
     .content-admin
-        width: 90rem
-        translate: 27rem 0rem
-        position: relative
-        margin-top: 2.2rem
+        width: 100rem
+        // background: $button-primary
+        translate: 15rem 0rem
+        transition: $transition-slow
+
+                
+                
+.content-admin
+    width: 90rem
+    translate: 27rem 0rem
+    position: relative
+    margin-top: 2.2rem
+    transition: $transition-slow
 
 .welcome-artisan
     width: 100%
@@ -178,7 +339,7 @@
     display: flex
     flex-wrap: wrap
     border-radius: $br-card
-    background: $button-secondary
+    background: red
 
 
     .title
